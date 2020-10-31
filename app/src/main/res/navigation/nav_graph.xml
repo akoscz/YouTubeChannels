@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ChannelsFragment">
+
+    <fragment
+        android:id="@+id/ChannelsFragment"
+        android:name="com.akoscz.youtubechannels.ChannelsFragment"
+        android:label="@string/channels_fragment_label"
+        tools:layout="@layout/fragment_channels">
+
+        <action
+            android:id="@+id/action_ChannelsFragment_to_ChannelPlaylistsFragment"
+            app:destination="@id/ChannelPlaylistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ChannelPlaylistFragment"
+        android:name="com.akoscz.youtubechannels.ChannelPlaylistsFragment"
+        android:label="@string/channel_playlist_fragment_label"
+        tools:layout="@layout/fragment_channel_playlists">
+
+        <action
+            android:id="@+id/action_ChannelPlaylistsFragment_to_ChannelsFragment"
+            app:destination="@id/ChannelsFragment" />
+    </fragment>
+</navigation>
