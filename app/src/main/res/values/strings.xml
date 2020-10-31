@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">YouTubeChannels</string>
+    <string name="app_name">YouTube Channels</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="channels_fragment_label">Channels Fragment</string>
-    <string name="channel_playlist_fragment_label">Second Fragment</string>
+    <string name="channels_fragment_label">YouTube Channels</string>
+    <string name="channel_playlist_fragment_label">Channel Playlists</string>
     <string name="go_to_channel_playlists">Go to Channel Playlists</string>
     <string name="go_to_channels">Go to Channels</string>
 

@@ -1,17 +1,30 @@
 package com.akoscz.youtubechannels
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class ChannelsFragment : Fragment() {
+
+    private lateinit var viewModel: ChannelsViewModel
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        Log.i("ChannelsFragment", "calling ViewModelProvider.get()")
+        viewModel = ViewModelProvider(requireActivity()).get(ChannelsViewModel::class.java)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +39,11 @@ class ChannelsFragment : Fragment() {
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_ChannelsFragment_to_ChannelPlaylistsFragment)
+        }
+
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
     }
 }

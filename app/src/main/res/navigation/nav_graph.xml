@@ -13,16 +13,12 @@
 
         <action
             android:id="@+id/action_ChannelsFragment_to_ChannelPlaylistsFragment"
-            app:destination="@id/ChannelPlaylistFragment" />
+            app:destination="@id/ChannelPlaylistFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/ChannelPlaylistFragment"
         android:name="com.akoscz.youtubechannels.ChannelPlaylistsFragment"
         android:label="@string/channel_playlist_fragment_label"
-        tools:layout="@layout/fragment_channel_playlists">
-
-        <action
-            android:id="@+id/action_ChannelPlaylistsFragment_to_ChannelsFragment"
-            app:destination="@id/ChannelsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_channel_playlists"/>
 </navigation>

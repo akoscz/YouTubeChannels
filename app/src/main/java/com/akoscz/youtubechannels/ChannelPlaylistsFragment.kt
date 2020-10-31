@@ -25,7 +25,7 @@ class ChannelPlaylistsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_ChannelPlaylistsFragment_to_ChannelsFragment)
+            findNavController().popBackStack()
         }
     }
 }
