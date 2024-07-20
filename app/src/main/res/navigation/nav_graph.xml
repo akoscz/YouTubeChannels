@@ -3,22 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/ChannelsFragment">
+    app:startDestination="@id/FirstFragment">
 
     <fragment
-        android:id="@+id/ChannelsFragment"
-        android:name="com.akoscz.youtubechannels.ChannelsFragment"
-        android:label="@string/channels_fragment_label"
-        tools:layout="@layout/fragment_channels">
+        android:id="@+id/FirstFragment"
+        android:name="com.akoscz.youtubechannels.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_ChannelsFragment_to_ChannelPlaylistsFragment"
-            app:destination="@id/ChannelPlaylistFragment"
-            app:launchSingleTop="true" />
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
-        android:id="@+id/ChannelPlaylistFragment"
-        android:name="com.akoscz.youtubechannels.ChannelPlaylistsFragment"
-        android:label="@string/channel_playlist_fragment_label"
-        tools:layout="@layout/fragment_channel_playlists"/>
+        android:id="@+id/SecondFragment"
+        android:name="com.akoscz.youtubechannels.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
 </navigation>
