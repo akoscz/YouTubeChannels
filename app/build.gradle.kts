@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
+    alias(libs.plugins.hilt.android)
 }
 
 fun getProperties(key: String): String {
@@ -56,8 +58,11 @@ android {
     }
 }
 
-dependencies {
+kapt {
+    correctErrorTypes = true
+}
 
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -67,6 +72,16 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.okhttp)
+    implementation(libs.moshi)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi.converter)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.coil)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
