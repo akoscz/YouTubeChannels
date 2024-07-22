@@ -25,7 +25,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +56,9 @@ fun AppContent() {
             AlertDialog(
                 onDismissRequest = { showErrorDialog = false },
                 title = { Text("Error") },
-                text = { Text("API key is missing. Please check your local.properties file 'api_key' value.") },
+                text = {
+                    Text("API key is missing. Please check your local.properties file 'api_key' value.")
+                },
                 confirmButton = {
                     Button(onClick = {
                         showErrorDialog = false
