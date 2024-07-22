@@ -1,4 +1,4 @@
-package com.akoscz.youtubechannels
+package com.akoscz.youtubechannels.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,51 +34,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-
-@HiltViewModel
-class SearchChannelsViewModel @Inject constructor(
-    @RealYoutubeApi private val realYoutubeApiRepository: YoutubeApiRepository,
-    @MockYoutubeApi private val mockYoutubeApiRepository: YoutubeApiRepository
-) : ViewModel() {
-    internal var useMockData by mutableStateOf(true)
-    private val _searchQuery = MutableStateFlow("")
-    private val _searchResults = MutableStateFlow<Flow<PagingData<SearchItem>>?>(null)
-    var searchResults = _searchResults.asStateFlow()
-
-    fun searchChannels(query: String) {
-        viewModelScope.launch {
-            delay(300)
-            _searchQuery.value = query
-            val repository = if (useMockData) mockYoutubeApiRepository else realYoutubeApiRepository
-            _searchResults.value = repository.searchChannels(_searchQuery.value, this)
-            println("Search results updated: ${_searchResults.value}")
-            searchResults = _searchResults.asStateFlow()
-        }
-    }
-
-    fun toggleDataSource() {
-        useMockData = !useMockData
-    }
-}
+import com.akoscz.youtubechannels.BuildConfig
+import com.akoscz.youtubechannels.R
+import com.akoscz.youtubechannels.data.models.SearchItem
+import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
+import com.akoscz.youtubechannels.data.network.YoutubeDataSource
+import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,10 +86,15 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                 viewModel = viewModel
             )
 
-            // Toggle for data source
-            Row(modifier = Modifier.padding(16.dp)) {
-                Text("Use Mock Data: ")
-                Switch(checked = viewModel.useMockData, onCheckedChange = { viewModel.toggleDataSource() })
+            // if BuildConfig.DEBUG, show mock data toggle
+            if (BuildConfig.DEBUG) {
+                // Toggle for data source
+                Row(modifier = Modifier.padding(16.dp)) {
+                    Text("Use Mock Data: ")
+                    Switch(
+                        checked = viewModel.useMockData,
+                        onCheckedChange = { viewModel.toggleDataSource() })
+                }
             }
 
             // Search results list
@@ -170,7 +146,10 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
 @Composable
 fun SearchBar(searchText: String,
               onSearchTextChanged: (String) -> Unit,
-              viewModel: SearchChannelsViewModel) {
+              viewModel: SearchChannelsViewModel
+) {
+    val focusManager = LocalFocusManager.current
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -184,9 +163,12 @@ fun SearchBar(searchText: String,
             placeholder = { Text("Search for channels") }
         )
         Spacer(modifier = Modifier.width(8.dp))
-        IconButton(onClick = {
-            viewModel.searchChannels(searchText)
-        }) {
+        IconButton(
+            onClick = {
+                viewModel.searchChannels(searchText)
+                focusManager.clearFocus() // Dismiss the keyboard
+            }
+        ) {
             Icon(Icons.Filled.Search, contentDescription = "Search")
         }
     }
@@ -223,6 +205,10 @@ fun SearchChannelsScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
     val context = LocalContext.current
-    val viewModel = SearchChannelsViewModel(YoutubeApiRepository(MockYoutubeApiService(context)), YoutubeApiRepository(MockYoutubeApiService(context)))
+    val viewModel = SearchChannelsViewModel(
+        YoutubeDataSource(MockYoutubeApiService(context)), YoutubeDataSource(
+            MockYoutubeApiService(context)
+        )
+    )
     SearchChannelsScreen(snackbarHostState, navController, viewModel)
 }

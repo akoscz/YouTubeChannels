@@ -1,4 +1,4 @@
-package com.akoscz.youtubechannels
+package com.akoscz.youtubechannels.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
@@ -29,13 +29,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.akoscz.youtubechannels.R
 
 
 data class ChannelItem(val iconResId: Int, val name: String)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChannelsListScreen(snackbarHostState: SnackbarHostState, navController: NavHostController) {
+fun SubscribedChannelsScreen(snackbarHostState: SnackbarHostState, navController: NavHostController) {
     val channelItems = listOf(
         ChannelItem(R.drawable.ic_launcher_foreground, "Channel 1"),
         ChannelItem(R.drawable.ic_launcher_foreground, "Channel 2"),
@@ -95,5 +96,5 @@ fun ChannelRow(channel: ChannelItem) {
 fun ChannelsListScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
-    ChannelsListScreen(snackbarHostState, navController)
+    SubscribedChannelsScreen(snackbarHostState, navController)
 }

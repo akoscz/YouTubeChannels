@@ -1,6 +1,7 @@
-package com.akoscz.youtubechannels
+package com.akoscz.youtubechannels.data.network
 
 import android.content.Context
+import com.akoscz.youtubechannels.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -87,14 +88,14 @@ object NetworkModule {
     @Provides
     @Singleton
     @RealYoutubeApi
-    fun provideRealYoutubeApiRepository(@RealApiService youtubeApiService: YoutubeApiService): YoutubeApiRepository {
-        return YoutubeApiRepository(youtubeApiService)
+    fun provideRealYoutubeApiRepository(@RealApiService youtubeApiService: YoutubeApiService): YoutubeDataSource {
+        return YoutubeDataSource(youtubeApiService)
     }
 
     @Provides
     @Singleton
     @MockYoutubeApi
-    fun provideMockYoutubeApiRepository(@MockApiService youtubeApiService: YoutubeApiService): YoutubeApiRepository {
-        return YoutubeApiRepository(youtubeApiService)
+    fun provideMockYoutubeApiRepository(@MockApiService youtubeApiService: YoutubeApiService): YoutubeDataSource {
+        return YoutubeDataSource(youtubeApiService)
     }
 }
