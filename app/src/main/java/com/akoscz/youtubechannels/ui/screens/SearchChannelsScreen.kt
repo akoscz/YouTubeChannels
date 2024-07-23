@@ -233,7 +233,6 @@ fun SearchChannelsScreenPreview() {
         }
     }
 
-
     val viewModel = SearchChannelsViewModel(
         YoutubeDataSource(MockYoutubeApiService(context)),
         YoutubeDataSource(MockYoutubeApiService(context)),
