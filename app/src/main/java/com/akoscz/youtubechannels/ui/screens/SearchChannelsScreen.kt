@@ -46,10 +46,15 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.R
+import com.akoscz.youtubechannels.data.local.ChannelDao
+import com.akoscz.youtubechannels.data.models.Channel
 import com.akoscz.youtubechannels.data.models.SearchItem
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeDataSource
+import com.akoscz.youtubechannels.data.repository.ChannelRepository
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -175,14 +180,15 @@ fun SearchBar(searchText: String,
 }
 
 @Composable
-fun SearchResultRow(result: SearchItem) {
+fun SearchResultRow(result: SearchItem, viewModel: SearchChannelsViewModel = hiltViewModel()) {
+    var subscribed by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Use result.snippet.thumbnails to display the channel thumbnail
         AsyncImage(
             model = result.snippet.thumbnails.default.url,
             contentDescription = "Channel Icon",
@@ -193,8 +199,16 @@ fun SearchResultRow(result: SearchItem) {
         Spacer(modifier = Modifier.width(16.dp))
         Text(text = result.snippet.title, modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.width(16.dp))
-        Button(onClick = { /* Handle subscribe button click */ }) {
-            Text("Subscribe")
+        Button(onClick = { viewModel.subscribeToChannel(
+            Channel(
+                id = result.id.channelId, // Assuming channelId is available
+                title = result.snippet.title,
+                thumbnailUrl = result.snippet.thumbnails.default.url
+            )
+        )
+            subscribed = true
+        }) {
+            Text(if (subscribed) "Subscribed" else "Subscribe")
         }
     }
 }
@@ -205,10 +219,25 @@ fun SearchChannelsScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
     val context = LocalContext.current
+    val mockChannelDao =  object : ChannelDao {
+        override suspend fun insert(channel: Channel) {
+            // Do nothing
+        }
+
+        override suspend fun delete(channel: Channel) {
+            // Do nothing
+        }
+
+        override fun getAllChannels(): Flow<List<Channel>> {
+            return flowOf(emptyList())
+        }
+    }
+
+
     val viewModel = SearchChannelsViewModel(
-        YoutubeDataSource(MockYoutubeApiService(context)), YoutubeDataSource(
-            MockYoutubeApiService(context)
-        )
+        YoutubeDataSource(MockYoutubeApiService(context)),
+        YoutubeDataSource(MockYoutubeApiService(context)),
+        ChannelRepository(mockChannelDao)
     )
     SearchChannelsScreen(snackbarHostState, navController, viewModel)
 }

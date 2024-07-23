@@ -1,7 +1,10 @@
-package com.akoscz.youtubechannels.data.network
+package com.akoscz.youtubechannels.di
 
 import android.content.Context
 import com.akoscz.youtubechannels.BuildConfig
+import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
+import com.akoscz.youtubechannels.data.network.YoutubeApiService
+import com.akoscz.youtubechannels.data.network.YoutubeDataSource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

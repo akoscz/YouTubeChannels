@@ -6,10 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import com.akoscz.youtubechannels.data.models.Channel
 import com.akoscz.youtubechannels.data.models.SearchItem
-import com.akoscz.youtubechannels.data.network.MockYoutubeApi
-import com.akoscz.youtubechannels.data.network.RealYoutubeApi
+import com.akoscz.youtubechannels.di.MockYoutubeApi
+import com.akoscz.youtubechannels.di.RealYoutubeApi
 import com.akoscz.youtubechannels.data.network.YoutubeDataSource
+import com.akoscz.youtubechannels.data.repository.ChannelRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchChannelsViewModel @Inject constructor(
     @RealYoutubeApi private val realYoutubeApiRepository: YoutubeDataSource,
-    @MockYoutubeApi private val mockYoutubeApiRepository: YoutubeDataSource
+    @MockYoutubeApi private val mockYoutubeApiRepository: YoutubeDataSource,
+    private val channelRepository: ChannelRepository
 ) : ViewModel() {
     internal var useMockData by mutableStateOf(true)
     private val _searchQuery = MutableStateFlow("")
@@ -41,5 +44,11 @@ class SearchChannelsViewModel @Inject constructor(
 
     fun toggleDataSource() {
         useMockData = !useMockData
+    }
+
+    fun subscribeToChannel(channel: Channel) {
+        viewModelScope.launch {
+            channelRepository.subscribeToChannel(channel)
+        }
     }
 }
