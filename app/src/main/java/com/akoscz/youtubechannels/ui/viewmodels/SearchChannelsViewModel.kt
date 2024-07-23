@@ -46,7 +46,15 @@ class SearchChannelsViewModel @Inject constructor(
         useMockData = !useMockData
     }
 
-    fun subscribeToChannel(channel: Channel) {
+    fun subscribeToChannel(searchItem: SearchItem) {
+        val channel = Channel(
+            id = searchItem.id.channelId,
+            title = searchItem.snippet.title,
+            description = searchItem.snippet.description,
+            thumbnailDefaultUrl = searchItem.snippet.thumbnails.default.url,
+            thumbnailMediumUrl = searchItem.snippet.thumbnails.medium.url,
+            thumbnailHighUrl = searchItem.snippet.thumbnails.high.url
+        )
         viewModelScope.launch {
             channelRepository.subscribeToChannel(channel)
         }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7a7ff644265a272d8fb9c8fc8569f9c7",
+    "identityHash": "8610bc8d45f15a8d30226e4403f94227",
     "entities": [
       {
         "tableName": "Channel",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `thumbnailUrl` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `thumbnailDefaultUrl` TEXT NOT NULL, `thumbnailMediumUrl` TEXT NOT NULL, `thumbnailHighUrl` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,10 +21,28 @@
             "notNull": true
           },
           {
-            "fieldPath": "thumbnailUrl",
-            "columnName": "thumbnailUrl",
+            "fieldPath": "description",
+            "columnName": "description",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailDefaultUrl",
+            "columnName": "thumbnailDefaultUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailMediumUrl",
+            "columnName": "thumbnailMediumUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailHighUrl",
+            "columnName": "thumbnailHighUrl",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -40,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7a7ff644265a272d8fb9c8fc8569f9c7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8610bc8d45f15a8d30226e4403f94227')"
     ]
   }
 }

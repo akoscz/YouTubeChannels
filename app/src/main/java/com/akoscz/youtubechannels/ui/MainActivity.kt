@@ -30,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.akoscz.youtubechannels.BuildConfig
+import com.akoscz.youtubechannels.ui.screens.HomeScreen
 import com.akoscz.youtubechannels.ui.screens.SubscribedChannelsScreen
 import com.akoscz.youtubechannels.ui.screens.SearchChannelsScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -101,11 +102,12 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "channelsList",
+        startDestination = "home",
         modifier = Modifier.padding(innerPadding)
     ) {
-        composable("channelsList") { SubscribedChannelsScreen(snackbarHostState, navController) }
+        composable("home") { HomeScreen(snackbarHostState, navController) }
         composable("search") { SearchChannelsScreen(snackbarHostState, navController) }
+        composable("subscriptions") { SubscribedChannelsScreen(snackbarHostState, navController) }
     }
 }
 

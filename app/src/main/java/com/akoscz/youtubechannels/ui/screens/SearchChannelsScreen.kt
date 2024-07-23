@@ -1,18 +1,15 @@
 package com.akoscz.youtubechannels.ui.screens
 
+import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
@@ -24,7 +21,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,8 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,15 +37,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.AsyncImage
 import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.R
 import com.akoscz.youtubechannels.data.local.ChannelDao
 import com.akoscz.youtubechannels.data.models.Channel
-import com.akoscz.youtubechannels.data.models.SearchItem
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeDataSource
 import com.akoscz.youtubechannels.data.repository.ChannelRepository
+import com.akoscz.youtubechannels.ui.components.ChannelSearchItemRow
+import com.akoscz.youtubechannels.ui.components.SearchBar
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -78,6 +71,9 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                     }
                 }
             )
+        },
+        bottomBar = {
+            BottomNavigationBar(navController)
         }
     ) { innerPadding ->
         Column(modifier = Modifier
@@ -108,7 +104,7 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                     items(results.itemCount) {
                         val result = results[it]
                         if (result != null) {
-                            SearchResultRow(result)
+                            ChannelSearchItemRow(result)
                         }
                     }
 
@@ -143,72 +139,6 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                     }
                 }
             }
-        }
-    }
-}
-
-
-@Composable
-fun SearchBar(searchText: String,
-              onSearchTextChanged: (String) -> Unit,
-              viewModel: SearchChannelsViewModel
-) {
-    val focusManager = LocalFocusManager.current
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextField(
-            value = searchText,
-            onValueChange = { onSearchTextChanged (it) },
-            modifier = Modifier.weight(1f),
-            placeholder = { Text("Search for channels") }
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        IconButton(
-            onClick = {
-                viewModel.searchChannels(searchText)
-                focusManager.clearFocus() // Dismiss the keyboard
-            }
-        ) {
-            Icon(Icons.Filled.Search, contentDescription = "Search")
-        }
-    }
-}
-
-@Composable
-fun SearchResultRow(result: SearchItem, viewModel: SearchChannelsViewModel = hiltViewModel()) {
-    var subscribed by remember { mutableStateOf(false) }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        AsyncImage(
-            model = result.snippet.thumbnails.default.url,
-            contentDescription = "Channel Icon",
-            modifier = Modifier.size(48.dp),
-            placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Replace with your placeholder
-            error = painterResource(id = R.drawable.ic_launcher_background) // Replace with your error image
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(text = result.snippet.title, modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.width(16.dp))
-        Button(onClick = { viewModel.subscribeToChannel(
-            Channel(
-                id = result.id.channelId, // Assuming channelId is available
-                title = result.snippet.title,
-                thumbnailUrl = result.snippet.thumbnails.default.url
-            )
-        )
-            subscribed = true
-        }) {
-            Text(if (subscribed) "Subscribed" else "Subscribe")
         }
     }
 }
