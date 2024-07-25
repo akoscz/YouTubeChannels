@@ -58,6 +58,7 @@ object NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideYoutubeApiService(
         @ApplicationContext context: Context,
         retrofit: Retrofit,
@@ -74,7 +75,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideSearchChannelsDataSource(youtubeApiService: YoutubeApiService): SearchChannelsDataSource {
-        return SearchChannelsDataSource(youtubeApiService)
+    fun provideSearchChannelsDataSource(
+        @ApplicationContext context: Context,
+        youtubeApiService: YoutubeApiService
+    ): SearchChannelsDataSource {
+        return SearchChannelsDataSource(context, youtubeApiService)
     }
 }

@@ -28,19 +28,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.FeatureToggleHelper
-import com.akoscz.youtubechannels.data.db.FeatureToggleManager
-import com.akoscz.youtubechannels.di.AppModule
+import com.akoscz.youtubechannels.ui.screens.ChannelDetailsScreen
 import com.akoscz.youtubechannels.ui.screens.HomeScreen
-import com.akoscz.youtubechannels.ui.screens.SubscribedChannelsScreen
 import com.akoscz.youtubechannels.ui.screens.SearchChannelsScreen
+import com.akoscz.youtubechannels.ui.screens.SubscribedChannelsScreen
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.EntryPointAccessors
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -92,7 +91,8 @@ fun AppContent() {
         val isMockDataEnabled = featureToggleManager.isMockDataEnabled()
 
         if (isMockDataEnabled) {
-            Modifier.border(2.dp, Color.Red)
+            // show a yellow border when mock data is enabled
+            Modifier.border(2.dp, Color(0xFFFFD700))
         } else {
             Modifier
         }.let { modifier ->
@@ -125,6 +125,16 @@ fun Navigation(
         composable("home") { HomeScreen(snackbarHostState, navController) }
         composable("search") { SearchChannelsScreen(snackbarHostState, navController) }
         composable("subscriptions") { SubscribedChannelsScreen(snackbarHostState, navController) }
+        composable(
+            route = "channel_details/{channelId} {channelTitle}",
+            arguments = listOf(
+                navArgument("channelId") { type = NavType.StringType },
+                navArgument("channelTitle") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val channelId = backStackEntry.arguments?.getString("channelId") ?: ""
+            val channelTitle = backStackEntry.arguments?.getString("channelTitle") ?: ""
+            ChannelDetailsScreen(channelId, channelTitle, snackbarHostState, navController)
+        }
     }
 }
 

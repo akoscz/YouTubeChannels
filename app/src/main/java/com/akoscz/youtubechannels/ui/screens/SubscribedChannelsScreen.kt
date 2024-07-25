@@ -79,7 +79,12 @@ fun SubscribedChannelsScreen(
                         // Provide a unique key based on the channel content
                         key = { _, item -> item.hashCode() }
                     ) { _, channel ->
-                        SwipeableChannelRow(channel, onDelete = viewModel::deleteChannel)
+                        SwipeableChannelRow(
+                            channel,
+                            onDelete = viewModel::deleteChannel,
+                            onChannelClick = { channelId, channelTitle ->
+                                navController.navigate("channel_details/$channelId $channelTitle") }
+                        )
                     }
                 }
             }
@@ -101,14 +106,35 @@ fun ChannelsListScreenPreview() {
             // Do nothing
         }
 
-        override suspend fun getChannelDetails(channelId: String): ChannelDetails {
-            return ChannelDetails(
-                id = "",
-                viewCount = "0",
-                subscriberCount = "0"
-            )
+        override suspend fun delete(channelDetails: ChannelDetails) {
+            // Do nothing
         }
 
+        override suspend fun getChannelDetails(channelId: String): ChannelDetails {
+            return ChannelDetails(
+                id = "1",
+                title = "Channel 1",
+                description = "Description 1",
+                customUrl = "https://example.com/channel1",
+                publishedAt = "2022-01-01T00:00:00Z",
+                thumbnailDefaultUrl = "https://example.com/channel1.jpg",
+                thumbnailDefaultWidth = 16,
+                thumbnailDefaultHeight = 16,
+                thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
+                thumbnailMediumWidth = 32,
+                thumbnailMediumHeight = 32,
+                thumbnailHighUrl = "https://example.com/channel1_high.jpg",
+                thumbnailHighWidth = 64,
+                thumbnailHighHeight = 64,
+                viewCount = "10",
+                subscriberCount = "1000",
+                hiddenSubscriberCount = false,
+                videoCount = "100",
+                likesPlaylistId = "1",
+                uploadsPlaylistId = "2",
+                bannerExternalUrl = "https://example.com/banner.jpg"
+            )
+        }
     }
 
     val mockChannelDao =  object : ChannelDao {

@@ -1,6 +1,6 @@
 {
   "kind": "youtube#channelListResponse",
-  "etag": "k8-x-lhqQ1K0_BKIxl7JJG-2XtQ",
+  "etag": "JQHDuzvalLy3jUJabzO--3Xj1-U",
   "pageInfo": {
     "totalResults": 1,
     "resultsPerPage": 5
@@ -8,7 +8,7 @@
   "items": [
     {
       "kind": "youtube#channel",
-      "etag": "mwUPxsfbssrTAm-WTo2ZaP_bilc",
+      "etag": "JfcJ3yOENrwKN9EXEXo-gaTl2DA",
       "id": "UCe3OmUXohXrXnNZSRl5Z9kA",
       "snippet": {
         "title": "PraveenMohan",
@@ -44,10 +44,21 @@
         }
       },
       "statistics": {
-        "viewCount": "301886353",
+        "viewCount": "301916422",
         "subscriberCount": "1910000",
         "hiddenSubscriberCount": false,
         "videoCount": "635"
+      },
+      "brandingSettings": {
+        "channel": {
+          "title": "PraveenMohan",
+          "description": "Hi, thanks for landing here! This channel was previously known as 'Phenomenal Travel Videos'. I am Praveen Mohan and I like to travel to ancient sites around the world. My subscribers are awesome and they have helped me appear on TV shows (yes, Ancient Aliens on History Channel also) , magazines, podcasts, etc, etc. I am deeply interested in Ancient Technology and specifically love to research ancient Hindu temples. I appreciate your support for helping me unlock the secret science hidden in temples of India. I love exploring the concepts of Ancient Machining, Vimanas, UFO, extraterrestrials, and recreating the wisdom of our ancestors. Thank you for watching my videos and have a great day!",
+          "keywords": "phenomenalplace.com Ancient Aliens Mystery \"Ancient India\" Hindu Hinduism \"Ancient Aliens\" \"Praveen Mohan\" \"Ancient technology\" Temples science archeology archaeology \"history of science\" \"ancient astronauts\" India vimana ufo",
+          "unsubscribedTrailer": "YUBvlrzJUHY"
+        },
+        "image": {
+          "bannerExternalUrl": "https://yt3.googleusercontent.com/zFEK1VzMZieh4549G0a1Mcvlhj-qBH7VABpj6_uwtrFxRvZD8zZEAMmDhai3ZrHGa_IBoVBNzGM"
+        }
       }
     }
   ]

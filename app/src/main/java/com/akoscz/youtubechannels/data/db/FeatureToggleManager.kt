@@ -14,7 +14,9 @@ class FeatureToggleManager @Inject constructor(@ApplicationContext private val c
     }
 
     fun setMockDataEnabled(enabled: Boolean) {
-        sharedPreferences.edit().putBoolean("use_mock_data", enabled).apply()
+        // we use commit() to ensure that the write operation is performed synchronously
+        // otherwise when we restart the app, the shared preferences will not have been updated
+        sharedPreferences.edit().putBoolean("use_mock_data", enabled).commit()
     }
 }
 

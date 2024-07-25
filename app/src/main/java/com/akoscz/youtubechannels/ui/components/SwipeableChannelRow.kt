@@ -26,7 +26,8 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 @Composable
 fun SwipeableChannelRow(
     channel: Channel,
-    onDelete: (Channel) -> Unit
+    onDelete: (Channel) -> Unit,
+    onChannelClick: (String, String) -> Unit
 ) {
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
@@ -44,7 +45,7 @@ fun SwipeableChannelRow(
         enableDismissFromStartToEnd = true,
         backgroundContent = { DismissBackground(dismissState)},
         content = {
-            ChanelRow(channel)
+            ChanelRow(channel, onChannelClick)
         }
     )
 }

@@ -13,7 +13,8 @@ data class ChannelDetailsItem(
     val id: String,
     val snippet: ChannelDetailsItemSnippet,
     val contentDetails: ContentDetails,
-    val statistics: Statistics
+    val statistics: Statistics,
+    val brandingSettings: BrandingSettings
 )
 
 data class ChannelDetailsItemSnippet(
@@ -22,7 +23,8 @@ data class ChannelDetailsItemSnippet(
     val customUrl: String? = null,
     val publishedAt: String,
     val thumbnails: ChannelDetailsItemSnippetThumbnails,
-    val localized: Localized
+    val localized: Localized,
+    val country: String? = null
 )
 
 data class ChannelDetailsItemSnippetThumbnails(
@@ -56,4 +58,21 @@ data class Statistics(
     val subscriberCount: String,
     val hiddenSubscriberCount: Boolean,
     val videoCount: String
+)
+
+data class BrandingSettings(
+    val channel: ChannelSettings,
+    val image: ImageSettings
+)
+
+data class ChannelSettings(
+    val title: String,
+    val description: String,
+    val keywords: String,
+    val unsubscribedTrailer: String? = null,
+    val country: String? = null
+)
+
+data class ImageSettings(
+    val bannerExternalUrl: String
 )

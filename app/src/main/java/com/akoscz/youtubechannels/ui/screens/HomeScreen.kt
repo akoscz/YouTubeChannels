@@ -67,11 +67,16 @@ fun HomeScreen(
                                 )
                             },
                             onClick = {
-                                featureToggleManager.setMockDataEnabled(!featureToggleManager.isMockDataEnabled())
-                                // Restart the activity
-                                context.startActivity(Intent(context, MainActivity::class.java).apply {
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                })
+                                featureToggleManager.setMockDataEnabled(
+                                    !featureToggleManager.isMockDataEnabled())
+                                // Restart the application process
+                                val packageManager = context.packageManager
+                                val intent =
+                                    packageManager.getLaunchIntentForPackage(context.packageName)
+                                val componentName = intent?.component
+                                val restartIntent = Intent.makeRestartActivityTask(componentName)
+                                context.startActivity(restartIntent)
+                                Runtime.getRuntime().exit(0) // Terminate the current process
                             }
                         )
                     }

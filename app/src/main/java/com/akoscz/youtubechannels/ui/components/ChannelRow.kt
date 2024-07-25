@@ -1,5 +1,6 @@
 package com.akoscz.youtubechannels.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,10 +25,14 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 
 
 @Composable
-fun ChanelRow(channel: Channel) {
+fun ChanelRow(
+    channel: Channel,
+    onChannelClick: (String, String) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onChannelClick(channel.id, channel.title) }
             .padding(16.dp),
     ) {
         AsyncImage(

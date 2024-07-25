@@ -2,6 +2,7 @@ package com.akoscz.youtubechannels.data.repository
 
 import com.akoscz.youtubechannels.data.db.ChannelDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.models.api.ChannelDetailsItem
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Video
@@ -21,6 +22,9 @@ class ChannelsRepository @Inject constructor(
 
     suspend fun unsubscribeFromChannel(channel: Channel) {
         channelDao.delete(channel)
+        channelDetailsDao.getChannelDetails(channel.id)?.let {
+            channelDetailsDao.delete(it)
+        }
     }
 
     fun getSubscribedChannels(): Flow<List<Channel>> = channelDao.getAllChannels()
@@ -28,6 +32,34 @@ class ChannelsRepository @Inject constructor(
     fun getAllVideos(): Flow<List<Video>> {
         // empty list
         return flowOf(emptyList())
+    }
+
+    private suspend fun insertChannelDetails(channelDetailsItem: ChannelDetailsItem): ChannelDetails {
+        val channelDetails = ChannelDetails(
+            id = channelDetailsItem.id,
+            title = channelDetailsItem.snippet.title,
+            description = channelDetailsItem.snippet.description,
+            customUrl = channelDetailsItem.snippet.customUrl,
+            publishedAt = channelDetailsItem.snippet.publishedAt,
+            thumbnailDefaultUrl = channelDetailsItem.snippet.thumbnails.default.url,
+            thumbnailDefaultWidth = channelDetailsItem.snippet.thumbnails.default.width,
+            thumbnailDefaultHeight = channelDetailsItem.snippet.thumbnails.default.height,
+            thumbnailMediumUrl = channelDetailsItem.snippet.thumbnails.medium.url,
+            thumbnailMediumWidth = channelDetailsItem.snippet.thumbnails.medium.width,
+            thumbnailMediumHeight = channelDetailsItem.snippet.thumbnails.medium.height,
+            thumbnailHighUrl = channelDetailsItem.snippet.thumbnails.high.url,
+            thumbnailHighWidth = channelDetailsItem.snippet.thumbnails.high.width,
+            thumbnailHighHeight = channelDetailsItem.snippet.thumbnails.high.height,
+            viewCount = channelDetailsItem.statistics.viewCount,
+            subscriberCount = channelDetailsItem.statistics.subscriberCount,
+            hiddenSubscriberCount = channelDetailsItem.statistics.hiddenSubscriberCount,
+            videoCount = channelDetailsItem.statistics.videoCount,
+            likesPlaylistId = channelDetailsItem.contentDetails.relatedPlaylists.likes,
+            uploadsPlaylistId = channelDetailsItem.contentDetails.relatedPlaylists.uploads,
+            bannerExternalUrl = channelDetailsItem.brandingSettings.image.bannerExternalUrl
+        )
+        channelDetailsDao.insert(channelDetails)
+        return channelDetails
     }
 
     suspend fun getChannelDetails(channelId: String): ChannelDetails?{
@@ -42,13 +74,7 @@ class ChannelsRepository @Inject constructor(
             val response = youtubeApiService.getChannelDetails(id = channelId)
             if (response.items.isNotEmpty()) {
                 val channelDetailsItem = response.items[0]
-                val channelDetails = ChannelDetails(
-                    id = channelDetailsItem.id,
-                    viewCount = channelDetailsItem.statistics.viewCount,
-                    subscriberCount = channelDetailsItem.statistics.subscriberCount,
-                    // ... map other properties
-                )
-                channelDetailsDao.insert(channelDetails) // Save to database
+                val channelDetails = insertChannelDetails(channelDetailsItem)
                 channelDao.updateChannelDetailsId(channelId, channelDetails.id) // Update channel in database
                 channelDetails // Return fetched details
             } else {
