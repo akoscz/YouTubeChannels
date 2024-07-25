@@ -1,4 +1,4 @@
-package com.akoscz.youtubechannels.data.models
+package com.akoscz.youtubechannels.data.models.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

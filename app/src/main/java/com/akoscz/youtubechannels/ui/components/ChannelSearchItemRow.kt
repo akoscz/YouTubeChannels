@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.akoscz.youtubechannels.R
-import com.akoscz.youtubechannels.data.models.SearchItem
+import com.akoscz.youtubechannels.data.models.api.SearchItem
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 
 

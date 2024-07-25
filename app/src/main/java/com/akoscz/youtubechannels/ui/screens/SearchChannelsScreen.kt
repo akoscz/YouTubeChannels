@@ -38,11 +38,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.data.local.ChannelDao
-import com.akoscz.youtubechannels.data.models.Channel
+import com.akoscz.youtubechannels.data.db.ChannelDao
+import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.db.FeatureToggleManager
+import com.akoscz.youtubechannels.data.models.room.Channel
+import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
-import com.akoscz.youtubechannels.data.network.YoutubeDataSource
-import com.akoscz.youtubechannels.data.repository.ChannelRepository
+import com.akoscz.youtubechannels.data.network.SearchChannelsDataSource
+import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import com.akoscz.youtubechannels.ui.components.ChannelSearchItemRow
 import com.akoscz.youtubechannels.ui.components.SearchBar
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
@@ -86,17 +89,6 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                 onSearchTextChanged = { query = it },
                 viewModel = viewModel
             )
-
-            // if BuildConfig.DEBUG, show mock data toggle
-            if (BuildConfig.DEBUG) {
-                // Toggle for data source
-                Row(modifier = Modifier.padding(16.dp)) {
-                    Text("Use Mock Data: ")
-                    Switch(
-                        checked = viewModel.useMockData,
-                        onCheckedChange = { viewModel.toggleDataSource() })
-                }
-            }
 
             // Search results list
             searchResults?.let { results ->
@@ -149,6 +141,8 @@ fun SearchChannelsScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
     val context = LocalContext.current
+    val mockYoutubeApiService = MockYoutubeApiService(context)
+
     val mockChannelDao =  object : ChannelDao {
         override suspend fun insert(channel: Channel) {
             // Do nothing
@@ -161,12 +155,34 @@ fun SearchChannelsScreenPreview() {
         override fun getAllChannels(): Flow<List<Channel>> {
             return flowOf(emptyList())
         }
+
+        override suspend fun updateChannelDetailsId(channelId: String, detailsId: String) {
+            // Do nothing
+        }
+
+        fun updateChannelDetails(channelDetails: ChannelDetails) {
+            // Do nothing
+        }
+    }
+
+    val mockChannelDetailsDao = object : ChannelDetailsDao {
+        override suspend fun insert(channelDetails: ChannelDetails) {
+            // Do nothing
+        }
+
+        override suspend fun getChannelDetails(channelId: String): ChannelDetails {
+            return ChannelDetails(
+                id = "",
+                viewCount = "0",
+                subscriberCount = "0"
+            )
+        }
+
     }
 
     val viewModel = SearchChannelsViewModel(
-        YoutubeDataSource(MockYoutubeApiService(context)),
-        YoutubeDataSource(MockYoutubeApiService(context)),
-        ChannelRepository(mockChannelDao)
+        SearchChannelsDataSource(mockYoutubeApiService),
+        ChannelsRepository(mockYoutubeApiService, mockChannelDao, mockChannelDetailsDao)
     )
     SearchChannelsScreen(snackbarHostState, navController, viewModel)
 }

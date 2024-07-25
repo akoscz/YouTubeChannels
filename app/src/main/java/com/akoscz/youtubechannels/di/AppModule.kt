@@ -2,17 +2,20 @@ package com.akoscz.youtubechannels.di
 
 import android.content.Context
 import androidx.room.Room
-import com.akoscz.youtubechannels.data.local.AppDatabase
-import com.akoscz.youtubechannels.data.local.ChannelDao
-import com.akoscz.youtubechannels.data.repository.ChannelRepository
+import com.akoscz.youtubechannels.data.db.AppDatabase
+import com.akoscz.youtubechannels.data.db.ChannelDao
+import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.db.FeatureToggleManager
+import com.akoscz.youtubechannels.data.network.YoutubeApiService
+import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-// In your Hilt module (e.g., AppModule)
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -23,7 +26,8 @@ object AppModule {
             context,
             AppDatabase::class.java,
             "app_database"
-        ).build()
+        ).fallbackToDestructiveMigrationFrom(1) // Wipe database when migrating from version 1
+        .build()
     }
 
     @Provides
@@ -32,7 +36,27 @@ object AppModule {
     }
 
     @Provides
-    fun provideChannelRepository(channelDao: ChannelDao): ChannelRepository {
-        return ChannelRepository(channelDao)
+    fun provideChannelDetailsDao(database: AppDatabase): ChannelDetailsDao {
+        return database.channelDetailsDao()
+    }
+
+    @Provides
+    fun provideChannelsRepository(
+        youtubeApiService: YoutubeApiService,
+        channelDao: ChannelDao,
+        channelDetailsDao: ChannelDetailsDao): ChannelsRepository {
+        return ChannelsRepository(youtubeApiService, channelDao, channelDetailsDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFeatureToggleManager(@ApplicationContext context: Context): FeatureToggleManager {
+        return FeatureToggleManager(context)
+    }
+
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface FeatureToggleEntryPoint {
+        fun getFeatureToggleManager(): FeatureToggleManager
     }
 }

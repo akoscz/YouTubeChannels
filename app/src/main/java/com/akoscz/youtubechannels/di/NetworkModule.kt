@@ -2,9 +2,10 @@ package com.akoscz.youtubechannels.di
 
 import android.content.Context
 import com.akoscz.youtubechannels.BuildConfig
+import com.akoscz.youtubechannels.data.db.FeatureToggleManager
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
-import com.akoscz.youtubechannels.data.network.YoutubeDataSource
+import com.akoscz.youtubechannels.data.network.SearchChannelsDataSource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -18,23 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
-
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class RealYoutubeApi
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class MockYoutubeApi
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class RealApiService
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class MockApiService
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -73,32 +57,24 @@ object NetworkModule {
             .build()
     }
 
-
     @Provides
-    @Singleton
-    @RealApiService
-    fun provideRealYoutubeApiService(retrofit: Retrofit): YoutubeApiService {
-        return retrofit.create(YoutubeApiService::class.java)
+    fun provideYoutubeApiService(
+        @ApplicationContext context: Context,
+        retrofit: Retrofit,
+        featureToggleManager: FeatureToggleManager
+    ): YoutubeApiService {
+        return if (featureToggleManager.isMockDataEnabled()) {
+            println("provideYoutubeApiService: Using mock data")
+            MockYoutubeApiService(context)
+        } else {
+            println("provideYoutubeApiService: Using real data")
+            retrofit.create(YoutubeApiService::class.java)
+        }
     }
 
     @Provides
     @Singleton
-    @MockApiService
-    fun provideMockYoutubeApiService(@ApplicationContext context: Context): YoutubeApiService {
-        return MockYoutubeApiService(context)
-    }
-
-    @Provides
-    @Singleton
-    @RealYoutubeApi
-    fun provideRealYoutubeApiRepository(@RealApiService youtubeApiService: YoutubeApiService): YoutubeDataSource {
-        return YoutubeDataSource(youtubeApiService)
-    }
-
-    @Provides
-    @Singleton
-    @MockYoutubeApi
-    fun provideMockYoutubeApiRepository(@MockApiService youtubeApiService: YoutubeApiService): YoutubeDataSource {
-        return YoutubeDataSource(youtubeApiService)
+    fun provideSearchChannelsDataSource(youtubeApiService: YoutubeApiService): SearchChannelsDataSource {
+        return SearchChannelsDataSource(youtubeApiService)
     }
 }

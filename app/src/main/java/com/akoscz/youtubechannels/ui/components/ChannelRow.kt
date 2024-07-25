@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.akoscz.youtubechannels.R
-import com.akoscz.youtubechannels.data.models.Channel
+import com.akoscz.youtubechannels.data.models.room.Channel
 
 
 @Composable

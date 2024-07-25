@@ -3,7 +3,7 @@ package com.akoscz.youtubechannels.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.data.models.SearchItem
+import com.akoscz.youtubechannels.data.models.api.SearchItem
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import retrofit2.HttpException
