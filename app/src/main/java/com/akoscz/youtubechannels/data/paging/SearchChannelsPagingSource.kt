@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.data.db.FeatureToggleHelper
+import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.data.models.api.SearchItem
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
@@ -15,8 +15,8 @@ import retrofit2.HttpException
 class SearchChannelsPagingSource(
     context: Context, private val youtubeApiService: YoutubeApiService, private val query: String
 ) : PagingSource<String, SearchItem>() {
-    private val featureToggleManager = FeatureToggleHelper.getInstance(context)
-    private val isMockDataEnabled = featureToggleManager.isMockDataEnabled()
+    private val appSettingsManager = AppSettingsHelper.getInstance(context)
+    private val isMockDataEnabled = appSettingsManager.isMockDataEnabled()
 
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, SearchItem> {

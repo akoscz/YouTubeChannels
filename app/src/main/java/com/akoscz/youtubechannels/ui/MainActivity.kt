@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,7 +37,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.data.db.FeatureToggleHelper
+import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.ui.screens.ChannelDetailsScreen
 import com.akoscz.youtubechannels.ui.screens.HomeScreen
 import com.akoscz.youtubechannels.ui.screens.SearchChannelsScreen
@@ -87,16 +90,33 @@ fun AppContent() {
 
         val navController = rememberNavController()
         val snackbarHostState = remember { SnackbarHostState() }
-        val featureToggleManager = FeatureToggleHelper.getInstance(context)
-        val isMockDataEnabled = featureToggleManager.isMockDataEnabled()
+        val appSettingsManager = AppSettingsHelper.getInstance(context)
+        val theme = appSettingsManager.getTheme()
+        val colorScheme = when (theme) {
+            "system" ->
+                if (isSystemInDarkTheme())
+                    dynamicDarkColorScheme(LocalContext.current)
+                else
+                    dynamicLightColorScheme(LocalContext.current)
+            "dark" ->
+                dynamicDarkColorScheme(LocalContext.current)
+            else ->
+                dynamicLightColorScheme(LocalContext.current) // Default to light theme
+        }
 
-        if (isMockDataEnabled) {
-            // show a yellow border when mock data is enabled
-            Modifier.border(2.dp, Color(0xFFFFD700))
-        } else {
-            Modifier
-        }.let { modifier ->
-            Navigation(navController, PaddingValues(0.dp), snackbarHostState, modifier)
+        MaterialTheme(
+            colorScheme = colorScheme
+        ) {
+            val isMockDataEnabled = appSettingsManager.isMockDataEnabled()
+
+            if (isMockDataEnabled) {
+                // show a yellow border when mock data is enabled
+                Modifier.border(2.dp, Color(0xFFFFD700))
+            } else {
+                Modifier
+            }.let { modifier ->
+                Navigation(navController, PaddingValues(0.dp), snackbarHostState, modifier)
+            }
         }
 
     } else {

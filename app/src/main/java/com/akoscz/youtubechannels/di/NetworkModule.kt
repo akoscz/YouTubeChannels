@@ -2,7 +2,7 @@ package com.akoscz.youtubechannels.di
 
 import android.content.Context
 import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.data.db.FeatureToggleManager
+import com.akoscz.youtubechannels.data.db.AppSettingsManager
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import com.akoscz.youtubechannels.data.network.SearchChannelsDataSource
@@ -17,7 +17,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -62,9 +61,9 @@ object NetworkModule {
     fun provideYoutubeApiService(
         @ApplicationContext context: Context,
         retrofit: Retrofit,
-        featureToggleManager: FeatureToggleManager
+        appSettingsManager: AppSettingsManager
     ): YoutubeApiService {
-        return if (featureToggleManager.isMockDataEnabled()) {
+        return if (appSettingsManager.isMockDataEnabled()) {
             println("provideYoutubeApiService: Using mock data")
             MockYoutubeApiService(context)
         } else {

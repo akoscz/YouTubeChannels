@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.akoscz.youtubechannels.data.db.AppDatabase
 import com.akoscz.youtubechannels.data.db.ChannelDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
-import com.akoscz.youtubechannels.data.db.FeatureToggleManager
+import com.akoscz.youtubechannels.data.db.AppSettingsManager
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import dagger.Module
@@ -50,13 +50,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFeatureToggleManager(@ApplicationContext context: Context): FeatureToggleManager {
-        return FeatureToggleManager(context)
+    fun provideAppSettingsManager(@ApplicationContext context: Context): AppSettingsManager {
+        return AppSettingsManager(context)
     }
 
     @EntryPoint
     @InstallIn(SingletonComponent::class)
-    interface FeatureToggleEntryPoint {
-        fun getFeatureToggleManager(): FeatureToggleManager
+    interface AppSettingsEntryPoint {
+        fun getAppSettingsManager(): AppSettingsManager
     }
 }
