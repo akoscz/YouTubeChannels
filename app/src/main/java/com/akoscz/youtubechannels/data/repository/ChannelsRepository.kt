@@ -1,88 +1,111 @@
 package com.akoscz.youtubechannels.data.repository
 
-import com.akoscz.youtubechannels.data.db.ChannelDao
+import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
-import com.akoscz.youtubechannels.data.models.api.ChannelDetailsItem
+import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
+import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.models.room.Video
+import com.akoscz.youtubechannels.data.models.room.mapChannelDetailsItem
+import com.akoscz.youtubechannels.data.models.room.mapPlaylistsItem
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ChannelsRepository @Inject constructor(
     private val youtubeApiService: YoutubeApiService,
-    private val channelDao: ChannelDao,
-    private val channelDetailsDao: ChannelDetailsDao
+    private val channelsDao: ChannelsDao,
+    private val channelDetailsDao: ChannelDetailsDao,
+    private val playlistsDao: PlaylistsDao
 ) {
     suspend fun subscribeToChannel(channel: Channel) {
-        channelDao.insert(channel)
+        channelsDao.insert(channel)
     }
 
     suspend fun unsubscribeFromChannel(channel: Channel) {
-        channelDao.delete(channel)
+        channelsDao.delete(channel)
         channelDetailsDao.getChannelDetails(channel.id)?.let {
             channelDetailsDao.delete(it)
         }
     }
 
-    fun getSubscribedChannels(): Flow<List<Channel>> = channelDao.getAllChannels()
+    fun getSubscribedChannels(): Flow<List<Channel>> {
+        return channelsDao.getAllChannels()
+    }
 
     fun getAllVideos(): Flow<List<Video>> {
         // empty list
         return flowOf(emptyList())
     }
 
-    private suspend fun insertChannelDetails(channelDetailsItem: ChannelDetailsItem): ChannelDetails {
-        val channelDetails = ChannelDetails(
-            id = channelDetailsItem.id,
-            title = channelDetailsItem.snippet.title,
-            description = channelDetailsItem.snippet.description,
-            customUrl = channelDetailsItem.snippet.customUrl,
-            publishedAt = channelDetailsItem.snippet.publishedAt,
-            thumbnailDefaultUrl = channelDetailsItem.snippet.thumbnails.default.url,
-            thumbnailDefaultWidth = channelDetailsItem.snippet.thumbnails.default.width,
-            thumbnailDefaultHeight = channelDetailsItem.snippet.thumbnails.default.height,
-            thumbnailMediumUrl = channelDetailsItem.snippet.thumbnails.medium.url,
-            thumbnailMediumWidth = channelDetailsItem.snippet.thumbnails.medium.width,
-            thumbnailMediumHeight = channelDetailsItem.snippet.thumbnails.medium.height,
-            thumbnailHighUrl = channelDetailsItem.snippet.thumbnails.high.url,
-            thumbnailHighWidth = channelDetailsItem.snippet.thumbnails.high.width,
-            thumbnailHighHeight = channelDetailsItem.snippet.thumbnails.high.height,
-            viewCount = channelDetailsItem.statistics.viewCount,
-            subscriberCount = channelDetailsItem.statistics.subscriberCount,
-            hiddenSubscriberCount = channelDetailsItem.statistics.hiddenSubscriberCount,
-            videoCount = channelDetailsItem.statistics.videoCount,
-            likesPlaylistId = channelDetailsItem.contentDetails.relatedPlaylists.likes,
-            uploadsPlaylistId = channelDetailsItem.contentDetails.relatedPlaylists.uploads,
-            bannerExternalUrl = channelDetailsItem.brandingSettings.image.bannerExternalUrl
-        )
-        channelDetailsDao.insert(channelDetails)
-        return channelDetails
+    suspend fun getChannelDetails(channelId: String): ChannelDetails? {
+        return withContext(Dispatchers.IO) { // Wrap in withContext
+            // 1. Try to fetch from database
+            val channelDetailsFromDb = channelDetailsDao.getChannelDetails(channelId)
+            if (channelDetailsFromDb != null) {
+                return@withContext channelDetailsFromDb // Return if found in database
+            }
+
+            // 2. Fetch from API if not in database
+            try {
+                val response = youtubeApiService.getChannelDetails(id = channelId)
+                if (response.items.isNotEmpty()) {
+                    val channelDetailsItem = response.items[0]
+                    val channelDetails = mapChannelDetailsItem(channelDetailsItem)
+                    channelDetailsDao.insert(channelDetails)
+                    channelsDao.updateChannelDetailsId(channelId,channelDetails.id)
+                    return@withContext channelDetails
+                } else {
+                    return@withContext null
+                }
+            } catch (e: Exception) {
+                // Handle network or API errors
+                return@withContext null
+            }
+        }
     }
 
-    suspend fun getChannelDetails(channelId: String): ChannelDetails?{
+    suspend fun getChannelVideos(channelId: String): Flow<List<Video>> {
         // 1. Try to fetch from database
-        val channelDetailsFromDb = channelDetailsDao.getChannelDetails(channelId)
-        if (channelDetailsFromDb != null) {
-            return channelDetailsFromDb // Return if found in database
-        }
 
         // 2. Fetch from API if not in database
-        return try {
-            val response = youtubeApiService.getChannelDetails(id = channelId)
-            if (response.items.isNotEmpty()) {
-                val channelDetailsItem = response.items[0]
-                val channelDetails = insertChannelDetails(channelDetailsItem)
-                channelDao.updateChannelDetailsId(channelId, channelDetails.id) // Update channel in database
-                channelDetails // Return fetched details
-            } else {
-                null // Handle case where API returns no results
+        return flowOf(emptyList())
+    }
+
+
+
+    suspend fun getChannelPlaylists(channelId: String, pageToken: String? = null): Pair<List<Playlist>, String?> {
+        return withContext(Dispatchers.IO) {
+            // 1. Try to fetch from database
+            if (pageToken == null) { // If it's the first page, check the database
+                val playlistsFromDb = playlistsDao.getAllPlaylists(channelId).firstOrNull()
+                if (playlistsFromDb?.isNotEmpty() == true) {
+                    return@withContext playlistsFromDb to null // Return if found in database
+                }
             }
-        } catch (e: Exception) {
-            // Handle network or API errors
-            null
+
+
+            // 2. Fetch from API if not in database
+            try {
+                val response = youtubeApiService.getChannelPlaylists(channelId = channelId)
+                if (response.items.isNotEmpty()) {
+                    val playlists = response.items.map { playlistItem ->
+                        mapPlaylistsItem(playlistItem)
+                    }
+                    playlistsDao.insertAll(playlists)
+                    return@withContext playlists to response.nextPageToken
+                }
+                // Return empty list if no items
+                return@withContext emptyList<Playlist>() to null
+            } catch (e: Exception) {
+                // Handle network or API errors
+                return@withContext emptyList<Playlist>() to null
+            }
         }
     }
 }

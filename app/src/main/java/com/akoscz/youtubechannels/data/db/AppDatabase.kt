@@ -4,14 +4,17 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
+import com.akoscz.youtubechannels.data.models.room.Playlist
 
 @Database(
     entities = [
         Channel::class,
-        ChannelDetails::class
+        ChannelDetails::class,
+        Playlist::class
     ],
-    version = 2)
+    version = 3)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun channelDao(): ChannelDao
+    abstract fun channelDao(): ChannelsDao
     abstract fun channelDetailsDao(): ChannelDetailsDao
+    abstract fun playlistsDao(): PlaylistsDao
 }

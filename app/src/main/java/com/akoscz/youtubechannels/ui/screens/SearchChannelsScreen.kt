@@ -20,7 +20,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,10 +35,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.akoscz.youtubechannels.data.db.ChannelDao
+import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
+import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.SearchChannelsDataSource
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
@@ -47,6 +48,7 @@ import com.akoscz.youtubechannels.ui.components.ChannelSearchItemRow
 import com.akoscz.youtubechannels.ui.components.SearchBar
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOf
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -177,7 +179,7 @@ fun SearchChannelsScreenPreview() {
     val context = LocalContext.current
     val mockYoutubeApiService = MockYoutubeApiService(context)
 
-    val mockChannelDao =  object : ChannelDao {
+    val mockChannelsDao =  object : ChannelsDao {
         override suspend fun insert(channel: Channel) {
             // Do nothing
         }
@@ -235,10 +237,20 @@ fun SearchChannelsScreenPreview() {
         }
 
     }
+    val mockPlaylistsDao = object : PlaylistsDao {
+        override suspend fun insertPlaylist(playlist: Playlist) {
+            // Do nothing
+        }
+
+        override fun getAllPlaylists(channelId: String): Flow<List<Playlist>> {
+            // Return an empty list for simplicity
+            return flowOf(emptyList())
+        }
+    }
 
     val viewModel = SearchChannelsViewModel(
         SearchChannelsDataSource(context, mockYoutubeApiService),
-        ChannelsRepository(mockYoutubeApiService, mockChannelDao, mockChannelDetailsDao)
+        ChannelsRepository(mockYoutubeApiService, mockChannelsDao, mockChannelDetailsDao, mockPlaylistsDao)
     )
     SearchChannelsScreen(snackbarHostState, navController, viewModel)
 }

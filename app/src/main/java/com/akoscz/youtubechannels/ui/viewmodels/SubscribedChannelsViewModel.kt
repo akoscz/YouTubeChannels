@@ -13,10 +13,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SubscribedChannelsViewModel @Inject constructor(
-    private val channelsRepository: ChannelsRepository
+    private val repository: ChannelsRepository
 ) : ViewModel() {
     val subscribedChannels: StateFlow<List<Channel>> =
-        channelsRepository.getSubscribedChannels().stateIn(
+        repository.getSubscribedChannels().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000), // Adjust as needed
             initialValue = emptyList()
@@ -24,7 +24,7 @@ class SubscribedChannelsViewModel @Inject constructor(
 
     fun deleteChannel(channel: Channel) {
         viewModelScope.launch {
-            channelsRepository.unsubscribeFromChannel(channel)
+            repository.unsubscribeFromChannel(channel)
         }
     }
 }

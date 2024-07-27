@@ -12,7 +12,7 @@ data class ChannelDetailsItem(
     val etag: String,
     val id: String,
     val snippet: ChannelDetailsItemSnippet,
-    val contentDetails: ContentDetails,
+    val contentDetails: ChannelDetailsItemContentDetails,
     val statistics: Statistics,
     val brandingSettings: BrandingSettings
 )
@@ -28,23 +28,12 @@ data class ChannelDetailsItemSnippet(
 )
 
 data class ChannelDetailsItemSnippetThumbnails(
-    val default: ChannelDetailsItemSnippetThumbnail,
-    val medium: ChannelDetailsItemSnippetThumbnail,
-    val high: ChannelDetailsItemSnippetThumbnail
+    val default: Thumbnail,
+    val medium: Thumbnail,
+    val high: Thumbnail
 )
 
-data class ChannelDetailsItemSnippetThumbnail(
-    val url: String,
-    val width: Int,
-    val height: Int
-)
-
-data class Localized(
-    val title: String,
-    val description: String
-)
-
-data class ContentDetails(
+data class ChannelDetailsItemContentDetails(
     val relatedPlaylists: RelatedPlaylists
 )
 
@@ -62,13 +51,13 @@ data class Statistics(
 
 data class BrandingSettings(
     val channel: ChannelSettings,
-    val image: ImageSettings
+    val image: ImageSettings? = null,
 )
 
 data class ChannelSettings(
     val title: String,
-    val description: String,
-    val keywords: String,
+    val description: String? = null,
+    val keywords: String? = null,
     val unsubscribedTrailer: String? = null,
     val country: String? = null
 )

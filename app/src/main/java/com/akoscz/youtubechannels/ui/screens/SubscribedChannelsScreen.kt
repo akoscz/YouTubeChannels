@@ -26,10 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.akoscz.youtubechannels.data.db.ChannelDao
+import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
+import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import com.akoscz.youtubechannels.ui.components.SwipeableChannelRow
@@ -137,7 +139,7 @@ fun ChannelsListScreenPreview() {
         }
     }
 
-    val mockChannelDao =  object : ChannelDao {
+    val mockChannelsDao =  object : ChannelsDao {
         override suspend fun insert(channel: Channel) {
             // Do nothing
         }
@@ -175,7 +177,19 @@ fun ChannelsListScreenPreview() {
             // Do nothing
         }
     }
+
+    val mockPlaylistsDao = object : PlaylistsDao {
+        override suspend fun insertPlaylist(playlist: Playlist) {
+            // Do nothing
+        }
+
+        override fun getAllPlaylists(channelId: String): Flow<List<Playlist>> {
+            // Return empty list
+            return flowOf(emptyList())
+        }
+    }
+
     val viewModel = SubscribedChannelsViewModel(
-        ChannelsRepository(mockYoutubeApiService, mockChannelDao, mockChannelDetailsDao))
+        ChannelsRepository(mockYoutubeApiService, mockChannelsDao, mockChannelDetailsDao, mockPlaylistsDao))
     SubscribedChannelsScreen(snackbarHostState, navController, viewModel)
 }

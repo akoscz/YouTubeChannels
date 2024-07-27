@@ -3,9 +3,10 @@ package com.akoscz.youtubechannels.di
 import android.content.Context
 import androidx.room.Room
 import com.akoscz.youtubechannels.data.db.AppDatabase
-import com.akoscz.youtubechannels.data.db.ChannelDao
+import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
 import com.akoscz.youtubechannels.data.db.AppSettingsManager
+import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import dagger.Module
@@ -26,12 +27,14 @@ object AppModule {
             context,
             AppDatabase::class.java,
             "app_database"
-        ).fallbackToDestructiveMigrationFrom(1) // Wipe database when migrating from version 1
+        )
+        .fallbackToDestructiveMigrationFrom(1) // Wipe database when migrating from version 1
+        .fallbackToDestructiveMigrationFrom(2) // Wipe database when migrating from version 2
         .build()
     }
 
     @Provides
-    fun provideChannelDao(database: AppDatabase): ChannelDao {
+    fun provideChannelDao(database: AppDatabase): ChannelsDao {
         return database.channelDao()
     }
 
@@ -41,11 +44,18 @@ object AppModule {
     }
 
     @Provides
+    fun providePlaylistsDao(database: AppDatabase): PlaylistsDao {
+        return database.playlistsDao()
+    }
+
+    @Provides
     fun provideChannelsRepository(
         youtubeApiService: YoutubeApiService,
-        channelDao: ChannelDao,
-        channelDetailsDao: ChannelDetailsDao): ChannelsRepository {
-        return ChannelsRepository(youtubeApiService, channelDao, channelDetailsDao)
+        channelsDao: ChannelsDao,
+        channelDetailsDao: ChannelDetailsDao,
+        playlistsDao: PlaylistsDao
+    ): ChannelsRepository {
+        return ChannelsRepository(youtubeApiService, channelsDao, channelDetailsDao, playlistsDao)
     }
 
     @Provides

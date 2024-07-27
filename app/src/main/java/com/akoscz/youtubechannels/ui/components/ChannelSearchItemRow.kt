@@ -53,13 +53,12 @@ fun ChannelSearchItemRow(result: SearchItem, viewModel: SearchChannelsViewModel 
             Text(text = result.snippet.title,
                 maxLines = 1,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.Black,
                 overflow = TextOverflow.Ellipsis
             )
             Text(text = result.snippet.description,
                 maxLines = 2,
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray,
+                color = Color.DarkGray,
                 overflow = TextOverflow.Ellipsis
             )
         }

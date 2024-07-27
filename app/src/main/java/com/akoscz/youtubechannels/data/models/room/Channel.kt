@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "channels")
 data class Channel(
     @PrimaryKey val id: String,
     val title: String,
@@ -13,6 +13,6 @@ data class Channel(
     val thumbnailDefaultUrl: String,
     val thumbnailMediumUrl: String,
     val thumbnailHighUrl: String,
-    @ColumnInfo(index = true) // Add index for efficient lookups
-    val channelDetailsId: String? = null
+    // Add index for efficient lookups
+    @ColumnInfo(index = true) val channelDetailsId: String? = null
 )

@@ -1,0 +1,1231 @@
+{
+  "kind": "youtube#playlistListResponse",
+  "etag": "_R8h46EJxMI-w-w_egvbyHnBN4s",
+  "nextPageToken": "CBkQAA",
+  "pageInfo": {
+    "totalResults": 39,
+    "resultsPerPage": 25
+  },
+  "items": [
+    {
+      "kind": "youtube#playlist",
+      "etag": "z4t9Rwge-6Dkby4iPKlahAv_mbw",
+      "id": "PLxcxfvUxdiDR6Kk_eq3ttKaAJTus2qUnp",
+      "snippet": {
+        "publishedAt": "2024-05-20T11:42:22Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ramayana Carved in Prambanan Temple, Indonesia",
+        "description": "This playlist shows the entire carvings of Ramayan at various panels of the Prambanan temple in Java, Indonesia.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/6tFEgfCEHVE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/6tFEgfCEHVE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/6tFEgfCEHVE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/6tFEgfCEHVE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/6tFEgfCEHVE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ramayana Carved in Prambanan Temple, Indonesia",
+          "description": "This playlist shows the entire carvings of Ramayan at various panels of the Prambanan temple in Java, Indonesia."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 6
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDR6Kk_eq3ttKaAJTus2qUnp\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "XPaNfWs25EQS4hElNmDjezrB_Ps",
+      "id": "PLxcxfvUxdiDSh5egEc6cITnsDPwPH4FD-",
+      "snippet": {
+        "publishedAt": "2024-04-18T14:54:49Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Thailand",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Thailand",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 3
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDSh5egEc6cITnsDPwPH4FD-\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "RdD-nWl0iI_ridCXppiwAGZZmu8",
+      "id": "PLxcxfvUxdiDQE_PgyZ46SyIlOeGAaTd_v",
+      "snippet": {
+        "publishedAt": "2024-04-18T14:54:37Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Mysteries of Thailand",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Mysteries of Thailand",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 3
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDQE_PgyZ46SyIlOeGAaTd_v\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "PjgEU5nwHtIT-X1tml9R5w6aiy4",
+      "id": "PLxcxfvUxdiDRxKNlJRwY_bPqXZr23AI2w",
+      "snippet": {
+        "publishedAt": "2024-03-14T12:10:15Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Indonesia",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/3RNWIvvKySg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/3RNWIvvKySg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/3RNWIvvKySg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/3RNWIvvKySg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/3RNWIvvKySg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Indonesia",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 6
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRxKNlJRwY_bPqXZr23AI2w\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "r-elVQz7cB46PmHgxOaJq3KgAlI",
+      "id": "PLxcxfvUxdiDTcE5xHsq-mbweaPi7zsv0e",
+      "snippet": {
+        "publishedAt": "2023-11-25T13:52:45Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Aliens in Indonesia",
+        "description": "Indonesia has a secret hidden past - Can we decode their ancient temples?",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/K-n8fFVt318/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/K-n8fFVt318/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/K-n8fFVt318/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/K-n8fFVt318/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/K-n8fFVt318/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Aliens in Indonesia",
+          "description": "Indonesia has a secret hidden past - Can we decode their ancient temples?"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 15
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDTcE5xHsq-mbweaPi7zsv0e\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "iUhVThw_eeSoPbLEorKTQq1A0Z0",
+      "id": "PLxcxfvUxdiDT9EVzUwhDi8tqdqEtQt32Z",
+      "snippet": {
+        "publishedAt": "2022-04-14T15:52:35Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Mysteries of Belur Chennakeshava Temple",
+        "description": "There are many strange secrets hidden in Chennakeshava Temple, Belur. I hope to discover and uncover some of them. Enjoy!",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Z2OC49Ed_1g/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Z2OC49Ed_1g/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Z2OC49Ed_1g/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Z2OC49Ed_1g/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Z2OC49Ed_1g/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Mysteries of Belur Chennakeshava Temple",
+          "description": "There are many strange secrets hidden in Chennakeshava Temple, Belur. I hope to discover and uncover some of them. Enjoy!"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 9
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDT9EVzUwhDi8tqdqEtQt32Z\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "LnLOEuHyrteo9rOEdeFHybgnQfU",
+      "id": "PLxcxfvUxdiDRGDHRuSawJXVVIUjgVB8xI",
+      "snippet": {
+        "publishedAt": "2020-10-31T05:50:02Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Mysteries of Angkor Wat Temple",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wO5rowQ4dzw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wO5rowQ4dzw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wO5rowQ4dzw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wO5rowQ4dzw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wO5rowQ4dzw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Mysteries of Angkor Wat Temple",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 10
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRGDHRuSawJXVVIUjgVB8xI\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "58WkKTjmDIHN0T_eTd7F4Gzl4sc",
+      "id": "PLxcxfvUxdiDQER-kTLsqXXsP-y_35MKTC",
+      "snippet": {
+        "publishedAt": "2020-01-03T07:41:58Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Cambodia",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Cambodia",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 37
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDQER-kTLsqXXsP-y_35MKTC\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "3vzHSli0LerEGmW46itSzdk2_V8",
+      "id": "PLxcxfvUxdiDSIREu4p0CzyEHMCLqKw8nT",
+      "snippet": {
+        "publishedAt": "2019-12-27T12:49:41Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Aliens in Cambodia",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/GVDM53cjf6Q/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Aliens in Cambodia",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 35
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDSIREu4p0CzyEHMCLqKw8nT\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "SkPk6dpehhV_O_1CFzoOxiRKNlo",
+      "id": "PLxcxfvUxdiDSpifH03MzMJjg1cFyNjur0",
+      "snippet": {
+        "publishedAt": "2019-10-14T09:21:05Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Highlights of Hindu Temples",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Highlights of Hindu Temples",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 43
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDSpifH03MzMJjg1cFyNjur0\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "XGbC3KLbksTlDQg5OyskHZVEUXw",
+      "id": "PLxcxfvUxdiDTWIhpo3bWlmIXX7qzH7TGk",
+      "snippet": {
+        "publishedAt": "2019-08-08T09:11:46Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Aliens in Colombia",
+        "description": "Colombia, The Land of Flowers is known for its amazing natural beauty and friendly people. Today Colombia is a modern country, but it is home to some of the mysterious ancient sites. For example, San Agustín archaeological park contains the largest collection of religious monuments and megalithic sculptures in Latin America. In this playlist, you will see a series of Videos where I explore Ancient Alien influence and if Hinduism had a role in it.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/-89RAeITXTo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/-89RAeITXTo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/-89RAeITXTo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/-89RAeITXTo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/-89RAeITXTo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Aliens in Colombia",
+          "description": "Colombia, The Land of Flowers is known for its amazing natural beauty and friendly people. Today Colombia is a modern country, but it is home to some of the mysterious ancient sites. For example, San Agustín archaeological park contains the largest collection of religious monuments and megalithic sculptures in Latin America. In this playlist, you will see a series of Videos where I explore Ancient Alien influence and if Hinduism had a role in it."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 7
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDTWIhpo3bWlmIXX7qzH7TGk\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "iB5_iAr6H37nOO6DpOWUNkHDwfU",
+      "id": "PLxcxfvUxdiDQDNabBm_zi9pSxxXU8JFvn",
+      "snippet": {
+        "publishedAt": "2019-06-12T13:40:44Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "In Search of the Forbidden Past: Season 1",
+        "description": "Praveen Mohan explores mysterious ancient sites to understand the secrets of the Known, Unknown and Unknowable.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/-tabN6Z385w/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/-tabN6Z385w/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/-tabN6Z385w/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/-tabN6Z385w/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/-tabN6Z385w/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "In Search of the Forbidden Past: Season 1",
+          "description": "Praveen Mohan explores mysterious ancient sites to understand the secrets of the Known, Unknown and Unknowable."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 3
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDQDNabBm_zi9pSxxXU8JFvn\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "Tw7p6DLgTatK73Rxbh15ro0OYT0",
+      "id": "PLxcxfvUxdiDRy1JzCKdUOdcGNWrjkXN-m",
+      "snippet": {
+        "publishedAt": "2019-02-09T12:10:17Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Secrets of Sigiriya, Sri Lanka",
+        "description": "Sigiriya is a gigantic, 660 foot tall rock in Sri Lanka. On the rock summit, there are some extraordinary ruins. Historians claim these were built by a King about 1500 years ago, while locals claim it was built by a Mythical King called Ravana. There are many ancient secrets hidden in this location, and I will try to post some of them here.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Lqi9mchzexw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Lqi9mchzexw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Lqi9mchzexw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Lqi9mchzexw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Lqi9mchzexw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Secrets of Sigiriya, Sri Lanka",
+          "description": "Sigiriya is a gigantic, 660 foot tall rock in Sri Lanka. On the rock summit, there are some extraordinary ruins. Historians claim these were built by a King about 1500 years ago, while locals claim it was built by a Mythical King called Ravana. There are many ancient secrets hidden in this location, and I will try to post some of them here."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 6
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRy1JzCKdUOdcGNWrjkXN-m\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "B02sekh6i9QN35H4hv4ODgAfUgY",
+      "id": "PLxcxfvUxdiDSW-yJV0cx2Fyog8aiHvpMW",
+      "snippet": {
+        "publishedAt": "2019-01-30T04:20:09Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Weapons of India",
+        "description": "Ancient Indians are known for their extraordinary and most twisted weapons. Many Hindu Gods are also shown wielding  strange and esoteric weapons and gadgets with advanced technology. Here is a short collection of antique weapons from India, I hope you like it.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/MZ0Xi3PJVMg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/MZ0Xi3PJVMg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/MZ0Xi3PJVMg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/MZ0Xi3PJVMg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/MZ0Xi3PJVMg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Weapons of India",
+          "description": "Ancient Indians are known for their extraordinary and most twisted weapons. Many Hindu Gods are also shown wielding  strange and esoteric weapons and gadgets with advanced technology. Here is a short collection of antique weapons from India, I hope you like it."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 12
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDSW-yJV0cx2Fyog8aiHvpMW\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "dpA4COGcMbBBeAMU4ftpSzFOe8U",
+      "id": "PLxcxfvUxdiDQWTkfY3HuxLEUspGIjuTql",
+      "snippet": {
+        "publishedAt": "2018-12-24T08:30:35Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Re-Creating Lost Ancient Scientific Knowledge",
+        "description": "Is it possible to re-create ancient technology? We have lost much of this scientific information, but we need to document what is left over, and re-create this priceless technology. In this playlist, you will see a series of videos where I attempt to create lost ancient knowledge. I hope you like it!",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Re-Creating Lost Ancient Scientific Knowledge",
+          "description": "Is it possible to re-create ancient technology? We have lost much of this scientific information, but we need to document what is left over, and re-create this priceless technology. In this playlist, you will see a series of videos where I attempt to create lost ancient knowledge. I hope you like it!"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 19
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDQWTkfY3HuxLEUspGIjuTql\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "9NeGAMuEm83fwNSFX1IqJ9dG4ws",
+      "id": "PLxcxfvUxdiDQm9A1yW1SaJi-nd4r-cZF7",
+      "snippet": {
+        "publishedAt": "2018-09-26T04:35:00Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Aliens in Sri Lanka",
+        "description": "Sri Lanka is a small, but awesome country with a long history - so long, it is impossible to separate legend and history. Known for its incredible megalithic monuments, the country has been secretly eyed by ancient astronaut theorists, historians and archeologists. Did Gods walk the sacred lands of Sri Lanka? Was it the place of Ravana, an extraterrestrial king mentioned in the Indian Epic Ramayana? Did Lord Buddha visit Sri Lanka to unravel ancient mysteries?",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Aliens in Sri Lanka",
+          "description": "Sri Lanka is a small, but awesome country with a long history - so long, it is impossible to separate legend and history. Known for its incredible megalithic monuments, the country has been secretly eyed by ancient astronaut theorists, historians and archeologists. Did Gods walk the sacred lands of Sri Lanka? Was it the place of Ravana, an extraterrestrial king mentioned in the Indian Epic Ramayana? Did Lord Buddha visit Sri Lanka to unravel ancient mysteries?"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 15
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDQm9A1yW1SaJi-nd4r-cZF7\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "Z8h3Q15qlvHFDnwpx_wRpOSNzVg",
+      "id": "PLxcxfvUxdiDRRusnt_Ej4M2f5waKJDSGX",
+      "snippet": {
+        "publishedAt": "2018-09-25T19:09:45Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Sri Lanka",
+        "description": "Sri Lanka is a country with  a majestic past, beautiful beaches, giant elephants and tasty tea.  There are some extraordinary ancient ruins in this country which have been unexplored. There are ancient Buddhist Stupas and Hindu Temples which contain ancient secrets, and I hope to reveal some of the secrets in this playlist.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wWK_2amSb9Y/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Sri Lanka",
+          "description": "Sri Lanka is a country with  a majestic past, beautiful beaches, giant elephants and tasty tea.  There are some extraordinary ancient ruins in this country which have been unexplored. There are ancient Buddhist Stupas and Hindu Temples which contain ancient secrets, and I hope to reveal some of the secrets in this playlist."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 16
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRRusnt_Ej4M2f5waKJDSGX\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "dvVRK1MGKUcownFS_MTO8R6FitE",
+      "id": "PLxcxfvUxdiDRzffs05GmLndWcAKIJ-lJK",
+      "snippet": {
+        "publishedAt": "2018-04-28T12:55:45Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Underground Mysteries",
+        "description": "We have only scratched the surface of ancient sites, I mean literally. A vast majority of secrets lie underneath the ground and more and more sacred sites are being discovered underground. This is just a small collection of baffling evidences of underground Structures, and I hope to update this regularly.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/BFiI3kblZuE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Underground Mysteries",
+          "description": "We have only scratched the surface of ancient sites, I mean literally. A vast majority of secrets lie underneath the ground and more and more sacred sites are being discovered underground. This is just a small collection of baffling evidences of underground Structures, and I hope to update this regularly."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 30
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRzffs05GmLndWcAKIJ-lJK\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "onT5-R7aD0GvBWUDF9sk-csd07w",
+      "id": "PLxcxfvUxdiDQE_NXkkoLAFJqP0JamT-Kt",
+      "snippet": {
+        "publishedAt": "2017-12-12T08:46:19Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Ancient Machining Technology",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/tjN2_REn5CQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Ancient Machining Technology",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 63
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDQE_NXkkoLAFJqP0JamT-Kt\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "n_myiWPJgxUiMHojKZMAlvuVYx0",
+      "id": "PLxcxfvUxdiDShmf1Ggy_GBxKwXmuPJYU0",
+      "snippet": {
+        "publishedAt": "2017-12-12T08:32:32Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Advanced Ancient Technology",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Advanced Ancient Technology",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 162
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDShmf1Ggy_GBxKwXmuPJYU0\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "41HHlpQN0V2Mb6wfuLe-Sl87JUY",
+      "id": "PLxcxfvUxdiDRXgZGvD7GHQkvt2Jp6iF9Y",
+      "snippet": {
+        "publishedAt": "2016-07-10T08:20:17Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Coral Castle: Everything You Know Is Wrong",
+        "description": "Book by Praveen Mohan \"Coral Castle: Everything You Know Is Wrong\".\n\nA standard description of Coral Castle goes like this:\n\nCoral Castle is a love monument built by an eccentric man called Edward Leedskalnin. The Castle is a giant doll house built for Ed’s sweet sixteen and his imaginary children. Ed built stone models of household objects like couches, bathtub, cooker, etc. to be used by his fictional family. He also created strange meaningless carvings like the moon fountain and obelisk to impress his lost love. Experts have shown that there is nothing mysterious about the castle or how it was constructed, just one man’s persistent work.\nIn this book, you will see that all the above statements are false. The chapters ahead will prove beyond any dispute that:\n1. Coral Castle was NOT built as a love monument.\n2. The Castle is NOT a giant doll house built for Ed’s imaginary family.\n3. There are NO meaningless objects in Coral Castle, each one has a specific meaning or purpose. \n4. Opinions of experts and engineers are fundamentally flawed about Coral Castle.\n\nThis book was not written to show how Coral Castle was built, but WHY Coral Castle was built. Why did Edward Leedskalnin, a 100 pound man with a 4th grade education, attempt to build the only modern megalithic mystery in the world? \nIn addition to this, you will find answers to other burning questions like:\n What is the real meaning of objects like the Barbecue Cooker and Repentance Corner?\n Why did Ed move to the US from Latvia?\n What made Ed carve strange objects like the Stonehenge and Obelisk?\n Why did Ed carve planets and multiple moons side by side?\n Was Ed afflicted with Tuberculosis?\n Why did Ed choose to build Coral Castle in Southern Florida?\n What is the meaning of the drawing on the red door?\n Why did Ed place dozens of rocking chairs all over the Castle?",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZlH_wkcfwWs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZlH_wkcfwWs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZlH_wkcfwWs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ZlH_wkcfwWs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ZlH_wkcfwWs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Coral Castle: Everything You Know Is Wrong",
+          "description": "Book by Praveen Mohan \"Coral Castle: Everything You Know Is Wrong\".\n\nA standard description of Coral Castle goes like this:\n\nCoral Castle is a love monument built by an eccentric man called Edward Leedskalnin. The Castle is a giant doll house built for Ed’s sweet sixteen and his imaginary children. Ed built stone models of household objects like couches, bathtub, cooker, etc. to be used by his fictional family. He also created strange meaningless carvings like the moon fountain and obelisk to impress his lost love. Experts have shown that there is nothing mysterious about the castle or how it was constructed, just one man’s persistent work.\nIn this book, you will see that all the above statements are false. The chapters ahead will prove beyond any dispute that:\n1. Coral Castle was NOT built as a love monument.\n2. The Castle is NOT a giant doll house built for Ed’s imaginary family.\n3. There are NO meaningless objects in Coral Castle, each one has a specific meaning or purpose. \n4. Opinions of experts and engineers are fundamentally flawed about Coral Castle.\n\nThis book was not written to show how Coral Castle was built, but WHY Coral Castle was built. Why did Edward Leedskalnin, a 100 pound man with a 4th grade education, attempt to build the only modern megalithic mystery in the world? \nIn addition to this, you will find answers to other burning questions like:\n What is the real meaning of objects like the Barbecue Cooker and Repentance Corner?\n Why did Ed move to the US from Latvia?\n What made Ed carve strange objects like the Stonehenge and Obelisk?\n Why did Ed carve planets and multiple moons side by side?\n Was Ed afflicted with Tuberculosis?\n Why did Ed choose to build Coral Castle in Southern Florida?\n What is the meaning of the drawing on the red door?\n Why did Ed place dozens of rocking chairs all over the Castle?"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 9
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRXgZGvD7GHQkvt2Jp6iF9Y\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "2D5P32gaAvI2uGQ4b5oOnX6Dc4s",
+      "id": "PLxcxfvUxdiDTezuTaJmhudfOdl-4oIM8s",
+      "snippet": {
+        "publishedAt": "2015-02-05T02:01:13Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Haunted Places & Urban Legends",
+        "description": "Do you believe in orbs, spirits, demon and ghosts? Every little town on the planet has haunted places and special stories attached to them. Here is an interesting list of haunted locations that I've been to, some of the urban legends are very scary indeed. To this list, I will also add my visits to \"haunted houses\" during the month of Halloween. Please enjoy your stay.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/FYczOGfo1F0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/FYczOGfo1F0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/FYczOGfo1F0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/FYczOGfo1F0/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/FYczOGfo1F0/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Haunted Places & Urban Legends",
+          "description": "Do you believe in orbs, spirits, demon and ghosts? Every little town on the planet has haunted places and special stories attached to them. Here is an interesting list of haunted locations that I've been to, some of the urban legends are very scary indeed. To this list, I will also add my visits to \"haunted houses\" during the month of Halloween. Please enjoy your stay."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 19
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDTezuTaJmhudfOdl-4oIM8s\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "lyfB_15yxh7sSpbyfE6rceN6Hlk",
+      "id": "PLxcxfvUxdiDT2WgGezSR874UN92mIWaOQ",
+      "snippet": {
+        "publishedAt": "2014-12-18T16:08:20Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Superb Sculptures From Ancient India",
+        "description": "Indians had mastered the art of carving well before the birth of Christ which can bee seen in places like Ajanta Caves. A collection of some special sculptures that captured my attention from various temples of India.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WThHY2D-t8k/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WThHY2D-t8k/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WThHY2D-t8k/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/WThHY2D-t8k/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/WThHY2D-t8k/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Superb Sculptures From Ancient India",
+          "description": "Indians had mastered the art of carving well before the birth of Christ which can bee seen in places like Ajanta Caves. A collection of some special sculptures that captured my attention from various temples of India."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 152
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDT2WgGezSR874UN92mIWaOQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "MtVmbjXhcBShPw4eFZU7H0IEgqQ",
+      "id": "PLxcxfvUxdiDRIdzlcKSSkYv_9MPVL-Slp",
+      "snippet": {
+        "publishedAt": "2014-12-12T14:14:53Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Giants Existed On Earth - Nephilim Proof",
+        "description": "A list of solid evidence proving that we once had a race of Giants. These enormous sized beings were the offspring of angels and humans and their skeletons have been unearthed all over the world. The Book of Enoch, Bible, Ramayana, Avesta and many ancient texts around the world confirm this. In the United States, hundreds of Giant skeletons have been found under ancient mounds. In the Bible, these Giants are referred to as Nephilim. Enjoy your stay!",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/HKB4rqNjOHw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/HKB4rqNjOHw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/HKB4rqNjOHw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/HKB4rqNjOHw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/HKB4rqNjOHw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Giants Existed On Earth - Nephilim Proof",
+          "description": "A list of solid evidence proving that we once had a race of Giants. These enormous sized beings were the offspring of angels and humans and their skeletons have been unearthed all over the world. The Book of Enoch, Bible, Ramayana, Avesta and many ancient texts around the world confirm this. In the United States, hundreds of Giant skeletons have been found under ancient mounds. In the Bible, these Giants are referred to as Nephilim. Enjoy your stay!"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 19
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDRIdzlcKSSkYv_9MPVL-Slp\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "kdKcOyRc3NAYghqC3Mqili3X-II",
+      "id": "PLxcxfvUxdiDSJsDcDB7VVGgT1YKvn-_YM",
+      "snippet": {
+        "publishedAt": "2014-11-28T16:44:52Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Driving In Cities Around The World",
+        "description": "One of the fun things about travel is spending a lot of time driving on the road. This is a list of all the cities and rural areas in various countries like Mexico, India, Peru, United States, etc. I have also included videos like city bus tours, etc. I hope you will enjoy watching these.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ewEv0WwRXyg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ewEv0WwRXyg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ewEv0WwRXyg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ewEv0WwRXyg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "localized": {
+          "title": "Driving In Cities Around The World",
+          "description": "One of the fun things about travel is spending a lot of time driving on the road. This is a list of all the cities and rural areas in various countries like Mexico, India, Peru, United States, etc. I have also included videos like city bus tours, etc. I hope you will enjoy watching these."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 13
+      },
+      "player": {
+        "embedHtml": "\u003ciframe width=\"640\" height=\"360\" src=\"http://www.youtube.com/embed/videoseries?list=PLxcxfvUxdiDSJsDcDB7VVGgT1YKvn-_YM\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen\u003e\u003c/iframe\u003e"
+      }
+    }
+  ]
+}

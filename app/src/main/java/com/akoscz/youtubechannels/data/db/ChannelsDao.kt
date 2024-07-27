@@ -9,16 +9,16 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ChannelDao {
+interface ChannelsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(channel: Channel)
 
     @Delete
     suspend fun delete(channel: Channel)
 
-    @Query("SELECT * FROM Channel")
+    @Query("SELECT * FROM channels")
     fun getAllChannels(): Flow<List<Channel>>
 
-    @Query("UPDATE Channel SET channelDetailsId = :detailsId WHERE id = :channelId")
+    @Query("UPDATE channels SET channelDetailsId = :detailsId WHERE id = :channelId")
     suspend fun updateChannelDetailsId(channelId: String, detailsId: String)
 }

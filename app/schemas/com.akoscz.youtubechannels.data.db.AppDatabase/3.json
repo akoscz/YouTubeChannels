@@ -1,0 +1,366 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "6571e56cd6c198b2517916dd77a6143f",
+    "entities": [
+      {
+        "tableName": "channels",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `thumbnailDefaultUrl` TEXT NOT NULL, `thumbnailMediumUrl` TEXT NOT NULL, `thumbnailHighUrl` TEXT NOT NULL, `channelDetailsId` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailDefaultUrl",
+            "columnName": "thumbnailDefaultUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailMediumUrl",
+            "columnName": "thumbnailMediumUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailHighUrl",
+            "columnName": "thumbnailHighUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "channelDetailsId",
+            "columnName": "channelDetailsId",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_channels_channelDetailsId",
+            "unique": false,
+            "columnNames": [
+              "channelDetailsId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_channels_channelDetailsId` ON `${TABLE_NAME}` (`channelDetailsId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "channel_details",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `customUrl` TEXT, `publishedAt` TEXT NOT NULL, `thumbnailDefaultUrl` TEXT NOT NULL, `thumbnailDefaultWidth` INTEGER NOT NULL, `thumbnailDefaultHeight` INTEGER NOT NULL, `thumbnailMediumUrl` TEXT NOT NULL, `thumbnailMediumWidth` INTEGER NOT NULL, `thumbnailMediumHeight` INTEGER NOT NULL, `thumbnailHighUrl` TEXT NOT NULL, `thumbnailHighWidth` INTEGER NOT NULL, `thumbnailHighHeight` INTEGER NOT NULL, `viewCount` TEXT NOT NULL, `subscriberCount` TEXT NOT NULL, `hiddenSubscriberCount` INTEGER NOT NULL, `videoCount` TEXT NOT NULL, `likesPlaylistId` TEXT NOT NULL, `uploadsPlaylistId` TEXT NOT NULL, `bannerExternalUrl` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customUrl",
+            "columnName": "customUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publishedAt",
+            "columnName": "publishedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailDefaultUrl",
+            "columnName": "thumbnailDefaultUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailDefaultWidth",
+            "columnName": "thumbnailDefaultWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailDefaultHeight",
+            "columnName": "thumbnailDefaultHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailMediumUrl",
+            "columnName": "thumbnailMediumUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailMediumWidth",
+            "columnName": "thumbnailMediumWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailMediumHeight",
+            "columnName": "thumbnailMediumHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailHighUrl",
+            "columnName": "thumbnailHighUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailHighWidth",
+            "columnName": "thumbnailHighWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailHighHeight",
+            "columnName": "thumbnailHighHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viewCount",
+            "columnName": "viewCount",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subscriberCount",
+            "columnName": "subscriberCount",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hiddenSubscriberCount",
+            "columnName": "hiddenSubscriberCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "videoCount",
+            "columnName": "videoCount",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "likesPlaylistId",
+            "columnName": "likesPlaylistId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uploadsPlaylistId",
+            "columnName": "uploadsPlaylistId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bannerExternalUrl",
+            "columnName": "bannerExternalUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "playlists",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `publishedAt` TEXT NOT NULL, `channelId` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `defaultThumbnailUrl` TEXT NOT NULL, `defaultThumbnailWidth` INTEGER NOT NULL, `defaultThumbnailHeight` INTEGER NOT NULL, `mediumThumbnailUrl` TEXT NOT NULL, `mediumThumbnailWidth` INTEGER NOT NULL, `mediumThumbnailHeight` INTEGER NOT NULL, `highThumbnailUrl` TEXT NOT NULL, `highThumbnailWidth` INTEGER NOT NULL, `highThumbnailHeight` INTEGER NOT NULL, `standardThumbnailUrl` TEXT, `standardThumbnailWidth` INTEGER, `standardThumbnailHeight` INTEGER, `maxresThumbnailUrl` TEXT, `maxresThumbnailWidth` INTEGER, `maxresThumbnailHeight` INTEGER, `itemCount` INTEGER NOT NULL, `embedHtml` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publishedAt",
+            "columnName": "publishedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "channelId",
+            "columnName": "channelId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaultThumbnailUrl",
+            "columnName": "defaultThumbnailUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaultThumbnailWidth",
+            "columnName": "defaultThumbnailWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaultThumbnailHeight",
+            "columnName": "defaultThumbnailHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mediumThumbnailUrl",
+            "columnName": "mediumThumbnailUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mediumThumbnailWidth",
+            "columnName": "mediumThumbnailWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mediumThumbnailHeight",
+            "columnName": "mediumThumbnailHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "highThumbnailUrl",
+            "columnName": "highThumbnailUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "highThumbnailWidth",
+            "columnName": "highThumbnailWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "highThumbnailHeight",
+            "columnName": "highThumbnailHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "standardThumbnailUrl",
+            "columnName": "standardThumbnailUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "standardThumbnailWidth",
+            "columnName": "standardThumbnailWidth",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "standardThumbnailHeight",
+            "columnName": "standardThumbnailHeight",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxresThumbnailUrl",
+            "columnName": "maxresThumbnailUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxresThumbnailWidth",
+            "columnName": "maxresThumbnailWidth",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxresThumbnailHeight",
+            "columnName": "maxresThumbnailHeight",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "itemCount",
+            "columnName": "itemCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "embedHtml",
+            "columnName": "embedHtml",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6571e56cd6c198b2517916dd77a6143f')"
+    ]
+  }
+}

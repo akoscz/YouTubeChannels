@@ -15,6 +15,6 @@ interface ChannelDetailsDao {
     @Delete
     suspend fun delete(channelDetails: ChannelDetails)
 
-    @Query("SELECT * FROM ChannelDetails WHERE id = :channelId")
+    @Query("SELECT * FROM channel_details WHERE id = :channelId")
     suspend fun getChannelDetails(channelId: String): ChannelDetails?
 }

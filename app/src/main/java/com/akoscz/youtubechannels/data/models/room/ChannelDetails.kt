@@ -2,8 +2,10 @@ package com.akoscz.youtubechannels.data.models.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.akoscz.youtubechannels.data.models.api.ChannelDetailsItem
+import java.util.Locale
 
-@Entity
+@Entity(tableName = "channel_details")
 class ChannelDetails (
     @PrimaryKey val id: String, // This should match the Channel's id
     val title: String,
@@ -25,8 +27,34 @@ class ChannelDetails (
     val videoCount: String,
     val likesPlaylistId: String,
     val uploadsPlaylistId: String,
-    val bannerExternalUrl: String
+    val bannerExternalUrl: String? = null
 )
+
+fun mapChannelDetailsItem(channelDetailsItem: ChannelDetailsItem): ChannelDetails {
+    return ChannelDetails(
+        id = channelDetailsItem.id,
+        title = channelDetailsItem.snippet.title,
+        description = channelDetailsItem.snippet.description,
+        customUrl = channelDetailsItem.snippet.customUrl,
+        publishedAt = channelDetailsItem.snippet.publishedAt,
+        thumbnailDefaultUrl = channelDetailsItem.snippet.thumbnails.default.url,
+        thumbnailDefaultWidth = channelDetailsItem.snippet.thumbnails.default.width,
+        thumbnailDefaultHeight = channelDetailsItem.snippet.thumbnails.default.height,
+        thumbnailMediumUrl = channelDetailsItem.snippet.thumbnails.medium.url,
+        thumbnailMediumWidth = channelDetailsItem.snippet.thumbnails.medium.width,
+        thumbnailMediumHeight = channelDetailsItem.snippet.thumbnails.medium.height,
+        thumbnailHighUrl = channelDetailsItem.snippet.thumbnails.high.url,
+        thumbnailHighWidth = channelDetailsItem.snippet.thumbnails.high.width,
+        thumbnailHighHeight = channelDetailsItem.snippet.thumbnails.high.height,
+        viewCount = channelDetailsItem.statistics.viewCount,
+        subscriberCount = channelDetailsItem.statistics.subscriberCount,
+        hiddenSubscriberCount = channelDetailsItem.statistics.hiddenSubscriberCount,
+        videoCount = channelDetailsItem.statistics.videoCount,
+        likesPlaylistId = channelDetailsItem.contentDetails.relatedPlaylists.likes,
+        uploadsPlaylistId = channelDetailsItem.contentDetails.relatedPlaylists.uploads,
+        bannerExternalUrl = channelDetailsItem.brandingSettings.image?.bannerExternalUrl
+    )
+}
 
 // Extension function for ChannelDetails
 fun ChannelDetails.getModifiedBannerUrl(screenWidthDp: Int): String {
@@ -56,8 +84,8 @@ fun ChannelDetails.getFormattedSubscriberCount(): String {
 private fun formatCount(count: Long?): String {
     return when {
         count == null -> ""
-        count >= 1_000_000 -> String.format("%.1fM", count / 1_000_000.0)
-        count >= 1_000 -> String.format("%.1fK", count / 1_000.0)
+        count >= 1_000_000 -> String.format(Locale.getDefault(), "%.1fM", count / 1_000_000.0)
+        count >= 1_000 -> String.format(Locale.getDefault(), "%.1fK", count / 1_000.0)
         else -> count.toString()
     }
 }

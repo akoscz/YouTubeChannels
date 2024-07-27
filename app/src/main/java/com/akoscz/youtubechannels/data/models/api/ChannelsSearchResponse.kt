@@ -1,6 +1,5 @@
 package com.akoscz.youtubechannels.data.models.api
 
-
 data class ChannelsSearchResponse(
     val kind: String,
     val etag: String,
@@ -13,11 +12,11 @@ data class ChannelsSearchResponse(
 data class SearchItem(
     val kind: String,
     val etag: String,
-    val id: Id,
+    val id: SearchItemId,
     val snippet: SearchItemSnippet
 )
 
-data class Id(
+data class SearchItemId(
     val kind: String,
     val channelId: String
 )

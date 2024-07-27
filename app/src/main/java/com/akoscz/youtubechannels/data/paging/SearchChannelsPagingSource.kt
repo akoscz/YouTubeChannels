@@ -13,7 +13,9 @@ import retrofit2.HttpException
 
 
 class SearchChannelsPagingSource(
-    context: Context, private val youtubeApiService: YoutubeApiService, private val query: String
+    context: Context,
+    private val youtubeApiService: YoutubeApiService,
+    private val query: String
 ) : PagingSource<String, SearchItem>() {
     private val appSettingsManager = AppSettingsHelper.getInstance(context)
     private val isMockDataEnabled = appSettingsManager.isMockDataEnabled()
