@@ -30,7 +30,7 @@ class ChannelDetails (
     val bannerExternalUrl: String? = null
 )
 
-fun mapChannelDetailsItem(channelDetailsItem: ChannelDetailsItem): ChannelDetails {
+fun mapToChannelDetails(channelDetailsItem: ChannelDetailsItem): ChannelDetails {
     return ChannelDetails(
         id = channelDetailsItem.id,
         title = channelDetailsItem.snippet.title,

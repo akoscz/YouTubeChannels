@@ -1,51 +1,28 @@
 package com.akoscz.youtubechannels.data.paging
 
-import android.content.Context
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.akoscz.youtubechannels.BuildConfig
-import com.akoscz.youtubechannels.data.db.AppSettingsHelper
-import com.akoscz.youtubechannels.data.models.api.SearchItem
-import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
-import com.akoscz.youtubechannels.data.network.YoutubeApiService
-import com.akoscz.youtubechannels.data.network.simulateNetworkDelay
+import com.akoscz.youtubechannels.data.models.room.Channel
+import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import retrofit2.HttpException
 
 
 class SearchChannelsPagingSource(
-    context: Context,
-    private val youtubeApiService: YoutubeApiService,
+    private val channelsRepository: ChannelsRepository,
     private val query: String
-) : PagingSource<String, SearchItem>() {
-    private val appSettingsManager = AppSettingsHelper.getInstance(context)
-    private val isMockDataEnabled = appSettingsManager.isMockDataEnabled()
+) : PagingSource<String, Channel>() {
 
-
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, SearchItem> {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, Channel> {
         val pageToken = params.key // Get the next page token
         println("SearchChannelsPagingSource load --> query: $query, pageToken: $pageToken, maxResults: ${params.loadSize}")
-
-        if (isMockDataEnabled) {
-            simulateNetworkDelay()
-        }
-
         return try {
             println("SearchChannelsPagingSource.load() - Fetching data...") // Log loading start
-
-            val response = youtubeApiService.searchChannels(
-                query = query,
-                apiKey = BuildConfig.API_KEY,
-                pageToken = pageToken,
-                maxResults = params.loadSize // Use loadSize for items per page
-            )
-
-            println("SearchChannelsPagingSource.load() - Data fetched successfully.") // Log loadingsuccess
-            println("response: $response")
-
+            val (channelsResponse, nextPageToken) = channelsRepository.searchChannels(query, pageToken, params.loadSize)
+            println("SearchChannelsPagingSource.load() - Data fetched successfully.") // Log loading success
             LoadResult.Page(
-                data = response.items,
-                prevKey = null, // No previous page for initial load
-                nextKey = response.nextPageToken // Pass the next page token
+                data = channelsResponse,
+                prevKey = pageToken,
+                nextKey = nextPageToken
             )
         } catch (e: Exception) {
             if (e is HttpException && e.code() == 403) {
@@ -62,10 +39,9 @@ class SearchChannelsPagingSource(
 
     // Allow key reuse when using the MockYoutubeApiService
     override val keyReuseSupported: Boolean
-        get() = (youtubeApiService is MockYoutubeApiService)
+        get() = (true)
 
-    override fun getRefreshKey(state: PagingState<String, SearchItem>): String? {
-
+    override fun getRefreshKey(state: PagingState<String, Channel>): String? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey ?: anchorPage?.nextKey

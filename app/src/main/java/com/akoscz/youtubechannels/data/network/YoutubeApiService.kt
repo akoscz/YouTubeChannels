@@ -62,6 +62,8 @@ class MockYoutubeApiService(@ApplicationContext private val context: Context) : 
         apiKey: String
     ): ChannelsSearchResponse {
         println("MockYoutubeApiService.searchChannels($query) called")
+        simulateNetworkDelay()
+
         val jsonString = context.assets.open("mock_channels_searchListResponse.json").bufferedReader().use { it.readText() }
         try {
             val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
@@ -81,6 +83,7 @@ class MockYoutubeApiService(@ApplicationContext private val context: Context) : 
     ): ChannelDetailsResponse {
         println("MockYoutubeApiService.getChannelDetails($id) called")
         simulateNetworkDelay()
+
         val jsonString = context.assets.open("mock_channel_details_channelListResponse.json").bufferedReader().use { it.readText() }
         try{
             val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()

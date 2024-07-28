@@ -1,5 +1,6 @@
 package com.akoscz.youtubechannels.data.repository
 
+import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
@@ -7,8 +8,9 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.models.room.Video
-import com.akoscz.youtubechannels.data.models.room.mapChannelDetailsItem
-import com.akoscz.youtubechannels.data.models.room.mapPlaylistsItem
+import com.akoscz.youtubechannels.data.models.room.mapToChannel
+import com.akoscz.youtubechannels.data.models.room.mapToChannelDetails
+import com.akoscz.youtubechannels.data.models.room.mapToPlaylist
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -56,7 +58,7 @@ class ChannelsRepository @Inject constructor(
                 val response = youtubeApiService.getChannelDetails(id = channelId)
                 if (response.items.isNotEmpty()) {
                     val channelDetailsItem = response.items[0]
-                    val channelDetails = mapChannelDetailsItem(channelDetailsItem)
+                    val channelDetails = mapToChannelDetails(channelDetailsItem)
                     channelDetailsDao.insert(channelDetails)
                     channelsDao.updateChannelDetailsId(channelId,channelDetails.id)
                     return@withContext channelDetails
@@ -64,6 +66,7 @@ class ChannelsRepository @Inject constructor(
                     return@withContext null
                 }
             } catch (e: Exception) {
+                println("getChannelDetails Error: ${e.message}")
                 // Handle network or API errors
                 return@withContext null
             }
@@ -89,13 +92,12 @@ class ChannelsRepository @Inject constructor(
                 }
             }
 
-
             // 2. Fetch from API if not in database
             try {
                 val response = youtubeApiService.getChannelPlaylists(channelId = channelId)
                 if (response.items.isNotEmpty()) {
                     val playlists = response.items.map { playlistItem ->
-                        mapPlaylistsItem(playlistItem)
+                        mapToPlaylist(playlistItem)
                     }
                     playlistsDao.insertAll(playlists)
                     return@withContext playlists to response.nextPageToken
@@ -103,8 +105,37 @@ class ChannelsRepository @Inject constructor(
                 // Return empty list if no items
                 return@withContext emptyList<Playlist>() to null
             } catch (e: Exception) {
+                println("getChannelPlaylists Error: ${e.message}")
                 // Handle network or API errors
                 return@withContext emptyList<Playlist>() to null
+            }
+        }
+    }
+
+    suspend fun searchChannels(query: String, pageToken: String?, maxResults: Int = 10): Pair<List<Channel>, String?> {
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = youtubeApiService.searchChannels(
+                    query = query,
+                    apiKey = BuildConfig.API_KEY,
+                    pageToken = pageToken,
+                    maxResults = maxResults
+                )
+//                println("searchChannels response: $response")
+                if (response.items.isNotEmpty()) {
+                    val channels = response.items.map { channelItem ->
+                        mapToChannel(channelItem)
+                    }
+                    return@withContext channels to response.nextPageToken
+                }
+                // Return empty list if no items
+                return@withContext emptyList<Channel>() to null
+            }
+            catch (e: Exception) {
+                println("searchChannels Error: ${e.message}")
+                // Handle network or API errors
+                return@withContext emptyList<Channel>() to null
             }
         }
     }

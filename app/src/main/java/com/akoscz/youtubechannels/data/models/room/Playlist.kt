@@ -30,7 +30,7 @@ data class Playlist(
     val embedHtml: String
 )
 
-fun mapPlaylistsItem(playlistsItem: ChannelPlaylistsItem): Playlist {
+fun mapToPlaylist(playlistsItem: ChannelPlaylistsItem): Playlist {
     return Playlist(
         id = playlistsItem.id,
         publishedAt = playlistsItem.snippet.publishedAt,

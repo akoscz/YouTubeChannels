@@ -6,33 +6,33 @@ data class ChannelsSearchResponse(
     val nextPageToken: String?, // Can be null if there's no next page
     val regionCode: String,
     val pageInfo: PageInfo,
-    val items: List<SearchItem>
+    val items: List<ChannelSearchItem>
 )
 
-data class SearchItem(
+data class ChannelSearchItem(
     val kind: String,
     val etag: String,
-    val id: SearchItemId,
-    val snippet: SearchItemSnippet
+    val id: ChannelSearchItemId,
+    val snippet: ChannelSearchItemSnippet
 )
 
-data class SearchItemId(
+data class ChannelSearchItemId(
     val kind: String,
     val channelId: String
 )
 
-data class SearchItemSnippet(
+data class ChannelSearchItemSnippet(
     val publishedAt: String,
     val channelId: String,
     val title: String,
     val description: String,
-    val thumbnails: SearchItemSnippetThumbnails,
+    val thumbnails: ChannelSearchItemSnippetThumbnails,
     val channelTitle: String,
     val liveBroadcastContent: String,
     val publishTime: String
 )
 
-data class SearchItemSnippetThumbnails(
+data class ChannelSearchItemSnippetThumbnails(
     val default: SearchItemSnippetThumbnail,
     val medium: SearchItemSnippetThumbnail,
     val high: SearchItemSnippetThumbnail

@@ -1,6 +1,5 @@
 package com.akoscz.youtubechannels.ui.screens
 
-import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +19,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,32 +32,31 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
-import com.akoscz.youtubechannels.data.network.SearchChannelsDataSource
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
+import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import com.akoscz.youtubechannels.ui.components.ChannelSearchItemRow
 import com.akoscz.youtubechannels.ui.components.SearchBar
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
-                         navController: NavHostController,
-                         viewModel: SearchChannelsViewModel = hiltViewModel()
+fun SearchChannelsScreen(
+    snackbarHostState: SnackbarHostState,
+    navController: NavHostController,
+    viewModel: SearchChannelsViewModel = hiltViewModel()
 ) {
     var query by remember { mutableStateOf("") }
-    val searchResultsFlow by viewModel.searchResults.collectAsState()
-    val searchResults = searchResultsFlow?.collectAsLazyPagingItems() // Collect here
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -88,8 +85,10 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                 viewModel = viewModel
             )
 
+            val lazySearchResults: LazyPagingItems<Channel> = viewModel.searchResults.collectAsLazyPagingItems()
+
             // Search results list
-            searchResults?.let { results ->
+            lazySearchResults.let { results ->
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(results.itemCount) {
                         val result = results[it]
@@ -104,18 +103,26 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                             // Handle initial refresh loading state
                             item {
                                 Text("Refreshing data...")
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+                                        .wrapContentWidth(Alignment.CenterHorizontally)
+                                )
                             }
                         }
+
                         is LoadState.Error -> {
                             // Handle initial refresh error state
                             item {
-                                Text("Error refreshing data: ${refreshState.error.message}")
+//                                Text("Error refreshing data: ${refreshState.error.message}")
                             }
                         }
+
                         is LoadState.NotLoading -> {
                             // Handle initial refresh not loading state
                             item {
-                                Text("Refresh No more items to load")
+//                                Text("Refresh No more items to load")
                             }
                         }
                     }
@@ -123,17 +130,19 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                         is LoadState.Loading -> {
                             // Handle prepend loading state (adding items at the beginning)
                             item {
-                                Text("Loading more items at the beginning...")
+//                                Text("Loading more items at the beginning...")
                             }
                         }
+
                         is LoadState.Error -> {
                             item {
                                 Text("Prepend Error loading data: ${prependState.error.message}")
                             }
                         }
+
                         is LoadState.NotLoading -> {
                             item {
-                                Text("Prepend No more items to load")
+//                                Text("Prepend No more items to load")
                             }
                         }
                     }
@@ -149,6 +158,7 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
 
                         is LoadState.Loading -> { // Loading state
                             item {
+                                Text("Loading more items...")
                                 CircularProgressIndicator(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -161,7 +171,7 @@ fun SearchChannelsScreen(snackbarHostState: SnackbarHostState,
                         is LoadState.NotLoading -> { // Not loading state (optional)
                             // You can display a message or do nothing here
                             item {
-                                Text("NotLoading No more items to load")
+//                                Text("NotLoading No more items to load")
                             }
                         }
                     }
@@ -249,7 +259,6 @@ fun SearchChannelsScreenPreview() {
     }
 
     val viewModel = SearchChannelsViewModel(
-        SearchChannelsDataSource(context, mockYoutubeApiService),
         ChannelsRepository(mockYoutubeApiService, mockChannelsDao, mockChannelDetailsDao, mockPlaylistsDao)
     )
     SearchChannelsScreen(snackbarHostState, navController, viewModel)

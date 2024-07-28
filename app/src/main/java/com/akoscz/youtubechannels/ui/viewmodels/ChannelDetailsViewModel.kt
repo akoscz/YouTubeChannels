@@ -23,11 +23,11 @@ class ChannelDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _channelDetails = MutableStateFlow<ChannelDetails?>(null)
-    private val _playlists = MutableStateFlow<PagingData<Playlist>>(PagingData.empty()) // Use PagingData
-    private var playlists_nextPageToken: String? = null
-
     val channelDetails: StateFlow<ChannelDetails?> = _channelDetails.asStateFlow()
+
+    private val _playlists = MutableStateFlow<PagingData<Playlist>>(PagingData.empty()) // Use PagingData
     val playlists: StateFlow<PagingData<Playlist>> = _playlists.asStateFlow()
+    private var playlistsNextPageToken: String? = null
 
     fun fetchChannelDetails(channelId: String) {
         viewModelScope.launch {
@@ -48,10 +48,10 @@ class ChannelDetailsViewModel @Inject constructor(
     // Function to load the next page of playlists
     fun loadMorePlaylists(channelId: String) {
         viewModelScope.launch {
-            playlists_nextPageToken?.let { token ->
+            playlistsNextPageToken?.let { token ->
                 val (playlists, newNextToken) = repository.getChannelPlaylists(channelId, token)
                 // ... (Update your _playlists state with the new playlists) ...
-                playlists_nextPageToken = newNextToken
+                playlistsNextPageToken = newNextToken
             }
         }
     }

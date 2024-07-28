@@ -5,7 +5,6 @@ import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.AppSettingsManager
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
-import com.akoscz.youtubechannels.data.network.SearchChannelsDataSource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -70,14 +69,5 @@ object NetworkModule {
             println("provideYoutubeApiService: Using real data")
             retrofit.create(YoutubeApiService::class.java)
         }
-    }
-
-    @Provides
-    @Singleton
-    fun provideSearchChannelsDataSource(
-        @ApplicationContext context: Context,
-        youtubeApiService: YoutubeApiService
-    ): SearchChannelsDataSource {
-        return SearchChannelsDataSource(context, youtubeApiService)
     }
 }
