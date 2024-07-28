@@ -5,29 +5,29 @@ data class ChannelPlaylistsResponse(
     val etag: String,
     val nextPageToken: String?,
     val pageInfo: PageInfo,
-    val items: List<ChannelPlaylistsItem>
+    val items: List<ChannelPlaylist>
 )
 
-data class ChannelPlaylistsItem(
+data class ChannelPlaylist(
     val kind: String,
     val etag: String,
     val id: String,
-    val snippet: ChannelPlaylistsItemSnippet,
-    val contentDetails: ChannelPlaylistsItemContentDetails,
+    val snippet: ChannelPlaylistSnippet,
+    val contentDetails: ChannelPlaylistContentDetails,
     val player: Player
 )
 
-data class ChannelPlaylistsItemSnippet(
+data class ChannelPlaylistSnippet(
     val publishedAt: String,
     val channelId: String,
     val title: String,
     val description: String,
-    val thumbnails: ChannelPlaylistsItemSnippetThumbnails,
+    val thumbnails: ChannelPlaylistSnippetThumbnails,
     val channelTitle: String,
     val localized: Localized
 )
 
-data class ChannelPlaylistsItemSnippetThumbnails(
+data class ChannelPlaylistSnippetThumbnails(
     val default: Thumbnail,
     val medium: Thumbnail,
     val high: Thumbnail,
@@ -35,7 +35,7 @@ data class ChannelPlaylistsItemSnippetThumbnails(
     val maxres: Thumbnail?
 )
 
-data class ChannelPlaylistsItemContentDetails(
+data class ChannelPlaylistContentDetails(
     val itemCount: Int
 )
 

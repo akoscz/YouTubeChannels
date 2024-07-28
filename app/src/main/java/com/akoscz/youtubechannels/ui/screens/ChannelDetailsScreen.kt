@@ -32,7 +32,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import com.akoscz.youtubechannels.ui.components.ChannelDetailsHeader
-import com.akoscz.youtubechannels.ui.components.PlaylistItemsList
+import com.akoscz.youtubechannels.ui.components.PlaylistList
 import com.akoscz.youtubechannels.ui.viewmodels.ChannelDetailsViewModel
 
 data class ChannelTab(val title: String)
@@ -110,7 +110,7 @@ fun ChannelDetailsScreen(
                     }
 
                     1 -> {
-                        PlaylistItemsList(
+                        PlaylistList(
                             playlistItems = viewModel.playlists.collectAsLazyPagingItems(),
                             channelTitle = channelTitle
                         )

@@ -29,7 +29,7 @@ import com.akoscz.youtubechannels.data.models.room.Playlist
 
 
 @Composable
-fun PlaylistItemRow(playlist: Playlist, channelTitle: String) {
+fun PlaylistRow(playlist: Playlist, channelTitle: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -2,7 +2,7 @@ package com.akoscz.youtubechannels.data.models.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.akoscz.youtubechannels.data.models.api.ChannelPlaylistsItem
+import com.akoscz.youtubechannels.data.models.api.ChannelPlaylist
 
 @Entity(tableName = "playlists")
 data class Playlist(
@@ -30,29 +30,29 @@ data class Playlist(
     val embedHtml: String
 )
 
-fun mapToPlaylist(playlistsItem: ChannelPlaylistsItem): Playlist {
+fun mapToPlaylist(channelPlaylist: ChannelPlaylist): Playlist {
     return Playlist(
-        id = playlistsItem.id,
-        publishedAt = playlistsItem.snippet.publishedAt,
-        channelId = playlistsItem.snippet.channelId,
-        title = playlistsItem.snippet.title,
-        description = playlistsItem.snippet.description,
-        defaultThumbnailUrl = playlistsItem.snippet.thumbnails.default.url,
-        defaultThumbnailWidth = playlistsItem.snippet.thumbnails.default.width,
-        defaultThumbnailHeight = playlistsItem.snippet.thumbnails.default.height,
-        mediumThumbnailUrl = playlistsItem.snippet.thumbnails.medium.url,
-        mediumThumbnailWidth = playlistsItem.snippet.thumbnails.medium.width,
-        mediumThumbnailHeight = playlistsItem.snippet.thumbnails.medium.height,
-        highThumbnailUrl = playlistsItem.snippet.thumbnails.high.url,
-        highThumbnailWidth = playlistsItem.snippet.thumbnails.high.width,
-        highThumbnailHeight = playlistsItem.snippet.thumbnails.high.height,
-        standardThumbnailUrl = playlistsItem.snippet.thumbnails.standard?.url,
-        standardThumbnailWidth = playlistsItem.snippet.thumbnails.standard?.width,
-        standardThumbnailHeight = playlistsItem.snippet.thumbnails.standard?.height,
-        maxresThumbnailUrl = playlistsItem.snippet.thumbnails.maxres?.url,
-        maxresThumbnailWidth = playlistsItem.snippet.thumbnails.maxres?.width,
-        maxresThumbnailHeight = playlistsItem.snippet.thumbnails.maxres?.height,
-        itemCount = playlistsItem.contentDetails.itemCount,
-        embedHtml = playlistsItem.player.embedHtml
+        id = channelPlaylist.id,
+        publishedAt = channelPlaylist.snippet.publishedAt,
+        channelId = channelPlaylist.snippet.channelId,
+        title = channelPlaylist.snippet.title,
+        description = channelPlaylist.snippet.description,
+        defaultThumbnailUrl = channelPlaylist.snippet.thumbnails.default.url,
+        defaultThumbnailWidth = channelPlaylist.snippet.thumbnails.default.width,
+        defaultThumbnailHeight = channelPlaylist.snippet.thumbnails.default.height,
+        mediumThumbnailUrl = channelPlaylist.snippet.thumbnails.medium.url,
+        mediumThumbnailWidth = channelPlaylist.snippet.thumbnails.medium.width,
+        mediumThumbnailHeight = channelPlaylist.snippet.thumbnails.medium.height,
+        highThumbnailUrl = channelPlaylist.snippet.thumbnails.high.url,
+        highThumbnailWidth = channelPlaylist.snippet.thumbnails.high.width,
+        highThumbnailHeight = channelPlaylist.snippet.thumbnails.high.height,
+        standardThumbnailUrl = channelPlaylist.snippet.thumbnails.standard?.url,
+        standardThumbnailWidth = channelPlaylist.snippet.thumbnails.standard?.width,
+        standardThumbnailHeight = channelPlaylist.snippet.thumbnails.standard?.height,
+        maxresThumbnailUrl = channelPlaylist.snippet.thumbnails.maxres?.url,
+        maxresThumbnailWidth = channelPlaylist.snippet.thumbnails.maxres?.width,
+        maxresThumbnailHeight = channelPlaylist.snippet.thumbnails.maxres?.height,
+        itemCount = channelPlaylist.contentDetails.itemCount,
+        embedHtml = channelPlaylist.player.embedHtml
     )
 }
