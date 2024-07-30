@@ -79,28 +79,26 @@ fun mapToVideo(videoItem: VideoItem): Video {
     )
 }
 
+/**
+ * Formats the duration of the video in a human-readable format.
+ * hh:mm:ss format is used for videos longer than an hour.
+ * mm:ss format is used for videos shorter than an hour.
+ */
 fun Video.formattedDuration(): String {
-    var formatted = ""
-    var timeValue = ""
-    for (char in duration) {
-        if (char.isDigit()) {
-            timeValue += char
-        } else if (char == 'P' || char == 'T') {
-            // Ignore these characters
+    return try {
+        val duration = Duration.parse(this.duration)
+        val hours = duration.toHours()
+        val minutes = duration.toMinutes() % 60
+        val seconds = duration.seconds % 60
+
+        if (hours > 0) {
+            String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
         } else {
-            val timeInt = timeValue.toIntOrNull() ?: 0
-            when (char) {
-                'H' -> formatted += String.format(Locale.getDefault() ,"%02d:", timeInt)
-                'M' -> formatted += String.format(Locale.getDefault(), "%02d:", timeInt)
-                'S' -> formatted += String.format(Locale.getDefault(),"%02d", timeInt)
-            }
-            timeValue = ""
+            String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
         }
-    }// Remove any trailing colon
-    if (formatted.endsWith(':')) {
-        formatted = formatted.substring(0, formatted.length - 1)
+    } catch (e: Exception) {
+        "" // Return an empty string if parsing fails
     }
-    return formatted
 }
 
 fun Video.formattedViewCount(): String {
@@ -119,6 +117,10 @@ fun Video.formattedCommentCount(): String {
     return formatCount(commentCount)
 }
 
+/**
+ * Formats the count in a human-readable format.
+ * Shortens large numbers to one decimal place.
+ */
 private fun formatCount(count: Long?): String {
     return when {
         count == null -> ""
@@ -128,6 +130,11 @@ private fun formatCount(count: Long?): String {
     }
 }
 
+/**
+ * Formats the published date of the video in a human-readable format.
+ * Returns the number of days, hours, minutes, or seconds since the video was published.
+ * Special case is when the duration is < 14 days (2 weeks), it is formatted as "X days ago".
+ */
 fun Video.timeAgo(): String {
     val formatter = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault())
     val givenDateTime = ZonedDateTime.parse(publishedAt, formatter)
@@ -149,5 +156,17 @@ fun Video.timeAgo(): String {
         differenceWeeks < 4 -> "$differenceWeeks weeks ago" // 3-4 weeks
         differenceMonths < 12 -> "$differenceMonths months ago"
         else -> "$differenceYears years ago"
+    }
+}
+
+/**
+ * Checks if the video is a YouTube Short.
+ * The duration of a YouTube Short is less than or equal to 60 seconds.
+ */
+fun Video.isYoutubeShort(): Boolean {
+    return try {
+        Duration.parse(duration).seconds <= 60
+    } catch (e: Exception) {
+        false // Handle potential parsing errors
     }
 }
