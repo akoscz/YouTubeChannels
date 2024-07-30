@@ -3,19 +3,19 @@ package com.akoscz.youtubechannels.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.akoscz.youtubechannels.data.models.room.Channel
-import com.akoscz.youtubechannels.data.models.room.Playlist
+import com.akoscz.youtubechannels.data.models.room.Video
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 
-class PlaylistsPagingSource(
+class VideosPagingSource(
     private val repository: ChannelsRepository,
-    private val channelId: String
-) : PagingSource<String, Playlist>() {
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, Playlist> {
+    private val playlistId: String
+) : PagingSource<String, Video>() {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, Video> {
         val pageToken = params.key
         return try {
-            val (playlists, nextPageToken) = repository.getChannelPlaylists(channelId, pageToken)
+            val (videos, nextPageToken) = repository.getPlaylistVideos(playlistId, pageToken)
             LoadResult.Page(
-                data = playlists,
+                data = videos,
                 prevKey = pageToken,
                 nextKey = nextPageToken
             )
@@ -28,7 +28,7 @@ class PlaylistsPagingSource(
     override val keyReuseSupported: Boolean
         get() = (repository.isMockApi())
 
-    override fun getRefreshKey(state: PagingState<String, Playlist>): String? {
+    override fun getRefreshKey(state: PagingState<String, Video>): String? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey ?: anchorPage?.nextKey

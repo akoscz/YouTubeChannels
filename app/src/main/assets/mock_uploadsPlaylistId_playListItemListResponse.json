@@ -1,0 +1,281 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "xtl8omgYQBvqU7XfxgpDW1dhVDc",
+  "nextPageToken": "EAAaelBUOkNBVWlFRUpHTWtWQk9UVTBSVEJFTlVVek56VW9BVWlJaV9HcDk3ZUhBMUFCV2pZaVEyaG9WbFpYVlhwVU1qRldWMGM1YjFkSVNsbGlhelZoVlRGS2MwNVdielZoTUVWVFEzZHFlbmhmVHpCQ2FFUkJkVzg0ZWlJ",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "BVrVqJbWhSa511mdVvKWs5Cm4aw",
+      "id": "VVVlM09tVVhvaFhyWG5OWlNSbDVaOWtBLllVQnZscnpKVUhZ",
+      "snippet": {
+        "publishedAt": "2024-07-20T09:30:48Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Did Ancient Indians Pioneer Surgery 10,000 Years Ago?",
+        "description": "A series of archeological and textual evidence of surgery and medical technology in Ancient India. Archeologists have discovered evidence of trepanning and dentistry in India valley civilization going back 10,000 years ago. This is backed by the ancient texts like Sushruta Samhita and Charaka Samhita.\n\nWhatsapp Channel.......https://whatsapp.com/channel/0029Va9UvjV05MUoZq0IqQ2Y\nInstagram................ https://instagram.com/praveenET\nFacebook.............. https://www.facebook.com/praveenmohanfans\nTwitter...................... https://twitter.com/IamPraveenMohan\nEmail id - info.praveenmohan@gmail.com\n\nThis is my Patreon account if you like to support me - https://www.patreon.com/PraveenMohan\n\nJoin this channel to get access to perks:\nhttps://www.youtube.com/channel/UCe3OmUXohXrXnNZSRl5Z9kA/join\n\nChapters\n0:00 - Evidence of Trepanation surgery\n3:03 - Evidence of Dentistry\n4:20 - Pre-history vs History\n5:28 - Evidence of historic text\n6:40 - Evidence in Temples\n10:12 - Maya- The Illusion\n12:30 - Stunning details of human anatomy\n16:36 - Unseen ancient device\n17:22 - Evidence of ancient technology\n22:00 - Carvings showing Pregnancy & childbirth\n26:30 - Ancient Indian texts\n28:36 - Evidence of Ancient surgery?\n30:50 - Evidence of Ancient Indian Medical technology?\n34:10 - Ancient stem cell technology?\n37:01 -Conclusion\n\n#praveenmohan  #ancienttechnology #medicaltechnology",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/YUBvlrzJUHY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "playlistId": "UUe3OmUXohXrXnNZSRl5Z9kA",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "YUBvlrzJUHY"
+        },
+        "videoOwnerChannelTitle": "PraveenMohan",
+        "videoOwnerChannelId": "UCe3OmUXohXrXnNZSRl5Z9kA"
+      },
+      "contentDetails": {
+        "videoId": "YUBvlrzJUHY",
+        "videoPublishedAt": "2024-07-20T09:30:48Z"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "EYXZUlz4Gglq1hwKkbN7ZZ7riaI",
+      "id": "VVVlM09tVVhvaFhyWG5OWlNSbDVaOWtBLnRWM2Y0V1ZGcmtN",
+      "snippet": {
+        "publishedAt": "2024-07-12T15:22:35Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Evidence of Ancient Dentistry in India",
+        "description": "#ancienttechnology #praveenmohan #history",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/tV3f4WVFrkM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/tV3f4WVFrkM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/tV3f4WVFrkM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/tV3f4WVFrkM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/tV3f4WVFrkM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "playlistId": "UUe3OmUXohXrXnNZSRl5Z9kA",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "tV3f4WVFrkM"
+        },
+        "videoOwnerChannelTitle": "PraveenMohan",
+        "videoOwnerChannelId": "UCe3OmUXohXrXnNZSRl5Z9kA"
+      },
+      "contentDetails": {
+        "videoId": "tV3f4WVFrkM",
+        "videoPublishedAt": "2024-07-12T15:22:35Z"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "2aN7qNjlC55jUaMDcmAGifzJ4VQ",
+      "id": "VVVlM09tVVhvaFhyWG5OWlNSbDVaOWtBLkphYzAtOWNDb2Vn",
+      "snippet": {
+        "publishedAt": "2024-07-10T11:46:10Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "Evidence Of Ancient Surgery in India",
+        "description": "Join this channel to get access to perks:\nhttps://www.youtube.com/channel/UCe3OmUXohXrXnNZSRl5Z9kA/join\n\n#history #ancienttechnology #praveenmohan",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Jac0-9cCoeg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Jac0-9cCoeg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Jac0-9cCoeg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Jac0-9cCoeg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Jac0-9cCoeg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "playlistId": "UUe3OmUXohXrXnNZSRl5Z9kA",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Jac0-9cCoeg"
+        },
+        "videoOwnerChannelTitle": "PraveenMohan",
+        "videoOwnerChannelId": "UCe3OmUXohXrXnNZSRl5Z9kA"
+      },
+      "contentDetails": {
+        "videoId": "Jac0-9cCoeg",
+        "videoPublishedAt": "2024-07-10T11:46:10Z"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "OxkplCfLKMUMUavf5Wef8E3cVgg",
+      "id": "VVVlM09tVVhvaFhyWG5OWlNSbDVaOWtBLkVUc1RkSklEX2Zv",
+      "snippet": {
+        "publishedAt": "2024-06-29T11:43:39Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "The Prambanan Ramayana - Episode 6",
+        "description": "This episode of Prambanan Ramayana concludes in a very contrasting way. Even if you know The Epic Ramayana well, you are going to be surprised. The unseen carvings of Lava and Kusha are depicted on the walls of Prambanan temple will blow your mind. Did Rama find his sons and reunite with the love of his life? And also, is Valmiki a character in this?\n\nClick the link below to watch membership video after becoming a member to our community: https://youtu.be/NthCkthUoIQ\n\nClick this link to join my channel and get access to exclusive videos:\nhttps://www.youtube.com/channel/UCe3OmUXohXrXnNZSRl5Z9kA/join\n\nWhatsapp.....https://whatsapp.com/channel/0029Va9UvjV05MUoZq0IqQ2Y\nInstagram................ https://instagram.com/praveenET\nFacebook.............. https://www.facebook.com/praveenmohanfans\nTwitter...................... https://twitter.com/IamPraveenMohan\nEmail id - info.praveenmohan@gmail.com\n\nThis is my Patreon account if you like to support me - https://www.patreon.com/PraveenMohan\n\n#prambananramayana #praveenmohan #indonesia",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ETsTdJID_fo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ETsTdJID_fo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ETsTdJID_fo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ETsTdJID_fo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ETsTdJID_fo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "playlistId": "UUe3OmUXohXrXnNZSRl5Z9kA",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ETsTdJID_fo"
+        },
+        "videoOwnerChannelTitle": "PraveenMohan",
+        "videoOwnerChannelId": "UCe3OmUXohXrXnNZSRl5Z9kA"
+      },
+      "contentDetails": {
+        "videoId": "ETsTdJID_fo",
+        "videoPublishedAt": "2024-06-29T11:43:39Z"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "8CJ2SK99uYMMzUwvbi1BsqX8Sck",
+      "id": "VVVlM09tVVhvaFhyWG5OWlNSbDVaOWtBLnhRU3lsdmhWU1ZJ",
+      "snippet": {
+        "publishedAt": "2024-06-07T12:36:46Z",
+        "channelId": "UCe3OmUXohXrXnNZSRl5Z9kA",
+        "title": "The Prambanan Ramayana - Episode 5",
+        "description": "This is the climax and conclusion of the Prambanan Ramayana. Or is it? Rama and Lakshmana underestimate Ravana's military prowess and become unconscious. Ravana also wakes up the sleeping giant Kumbhakarna who wreaks havoc on the ape army. What happens next? Will the story have a happy ending?\n\nJoin this channel to get access to perks:\nhttps://www.youtube.com/channel/UCe3OmUXohXrXnNZSRl5Z9kA/join\n\nWhatsapp.....https://whatsapp.com/channel/0029Va9UvjV05MUoZq0IqQ2Y\nInstagram................ https://instagram.com/praveenET\nFacebook.............. https://www.facebook.com/praveenmohanfans\nTwitter...................... https://twitter.com/IamPraveenMohan\nEmail id - info.praveenmohan@gmail.com\n\nThis is my Patreon account if you like to support me - https://www.patreon.com/PraveenMohan\n\n#prambananramayana #praveenmohan #indonesia",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xQSylvhVSVI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/xQSylvhVSVI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/xQSylvhVSVI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/xQSylvhVSVI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/xQSylvhVSVI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "PraveenMohan",
+        "playlistId": "UUe3OmUXohXrXnNZSRl5Z9kA",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "xQSylvhVSVI"
+        },
+        "videoOwnerChannelTitle": "PraveenMohan",
+        "videoOwnerChannelId": "UCe3OmUXohXrXnNZSRl5Z9kA"
+      },
+      "contentDetails": {
+        "videoId": "xQSylvhVSVI",
+        "videoPublishedAt": "2024-06-07T12:36:46Z"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 633,
+    "resultsPerPage": 5
+  }
+}

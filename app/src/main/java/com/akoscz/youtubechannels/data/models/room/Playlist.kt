@@ -30,6 +30,33 @@ data class Playlist(
     val embedHtml: String
 )
 
+fun uploadsPlaylist(id: String, channelId: String, title: String, description: String): Playlist {
+    return Playlist(
+        id = id,
+        publishedAt = "",
+        channelId = channelId,
+        title = title,
+        description = description,
+        defaultThumbnailUrl = "",
+        defaultThumbnailWidth = 0,
+        defaultThumbnailHeight = 0,
+        mediumThumbnailUrl = "",
+        mediumThumbnailWidth = 0,
+        mediumThumbnailHeight = 0,
+        highThumbnailUrl = "",
+        highThumbnailWidth = 0,
+        highThumbnailHeight = 0,
+        standardThumbnailUrl = null,
+        standardThumbnailWidth = null,
+        standardThumbnailHeight = null,
+        maxresThumbnailUrl = null,
+        maxresThumbnailWidth = null,
+        maxresThumbnailHeight = null,
+        itemCount = 0,
+        embedHtml = ""
+    )
+}
+
 fun mapToPlaylist(channelPlaylist: ChannelPlaylist): Playlist {
     return Playlist(
         id = channelPlaylist.id,

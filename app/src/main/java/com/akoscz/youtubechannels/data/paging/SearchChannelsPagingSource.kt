@@ -39,7 +39,7 @@ class SearchChannelsPagingSource(
 
     // Allow key reuse when using the MockYoutubeApiService
     override val keyReuseSupported: Boolean
-        get() = (true)
+        get() = (channelsRepository.isMockApi())
 
     override fun getRefreshKey(state: PagingState<String, Channel>): String? {
         return state.anchorPosition?.let { anchorPosition ->

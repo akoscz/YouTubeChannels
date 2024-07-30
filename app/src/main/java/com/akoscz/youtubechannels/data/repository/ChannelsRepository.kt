@@ -11,6 +11,9 @@ import com.akoscz.youtubechannels.data.models.room.Video
 import com.akoscz.youtubechannels.data.models.room.mapToChannel
 import com.akoscz.youtubechannels.data.models.room.mapToChannelDetails
 import com.akoscz.youtubechannels.data.models.room.mapToPlaylist
+import com.akoscz.youtubechannels.data.models.room.mapToVideo
+import com.akoscz.youtubechannels.data.models.room.uploadsPlaylist
+import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +28,11 @@ class ChannelsRepository @Inject constructor(
     private val channelDetailsDao: ChannelDetailsDao,
     private val playlistsDao: PlaylistsDao
 ) {
+    fun isMockApi(): Boolean {
+        // if youtubeApiService instance of MockYoutubeApiService return true
+        return youtubeApiService is MockYoutubeApiService
+    }
+
     suspend fun subscribeToChannel(channel: Channel) {
         channelsDao.insert(channel)
     }
@@ -45,7 +53,48 @@ class ChannelsRepository @Inject constructor(
         return flowOf(emptyList())
     }
 
+    suspend fun getPlaylistVideos(playlistId: String, pageToken: String? = null): Pair<List<Video>, String?> {
+        println("getPlaylistVideos playlistId: $playlistId pageToken: $pageToken")
+        return withContext(Dispatchers.IO) {
+//            return@withContext emptyList<Video>() to null
+            // 1. Try to fetch from database
+
+            // 2. Fetch from API if not in database
+            try {
+                val playlistItemsResponse = youtubeApiService.getPlaylistItems(playlistId = playlistId)
+                if (playlistItemsResponse.items.isNotEmpty()) {
+                    val videos = playlistItemsResponse.items.map { playlistItem ->
+                        println("video id: ${playlistItem.contentDetails.videoId}")
+                        playlistItem.contentDetails.videoId
+                    }
+
+                    val videoIdsStr = videos.joinToString(",")
+                    println("getPlaylistVideos videoIdsStr: $videoIdsStr")
+                    val videosResponse = youtubeApiService.getVideos(
+                        videoIds = videoIdsStr,
+                        maxResults = playlistItemsResponse.pageInfo.resultsPerPage)
+
+                    if (videosResponse.items.isNotEmpty()) {
+                        val videosList = videosResponse.items.map { videoItem ->
+                            mapToVideo(videoItem)
+                        }
+                        return@withContext videosList to playlistItemsResponse.nextPageToken
+                    }
+                    // Return empty list if no video items
+                    return@withContext emptyList<Video>() to null
+                }
+                // Return empty list if no playlist items
+                return@withContext emptyList<Video>() to null
+            } catch (e: Exception) {
+                println("getPlaylistVideos Error: ${e.message}")
+                // Handle network or API errors
+                return@withContext emptyList<Video>() to null
+            }
+        }
+    }
+
     suspend fun getChannelDetails(channelId: String): ChannelDetails? {
+        println("getChannelDetails channelId: $channelId")
         return withContext(Dispatchers.IO) { // Wrap in withContext
             // 1. Try to fetch from database
             val channelDetailsFromDb = channelDetailsDao.getChannelDetails(channelId)
@@ -55,12 +104,20 @@ class ChannelsRepository @Inject constructor(
 
             // 2. Fetch from API if not in database
             try {
-                val response = youtubeApiService.getChannelDetails(id = channelId)
-                if (response.items.isNotEmpty()) {
-                    val channelDetailsItem = response.items[0]
+                val channelDetailsResponse = youtubeApiService.getChannelDetails(id = channelId)
+                if (channelDetailsResponse.items.isNotEmpty()) {
+                    val channelDetailsItem = channelDetailsResponse.items[0]
                     val channelDetails = mapToChannelDetails(channelDetailsItem)
                     channelDetailsDao.insert(channelDetails)
                     channelsDao.updateChannelDetailsId(channelId,channelDetails.id)
+                    val uploadsPlaylistId = channelDetails.uploadsPlaylistId
+                    val uploadsPlaylist = uploadsPlaylist(
+                        id = uploadsPlaylistId,
+                        channelId = channelId,
+                        title = "Uploads",
+                        description = "Videos uploaded to this channel"
+                    )
+                    playlistsDao.insertPlaylist(uploadsPlaylist)
                     return@withContext channelDetails
                 } else {
                     return@withContext null
@@ -83,6 +140,7 @@ class ChannelsRepository @Inject constructor(
 
 
     suspend fun getChannelPlaylists(channelId: String, pageToken: String? = null): Pair<List<Playlist>, String?> {
+        println("getChannelPlaylists channelId: $channelId pageToken: $pageToken")
         return withContext(Dispatchers.IO) {
             // 1. Try to fetch from database
             if (pageToken == null) { // If it's the first page, check the database

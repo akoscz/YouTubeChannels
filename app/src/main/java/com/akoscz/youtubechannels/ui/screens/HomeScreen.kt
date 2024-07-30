@@ -38,7 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.ui.MainActivity
-import com.akoscz.youtubechannels.ui.components.VideoCard
+import com.akoscz.youtubechannels.ui.components.VideoRow
 import com.akoscz.youtubechannels.ui.viewmodels.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -165,7 +165,7 @@ fun HomeScreen(
             )
         ) {
             items(videos) { video ->
-                VideoCard(video)
+                VideoRow(video)
             }
         }
     }
