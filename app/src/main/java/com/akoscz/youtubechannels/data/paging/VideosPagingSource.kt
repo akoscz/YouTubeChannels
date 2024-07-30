@@ -12,8 +12,9 @@ class VideosPagingSource(
 ) : PagingSource<String, Video>() {
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Video> {
         val pageToken = params.key
+        val maxResults = params.loadSize
         return try {
-            val (videos, nextPageToken) = repository.getPlaylistVideos(playlistId, pageToken)
+            val (videos, nextPageToken) = repository.getPlaylistVideos(playlistId, pageToken, maxResults)
             LoadResult.Page(
                 data = videos,
                 prevKey = pageToken,

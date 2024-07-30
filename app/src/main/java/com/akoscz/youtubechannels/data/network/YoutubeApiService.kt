@@ -7,7 +7,6 @@ import com.akoscz.youtubechannels.data.models.api.ChannelPlaylistItemsResponse
 import com.akoscz.youtubechannels.data.models.api.ChannelPlaylistsResponse
 import com.akoscz.youtubechannels.data.models.api.ChannelsSearchResponse
 import com.akoscz.youtubechannels.data.models.api.VideosResponse
-import com.akoscz.youtubechannels.data.models.room.Video
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -40,6 +39,7 @@ interface YoutubeApiService {
         @Query("part") part: String = "snippet,contentDetails,player",
         @Query("channelId") channelId: String,
         @Query("pageToken") pageToken: String? = null,
+        @Query("maxResults") maxResults: Int,
         @Query("key") apiKey: String = BuildConfig.API_KEY
     ): ChannelPlaylistsResponse
 
@@ -48,6 +48,7 @@ interface YoutubeApiService {
         @Query("part") part: String = "contentDetails",
         @Query("playlistId") playlistId: String,
         @Query("pageToken") pageToken: String? = null,
+        @Query("maxResults") maxResults: Int,
         @Query("key") apiKey: String = BuildConfig.API_KEY
     ): ChannelPlaylistItemsResponse
 
@@ -62,15 +63,15 @@ interface YoutubeApiService {
     // Add more endpoints as needed
 }
 
-suspend fun simulateNetworkDelay() {
-    println("Simulating network delay...")
-    delay(1500) // Introduce a 1.5-second delay (adjust as needed)
-}
 
 /**
  * Mock implementation of the YoutubeApiService
+ * Returns mock responses from JSON files in the assets folder
+ * Used to test the app without internet connection
  */
 class MockYoutubeApiService(@ApplicationContext private val context: Context) : YoutubeApiService {
+    // Create a single Moshi instance for reuse
+    private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
     override suspend fun searchChannels(
         part: String,
@@ -80,18 +81,12 @@ class MockYoutubeApiService(@ApplicationContext private val context: Context) : 
         maxResults: Int,
         apiKey: String
     ): ChannelsSearchResponse {
-        println("MockYoutubeApiService.searchChannels($query) called")
+        println("MockYoutubeApiService.searchChannels($query, maxResults: $maxResults, pageToken: $pageToken) called")
         simulateNetworkDelay()
 
-        try {
-            val jsonString = context.assets.open("mock_channels_searchListResponse.json").bufferedReader().use { it.readText() }
-            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-            val adapter = moshi.adapter(ChannelsSearchResponse::class.java)
-            return adapter.fromJson(jsonString) ?: throw Exception("Failed to parse JSON")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
-        }
+        return loadMockResponse(
+            filename = "mock_channels_searchListResponse.json",
+            responseClass = ChannelsSearchResponse::class.java)
     }
 
     override suspend fun getChannelDetails(
@@ -102,44 +97,33 @@ class MockYoutubeApiService(@ApplicationContext private val context: Context) : 
         println("MockYoutubeApiService.getChannelDetails($id) called")
         simulateNetworkDelay()
 
-        try{
-            val jsonString = context.assets.open("mock_channel_details_channelListResponse.json").bufferedReader().use { it.readText() }
-            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-            val adapter = moshi.adapter(ChannelDetailsResponse::class.java)
-            return adapter.fromJson(jsonString) ?: throw Exception("Failed to parse JSON")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
-        }
+        return loadMockResponse(
+            filename = "mock_channel_details_channelListResponse.json",
+            responseClass = ChannelDetailsResponse::class.java)
     }
 
-    override suspend fun getChannelPlaylists(
-        part: String,
-        channelId: String,
-        pageToken: String?,
-        apiKey: String
+    override suspend fun getChannelPlaylists(part: String,
+                                             channelId: String,
+                                             pageToken: String?,
+                                             maxResults: Int,
+                                             apiKey: String
     ): ChannelPlaylistsResponse {
-        println("MockYoutubeApiService.getChannelPlaylists($channelId) called")
+        println("MockYoutubeApiService.getChannelPlaylists($channelId, maxResults: $maxResults, pageToken: $pageToken) called")
         simulateNetworkDelay()
 
-        try{
-            val jsonString = context.assets.open("mock_channel_playlistListResponse.json").bufferedReader().use { it.readText() }
-            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-            val adapter = moshi.adapter(ChannelPlaylistsResponse::class.java)
-            return adapter.fromJson(jsonString) ?: throw Exception("Failed to parse JSON")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
-        }
+        return loadMockResponse(
+            filename = "mock_channel_playlistListResponse.json",
+            responseClass = ChannelPlaylistsResponse::class.java)
     }
 
     override suspend fun getPlaylistItems(
         part: String,
         playlistId: String,
         pageToken: String?,
+        maxResults: Int,
         apiKey: String
     ): ChannelPlaylistItemsResponse {
-        println("MockYoutubeApiService.getPlaylistItems($playlistId) called")
+        println("MockYoutubeApiService.getPlaylistItems($playlistId, maxResults: $maxResults, pageToken: $pageToken) called")
         simulateNetworkDelay()
 
         val mockFilename = if (playlistId.startsWith("UU")) {
@@ -148,16 +132,9 @@ class MockYoutubeApiService(@ApplicationContext private val context: Context) : 
             "mock_playlistId_playlistItemListResponse.json"
         }
 
-        try{
-            val jsonString = context.assets.open(mockFilename).bufferedReader().use { it.readText() }
-            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-            val adapter = moshi.adapter(ChannelPlaylistItemsResponse::class.java)
-            return adapter.fromJson(jsonString) ?: throw Exception("Failed to parse JSON")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
-        }
-
+        return loadMockResponse(
+            filename = mockFilename,
+            responseClass = ChannelPlaylistItemsResponse::class.java)
     }
 
     override suspend fun getVideos(
@@ -166,17 +143,29 @@ class MockYoutubeApiService(@ApplicationContext private val context: Context) : 
         maxResults: Int,
         apiKey: String
     ): VideosResponse {
-        println("MockYoutubeApiService.getVideos($videoIds) maxResults: $maxResults called")
+        println("MockYoutubeApiService.getVideos($videoIds, maxResults: $maxResults) called")
         simulateNetworkDelay()
 
-        try{
-            val jsonString = context.assets.open("mock_uploads_videoListResponse.json").bufferedReader().use { it.readText() }
-            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-            val adapter = moshi.adapter(VideosResponse::class.java)
-            return adapter.fromJson(jsonString) ?: throw Exception("Failed to parse JSON")
+        return loadMockResponse(
+            filename = "mock_uploads_videoListResponse.json",
+            responseClass = VideosResponse::class.java)
+    }
+
+    // Helper function to load and parse mock responses
+    private fun <T> loadMockResponse(filename: String, responseClass: Class<T>): T {
+        return try {
+            context.assets.open(filename).bufferedReader().use { it.readText() }.let { jsonString ->
+                moshi.adapter(responseClass).fromJson(jsonString) ?: throw Exception("Failed to parse JSON")
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             throw e
         }
     }
+
+    private suspend fun simulateNetworkDelay() {
+        println("Simulating network delay...")
+        delay(1500) // Introduce a 1.5-second delay (adjust as needed)
+    }
+
 }

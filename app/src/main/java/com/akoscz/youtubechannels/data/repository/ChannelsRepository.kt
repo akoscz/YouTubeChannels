@@ -53,7 +53,7 @@ class ChannelsRepository @Inject constructor(
         return flowOf(emptyList())
     }
 
-    suspend fun getPlaylistVideos(playlistId: String, pageToken: String? = null): Pair<List<Video>, String?> {
+    suspend fun getPlaylistVideos(playlistId: String, pageToken: String? = null, maxResults: Int): Pair<List<Video>, String?> {
         println("getPlaylistVideos playlistId: $playlistId pageToken: $pageToken")
         return withContext(Dispatchers.IO) {
 //            return@withContext emptyList<Video>() to null
@@ -61,7 +61,7 @@ class ChannelsRepository @Inject constructor(
 
             // 2. Fetch from API if not in database
             try {
-                val playlistItemsResponse = youtubeApiService.getPlaylistItems(playlistId = playlistId)
+                val playlistItemsResponse = youtubeApiService.getPlaylistItems(playlistId = playlistId, maxResults = maxResults)
                 if (playlistItemsResponse.items.isNotEmpty()) {
                     val videos = playlistItemsResponse.items.map { playlistItem ->
                         println("video id: ${playlistItem.contentDetails.videoId}")
@@ -130,16 +130,7 @@ class ChannelsRepository @Inject constructor(
         }
     }
 
-    suspend fun getChannelVideos(channelId: String): Flow<List<Video>> {
-        // 1. Try to fetch from database
-
-        // 2. Fetch from API if not in database
-        return flowOf(emptyList())
-    }
-
-
-
-    suspend fun getChannelPlaylists(channelId: String, pageToken: String? = null): Pair<List<Playlist>, String?> {
+    suspend fun getChannelPlaylists(channelId: String, pageToken: String? = null, maxResults: Int): Pair<List<Playlist>, String?> {
         println("getChannelPlaylists channelId: $channelId pageToken: $pageToken")
         return withContext(Dispatchers.IO) {
             // 1. Try to fetch from database
@@ -152,7 +143,7 @@ class ChannelsRepository @Inject constructor(
 
             // 2. Fetch from API if not in database
             try {
-                val response = youtubeApiService.getChannelPlaylists(channelId = channelId)
+                val response = youtubeApiService.getChannelPlaylists(channelId = channelId, maxResults = maxResults)
                 if (response.items.isNotEmpty()) {
                     val playlists = response.items.map { playlistItem ->
                         mapToPlaylist(playlistItem)
@@ -170,8 +161,8 @@ class ChannelsRepository @Inject constructor(
         }
     }
 
-    suspend fun searchChannels(query: String, pageToken: String?, maxResults: Int = 10): Pair<List<Channel>, String?> {
-
+    suspend fun searchChannels(query: String, pageToken: String?, maxResults: Int): Pair<List<Channel>, String?> {
+        println("searchChannels query: $query, maxResults: $maxResults, pageToken: $pageToken")
         return withContext(Dispatchers.IO) {
             try {
                 val response = youtubeApiService.searchChannels(
@@ -180,7 +171,7 @@ class ChannelsRepository @Inject constructor(
                     pageToken = pageToken,
                     maxResults = maxResults
                 )
-//                println("searchChannels response: $response")
+                // println("searchChannels response: $response")
                 if (response.items.isNotEmpty()) {
                     val channels = response.items.map { channelItem ->
                         mapToChannel(channelItem)

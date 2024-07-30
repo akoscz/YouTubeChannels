@@ -12,8 +12,9 @@ class PlaylistsPagingSource(
 ) : PagingSource<String, Playlist>() {
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Playlist> {
         val pageToken = params.key
+        val maxResults = params.loadSize
         return try {
-            val (playlists, nextPageToken) = repository.getChannelPlaylists(channelId, pageToken)
+            val (playlists, nextPageToken) = repository.getChannelPlaylists(channelId, pageToken, maxResults)
             LoadResult.Page(
                 data = playlists,
                 prevKey = pageToken,
