@@ -26,15 +26,9 @@ data class ChannelDetailsItemSnippet(
     val description: String,
     val customUrl: String? = null,
     val publishedAt: String,
-    val thumbnails: ChannelDetailsItemSnippetThumbnails,
+    val thumbnails: Thumbnails,
     val localized: Localized,
     val country: String? = null
-)
-
-data class ChannelDetailsItemSnippetThumbnails(
-    val default: Thumbnail,
-    val medium: Thumbnail,
-    val high: Thumbnail
 )
 
 data class ChannelDetailsItemContentDetails(

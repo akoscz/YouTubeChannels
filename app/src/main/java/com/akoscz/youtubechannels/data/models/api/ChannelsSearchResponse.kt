@@ -30,18 +30,8 @@ data class ChannelSearchItemSnippet(
     val channelId: String,
     val title: String,
     val description: String,
-    val thumbnails: ChannelSearchItemSnippetThumbnails,
+    val thumbnails: Thumbnails,
     val channelTitle: String,
     val liveBroadcastContent: String,
     val publishTime: String
-)
-
-data class ChannelSearchItemSnippetThumbnails(
-    val default: SearchItemSnippetThumbnail,
-    val medium: SearchItemSnippetThumbnail,
-    val high: SearchItemSnippetThumbnail
-)
-
-data class SearchItemSnippetThumbnail(
-    val url: String
 )

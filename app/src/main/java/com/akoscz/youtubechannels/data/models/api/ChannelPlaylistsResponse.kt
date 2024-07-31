@@ -26,17 +26,9 @@ data class ChannelPlaylistSnippet(
     val channelId: String,
     val title: String,
     val description: String,
-    val thumbnails: ChannelPlaylistSnippetThumbnails,
+    val thumbnails: Thumbnails,
     val channelTitle: String,
     val localized: Localized
-)
-
-data class ChannelPlaylistSnippetThumbnails(
-    val default: Thumbnail,
-    val medium: Thumbnail,
-    val high: Thumbnail,
-    val standard: Thumbnail?,
-    val maxres: Thumbnail?
 )
 
 data class ChannelPlaylistContentDetails(

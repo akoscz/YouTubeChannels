@@ -47,7 +47,7 @@ data class VideoItemSnippet(
     val channelId: String,
     val title: String,
     val description: String,
-    val thumbnails: VideoItemThumbnails,
+    val thumbnails: Thumbnails,
     val channelTitle: String,
     val categoryId: String,
     val defaultLanguage: String,
@@ -56,10 +56,3 @@ data class VideoItemSnippet(
     val defaultAudioLanguage: String
 )
 
-data class VideoItemThumbnails(
-    val default: Thumbnail,
-    val medium: Thumbnail,
-    val high: Thumbnail,
-    val standard: Thumbnail,
-    val maxres: Thumbnail
-)
