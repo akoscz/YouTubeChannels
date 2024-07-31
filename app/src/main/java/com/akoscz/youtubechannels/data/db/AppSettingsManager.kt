@@ -6,6 +6,17 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/**
+ * Helper class to manage application settings.
+ *
+ * Application settings are stored in SharedPreferences and can be accessed and modified
+ * through this class.
+ *
+ * Note that the setMockDataEnabled() method uses commit() to ensure that the write operation is
+ * performed synchronously. This is done to ensure that the settings are updated before the app
+ * is restarted.
+ *
+ */
 class AppSettingsManager @Inject constructor(@ApplicationContext private val context: Context) {
     private val sharedPreferences = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
@@ -27,7 +38,12 @@ class AppSettingsManager @Inject constructor(@ApplicationContext private val con
         return sharedPreferences.getString("selected_theme", "system")
     }
 }
-
+/**
+ * Helper function to get an instance of AppSettingsManager.
+ *
+ * This uses Hilt's EntryPointAccessors to get the AppSettingsManager instance using the
+ * application context.
+ */
 object AppSettingsHelper {
     fun getInstance(context: Context): AppSettingsManager {
         val hiltEntryPoint = EntryPointAccessors.fromApplication(

@@ -6,6 +6,9 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Playlist
 
+/**
+ * Room database definition for the app.
+ */
 @Database(
     entities = [
         Channel::class,

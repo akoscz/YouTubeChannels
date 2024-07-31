@@ -1,5 +1,9 @@
 package com.akoscz.youtubechannels.data.models.api
 
+/**
+ * Data classes for parsing JSON responses from the YouTube Data API
+ * YoutubeApiService.getChannelDetails(channelId: String) endpoint.
+ */
 data class ChannelDetailsResponse(
     val kind: String,
     val etag: String,

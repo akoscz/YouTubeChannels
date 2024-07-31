@@ -18,6 +18,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+/**
+ * Dagger Hilt Module for providing network-related dependencies.
+ *
+ * Note that the provider for YoutubeApiService determines whether to use the real or mock API
+ * based on the value of the isMockDataEnabled flag in the AppSettingsManager.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -51,7 +57,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl("https://www.googleapis.com/youtube/v3/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(okHttpClient) // Use the OkHttpClient with logging interceptor
+            .client(okHttpClient)
             .build()
     }
 

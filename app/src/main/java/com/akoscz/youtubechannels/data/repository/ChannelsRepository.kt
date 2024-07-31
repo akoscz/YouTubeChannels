@@ -22,6 +22,11 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Repository class for managing data operations related to channels.
+ *
+ * This class provides methods to interact with the local database and the remote API.
+ */
 class ChannelsRepository @Inject constructor(
     private val youtubeApiService: YoutubeApiService,
     private val channelsDao: ChannelsDao,

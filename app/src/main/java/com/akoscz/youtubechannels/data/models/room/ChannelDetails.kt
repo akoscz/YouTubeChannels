@@ -5,6 +5,12 @@ import androidx.room.PrimaryKey
 import com.akoscz.youtubechannels.data.models.api.ChannelDetailsItem
 import java.util.Locale
 
+/**
+ * ChannelDetails are stored in the "channel_details" table.
+ *
+ * The "id" column in the "channel_details" table references the "id" column in the "channels" table.
+ *
+ */
 @Entity(tableName = "channel_details")
 class ChannelDetails (
     @PrimaryKey val id: String, // This should match the Channel's id
@@ -30,6 +36,9 @@ class ChannelDetails (
     val bannerExternalUrl: String? = null
 )
 
+/**
+ * Helper function to map a ChannelDetailsItem to a ChannelDetails entity.
+ */
 fun mapToChannelDetails(channelDetailsItem: ChannelDetailsItem): ChannelDetails {
     return ChannelDetails(
         id = channelDetailsItem.id,
@@ -56,7 +65,11 @@ fun mapToChannelDetails(channelDetailsItem: ChannelDetailsItem): ChannelDetails 
     )
 }
 
-// Extension function for ChannelDetails
+// Extension functions
+
+/**
+ * Helper function to get a modified banner URL based on the screen width.
+ */
 fun ChannelDetails.getModifiedBannerUrl(screenWidthDp: Int): String {
     val suffix = when {
         screenWidthDp <= 320 -> "=w320-fcrop64=1,32b75a57cd48a5a8-k-c0xffffffff-no-nd-rj"
@@ -69,19 +82,35 @@ fun ChannelDetails.getModifiedBannerUrl(screenWidthDp: Int): String {
     return bannerExternalUrl + suffix
 }
 
+/**
+ * Helper function to get a formatted view count.
+ */
 fun ChannelDetails.getFormattedViewCount(): String {
     return formatCount(viewCount.toLongOrNull())
 }
 
+/**
+ * Helper function to get a formatted video count.
+ */
 fun ChannelDetails.getFormattedVideoCount(): String {
     return formatCount(videoCount.toLongOrNull())
 }
 
+/**
+ * Helper function to get a formatted subscriber count.
+ */
 fun ChannelDetails.getFormattedSubscriberCount(): String {
     return formatCount(subscriberCount.toLongOrNull())
 }
 
-private fun formatCount(count: Long?): String {
+/**
+ * Helper function to format a count.
+ *
+ * Numbers over 1 million are formatted as 1.2M.
+ * Numbers over 1 thousand are formatted as 1.2K.
+ * All other numbers are formatted as is.
+ */
+fun formatCount(count: Long?): String {
     return when {
         count == null -> ""
         count >= 1_000_000 -> String.format(Locale.getDefault(), "%.1fM", count / 1_000_000.0)

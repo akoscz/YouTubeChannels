@@ -6,7 +6,13 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import retrofit2.HttpException
 
-
+/**
+ * PagingSource for searching channels.
+ *
+ * Used to handle pagination of the search results.
+ *
+ * Uses the ChannelsRepository to fetch the channels data either from the database or the network.
+ */
 class SearchChannelsPagingSource(
     private val channelsRepository: ChannelsRepository,
     private val query: String

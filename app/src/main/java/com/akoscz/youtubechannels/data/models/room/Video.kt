@@ -10,6 +10,9 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 
+/**
+ * This class represents a video in the database and is stored in the "videos" table.
+ */
 @Entity(tableName = "videos")
 data class Video(
     @PrimaryKey val id: String,
@@ -44,6 +47,9 @@ data class Video(
     val embedHtml: String,
 )
 
+/**
+ * Helper function to map a VideoItem to a Video entity.
+ */
 fun mapToVideo(videoItem: VideoItem): Video {
     return Video(
         id = videoItem.id,
@@ -80,7 +86,8 @@ fun mapToVideo(videoItem: VideoItem): Video {
 }
 
 /**
- * Formats the duration of the video in a human-readable format.
+ * Extension function to Video class that formats the duration of the video in a human-readable format.
+ *
  * hh:mm:ss format is used for videos longer than an hour.
  * mm:ss format is used for videos shorter than an hour.
  */
@@ -101,33 +108,32 @@ fun Video.formattedDuration(): String {
     }
 }
 
+/**
+ * Format the view count of the video in a shortened format.
+ */
 fun Video.formattedViewCount(): String {
     return formatCount(viewCount)
 }
 
+/**
+ * Format the like count of the video in a shortened format.
+ */
 fun Video.formattedLikeCount(): String {
     return formatCount(likeCount)
 }
 
+/**
+ * Format the favorite count of the video in a shortened format.
+ */
 fun Video.formattedFavoriteCount(): String {
     return formatCount(favoriteCount)
 }
 
+/**
+ * Format the comment count of the video in a shortened format.
+ */
 fun Video.formattedCommentCount(): String {
     return formatCount(commentCount)
-}
-
-/**
- * Formats the count in a human-readable format.
- * Shortens large numbers to one decimal place.
- */
-private fun formatCount(count: Long?): String {
-    return when {
-        count == null -> ""
-        count >= 1_000_000 -> String.format(Locale.getDefault(), "%.1fM", count / 1_000_000.0)
-        count >= 1_000 -> String.format(Locale.getDefault(), "%.1fK", count / 1_000.0)
-        else -> count.toString()
-    }
 }
 
 /**

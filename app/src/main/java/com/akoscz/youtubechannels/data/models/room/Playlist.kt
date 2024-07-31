@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.akoscz.youtubechannels.data.models.api.ChannelPlaylist
 
+/**
+ * This class represents a playlist in the database and are stored in the "playlists" table.
+ */
 @Entity(tableName = "playlists")
 data class Playlist(
     @PrimaryKey val id: String,
@@ -30,6 +33,9 @@ data class Playlist(
     val embedHtml: String
 )
 
+/**
+ * Helper function to create a playlist with the given parameters.
+ */
 fun uploadsPlaylist(id: String, channelId: String, title: String, description: String): Playlist {
     return Playlist(
         id = id,
@@ -57,6 +63,9 @@ fun uploadsPlaylist(id: String, channelId: String, title: String, description: S
     )
 }
 
+/**
+ * Helper function to map a ChannelPlaylist to a Playlist entity.
+ */
 fun mapToPlaylist(channelPlaylist: ChannelPlaylist): Playlist {
     return Playlist(
         id = channelPlaylist.id,

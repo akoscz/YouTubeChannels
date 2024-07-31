@@ -6,6 +6,13 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.Video
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 
+/**
+ * PagingSource for videos.
+ *
+ * Used to handle pagination of videos.
+ *
+ * Uses the ChannelsRepository to fetch videos from the database or the network.
+ */
 class VideosPagingSource(
     private val repository: ChannelsRepository,
     private val playlistId: String
