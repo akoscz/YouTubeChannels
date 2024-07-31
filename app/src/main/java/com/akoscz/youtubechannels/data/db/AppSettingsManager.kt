@@ -21,6 +21,9 @@ class AppSettingsManager @Inject constructor(@ApplicationContext private val con
     private val sharedPreferences = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
     fun isMockDataEnabled(): Boolean {
+        if (isForceMockData()) {
+            return true
+        }
         return sharedPreferences.getBoolean("use_mock_data", true) // Default to true (mock data)
     }
 
@@ -36,6 +39,17 @@ class AppSettingsManager @Inject constructor(@ApplicationContext private val con
 
     fun getTheme(): String? {
         return sharedPreferences.getString("selected_theme", "system")
+    }
+
+    /**
+     * This is used to force the use of mock data when the API KEY is missing.
+     */
+    fun forceMockData(enabled: Boolean) {
+        sharedPreferences.edit().putBoolean("force_mock_data", enabled).apply()
+    }
+
+    fun isForceMockData(): Boolean {
+        return sharedPreferences.getBoolean("force_mock_data", false)
     }
 }
 /**

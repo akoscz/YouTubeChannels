@@ -34,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
 import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
@@ -56,7 +57,17 @@ fun SearchChannelsScreen(
     navController: NavHostController,
     viewModel: SearchChannelsViewModel = hiltViewModel()
 ) {
-    var query by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val appSettingsManager = AppSettingsHelper.getInstance(context)
+
+    // Use the default query value based on the mock data setting
+    val defaultQueryValue = if (appSettingsManager.isMockDataEnabled()) {
+        "{MockData} Ancient Aliens"
+    } else {
+        ""
+    }
+
+    var query by remember { mutableStateOf(defaultQueryValue) }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },

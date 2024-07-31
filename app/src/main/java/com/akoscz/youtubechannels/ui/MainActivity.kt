@@ -59,11 +59,13 @@ fun AppContent() {
     var showErrorDialog by remember { mutableStateOf(false) }
     var apiKeyChecked by remember { mutableStateOf(false) } // Flag to track API key check
     val context = LocalContext.current
+    val appSettingsManager = AppSettingsHelper.getInstance(context)
 
     // Check if API key is empty
     LaunchedEffect(Unit) {
         if (BuildConfig.API_KEY.isEmpty()) {
             showErrorDialog = true
+            appSettingsManager.forceMockData(true) // Force to use mock data since API key is missing
         }
         apiKeyChecked = true // Mark API key check as complete
     }
@@ -72,14 +74,15 @@ fun AppContent() {
         if (showErrorDialog) {
             AlertDialog(
                 onDismissRequest = { showErrorDialog = false },
-                title = { Text("Error") },
+                title = { Text("Alert!") },
                 text = {
-                    Text("API key is missing. Please check your local.properties file 'api_key' value.")
+                    Text("API key is missing.\n" +
+                            "Please set \"api_key\" in local.properties.\n" +
+                            "Mock data will be used.")
                 },
                 confirmButton = {
                     Button(onClick = {
                         showErrorDialog = false
-                        (context as? Activity)?.finish() // Close the Activity
                     }) {
                         Text("OK")
                     }
@@ -90,7 +93,6 @@ fun AppContent() {
 
         val navController = rememberNavController()
         val snackbarHostState = remember { SnackbarHostState() }
-        val appSettingsManager = AppSettingsHelper.getInstance(context)
         val theme = appSettingsManager.getTheme()
         val colorScheme = when (theme) {
             "system" ->

@@ -66,6 +66,7 @@ fun HomeScreen(
                         onDismissRequest = { showMenu = false }
                     ) {
                         DropdownMenuItem(
+                            enabled = !appSettingsManager.isForceMockData(),
                             text = {
                                 Text (
                                     if (appSettingsManager.isMockDataEnabled())
