@@ -149,9 +149,12 @@ Ensure your `local.properties` file includes the necessary configuration for ```
 ## Usage
 
 1. Open the app on your Android device.
-2. Browse through the list of popular YouTube channels.
+2. Navigate to the Search tab. 
 3. Use the search bar to find channels by name.
-4. Tap on a channel to view more details and recent uploads.
+4. Browse through the list of matched YouTube channels.
+5. Follow channels your interested in.
+6. Navigate to the Following tab. 
+7. Tap on a channel to view more details and recent uploads.
 
 ## Contributing
 
