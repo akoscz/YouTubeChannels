@@ -40,7 +40,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubscribedChannelsScreen(
     snackbarHostState: SnackbarHostState,
@@ -49,6 +48,22 @@ fun SubscribedChannelsScreen(
 ) {
     val channels by viewModel.subscribedChannels.collectAsState(initial = emptyList())
 
+    SubscribedChannelsScreen(
+        snackbarHostState = snackbarHostState,
+        navController = navController,
+        channels = channels,
+        unsubscribeFromChannel = viewModel::unsubscribeFromChannel
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SubscribedChannelsScreen(
+    snackbarHostState: SnackbarHostState,
+    navController: NavHostController,
+    channels: List<Channel>,
+    unsubscribeFromChannel: (Channel) -> Unit,
+) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar ={
@@ -83,7 +98,7 @@ fun SubscribedChannelsScreen(
                     ) { _, channel ->
                         SwipeableChannelRow(
                             channel,
-                            onDelete = viewModel::deleteChannel,
+                            onDelete = unsubscribeFromChannel,
                             onChannelClick = { channelId, channelTitle ->
                                 navController.navigate("channel_details/$channelId $channelTitle") }
                         )
@@ -94,102 +109,37 @@ fun SubscribedChannelsScreen(
     }
 }
 
-
 @Preview
 @Composable
 fun ChannelsListScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
-    val context = LocalContext.current
-    val mockYoutubeApiService = MockYoutubeApiService(context)
 
-    val mockChannelDetailsDao = object : ChannelDetailsDao {
-        override suspend fun insert(channelDetails: ChannelDetails) {
-            // Do nothing
-        }
+    val mockChannels = listOf(
+        Channel(
+            id = "1",
+            title = "Channel 1",
+            description = "Description 1",
+            thumbnailDefaultUrl = "https://example.com/channel1.jpg",
+            thumbnailHighUrl = "https://example.com/channel1_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
+            channelDetailsId = "1"
+        ),
+        Channel(
+            id = "2",
+            title = "Channel 2",
+            description = "Description 2",
+            thumbnailDefaultUrl = "https://example.com/channel2.jpg",
+            thumbnailHighUrl = "https://example.com/channel2_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel2_medium.jpg",
+            channelDetailsId = "2"
+        )
+    )
 
-        override suspend fun delete(channelDetails: ChannelDetails) {
-            // Do nothing
-        }
-
-        override suspend fun getChannelDetails(channelId: String): ChannelDetails {
-            return ChannelDetails(
-                id = "1",
-                title = "Channel 1",
-                description = "Description 1",
-                customUrl = "https://example.com/channel1",
-                publishedAt = "2022-01-01T00:00:00Z",
-                thumbnailDefaultUrl = "https://example.com/channel1.jpg",
-                thumbnailDefaultWidth = 16,
-                thumbnailDefaultHeight = 16,
-                thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
-                thumbnailMediumWidth = 32,
-                thumbnailMediumHeight = 32,
-                thumbnailHighUrl = "https://example.com/channel1_high.jpg",
-                thumbnailHighWidth = 64,
-                thumbnailHighHeight = 64,
-                viewCount = "10",
-                subscriberCount = "1000",
-                hiddenSubscriberCount = false,
-                videoCount = "100",
-                likesPlaylistId = "1",
-                uploadsPlaylistId = "2",
-                bannerExternalUrl = "https://example.com/banner.jpg"
-            )
-        }
-    }
-
-    val mockChannelsDao =  object : ChannelsDao {
-        override suspend fun insert(channel: Channel) {
-            // Do nothing
-        }
-
-        override suspend fun delete(channel: Channel) {
-            // Do nothing
-        }
-
-        override fun getAllChannels(): Flow<List<Channel>> {
-            return flowOf(
-                listOf(
-                    Channel(
-                        id = "1",
-                        title = "Channel 1",
-                        description = "Description 1",
-                        thumbnailDefaultUrl = "https://example.com/channel1.jpg",
-                        thumbnailHighUrl = "https://example.com/channel1_high.jpg",
-                        thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
-                        channelDetailsId = "1"
-                    ),
-                    Channel(
-                        id = "2",
-                        title = "Channel 2",
-                        description = "Description 2",
-                        thumbnailDefaultUrl = "https://example.com/channel2.jpg",
-                        thumbnailHighUrl = "https://example.com/channel2_high.jpg",
-                        thumbnailMediumUrl = "https://example.com/channel2_medium.jpg",
-                        channelDetailsId = "2"
-                    )
-                )
-            )
-        }
-
-        override suspend fun updateChannelDetailsId(channelId: String, detailsId: String) {
-            // Do nothing
-        }
-    }
-
-    val mockPlaylistsDao = object : PlaylistsDao {
-        override suspend fun insertPlaylist(playlist: Playlist) {
-            // Do nothing
-        }
-
-        override fun getAllPlaylists(channelId: String): Flow<List<Playlist>> {
-            // Return empty list
-            return flowOf(emptyList())
-        }
-    }
-
-    val viewModel = SubscribedChannelsViewModel(
-        ChannelsRepository(mockYoutubeApiService, mockChannelsDao, mockChannelDetailsDao, mockPlaylistsDao))
-    SubscribedChannelsScreen(snackbarHostState, navController, viewModel)
+    SubscribedChannelsScreen(
+        snackbarHostState = snackbarHostState,
+        navController = navController,
+        channels = mockChannels,
+        unsubscribeFromChannel = {}
+    )
 }

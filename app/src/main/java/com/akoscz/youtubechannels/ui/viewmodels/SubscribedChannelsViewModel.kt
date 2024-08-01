@@ -22,7 +22,7 @@ class SubscribedChannelsViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    fun deleteChannel(channel: Channel) {
+    fun unsubscribeFromChannel(channel: Channel) {
         viewModelScope.launch {
             repository.unsubscribeFromChannel(channel)
         }
