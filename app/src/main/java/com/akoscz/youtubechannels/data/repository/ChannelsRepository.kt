@@ -140,7 +140,7 @@ class ChannelsRepository @Inject constructor(
         return withContext(Dispatchers.IO) {
             // 1. Try to fetch from database
             if (pageToken == null) { // If it's the first page, check the database
-                val playlistsFromDb = playlistsDao.getAllPlaylists(channelId).firstOrNull()
+                val playlistsFromDb = playlistsDao.getCustomPlaylists(channelId).firstOrNull()
                 if (playlistsFromDb?.isNotEmpty() == true) {
                     return@withContext playlistsFromDb to null // Return if found in database
                 }

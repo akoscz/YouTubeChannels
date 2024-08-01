@@ -12,9 +12,12 @@ interface PlaylistsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlaylist(playlist: Playlist)
 
-    @Query("SELECT * FROM playlists WHERE channelId = :channelId")
-    fun getAllPlaylists(channelId: String): Flow<List<Playlist>>
+    @Query("SELECT * FROM playlists WHERE channelId = :channelId AND title != 'Uploads'")
+    fun getCustomPlaylists(channelId: String): Flow<List<Playlist>>
 
+    @Query("SELECT * FROM playlists WHERE channelId = :channelId AND title = 'Uploads'")
+    fun getUploadsPlaylist(channelId: String): Flow<Playlist?>
+    
     suspend fun insertAll(playlists: List<Playlist>) {
         playlists.forEach {
             insertPlaylist(it)
