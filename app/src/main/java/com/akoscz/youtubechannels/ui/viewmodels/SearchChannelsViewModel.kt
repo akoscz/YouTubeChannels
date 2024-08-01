@@ -21,7 +21,10 @@ import javax.inject.Inject
 class SearchChannelsViewModel @Inject constructor(
     private val channelsRepository: ChannelsRepository,
 ) : ViewModel() {
+
     private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
     private val _searchResults = MutableStateFlow<PagingData<Channel>>(PagingData.empty())
     val searchResults: StateFlow<PagingData<Channel>> = _searchResults.asStateFlow()
 
@@ -37,6 +40,10 @@ class SearchChannelsViewModel @Inject constructor(
             }
             println("Search results updated: ${_searchResults.value}")
         }
+    }
+
+    fun updateSearchQuery(newQuery: String) {
+        _searchQuery.value = newQuery
     }
 
     fun subscribeToChannel(channel: Channel) {

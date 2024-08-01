@@ -19,10 +19,10 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.akoscz.youtubechannels.data.db.AppSettingsHelper
@@ -50,7 +51,6 @@ import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchChannelsScreen(
     snackbarHostState: SnackbarHostState,
@@ -61,14 +61,35 @@ fun SearchChannelsScreen(
     val appSettingsManager = AppSettingsHelper.getInstance(context)
 
     // Use the default query value based on the mock data setting
-    val defaultQueryValue = if (appSettingsManager.isMockDataEnabled()) {
-        "{MockData} Ancient Aliens"
-    } else {
-        ""
+    if (appSettingsManager.isMockDataEnabled()) {
+        viewModel.updateSearchQuery("Ancient Aliens")
     }
 
-    var query by remember { mutableStateOf(defaultQueryValue) }
+    val query by viewModel.searchQuery.collectAsState()
+    val lazySearchResults: LazyPagingItems<Channel> = viewModel.searchResults.collectAsLazyPagingItems()
 
+    SearchChannelsScreen(
+        snackbarHostState = snackbarHostState,
+        navController = navController,
+        query = query,
+        searchOnClicked = viewModel::searchChannels,
+        updateSearchQuery = viewModel::updateSearchQuery,
+        subscribeToChannel = viewModel::subscribeToChannel,
+        lazySearchResults = lazySearchResults
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchChannelsScreen(
+    snackbarHostState: SnackbarHostState,
+    navController: NavHostController,
+    query: String,
+    searchOnClicked: (String) -> Unit,
+    updateSearchQuery: (String) -> Unit,
+    subscribeToChannel: (Channel) -> Unit,
+    lazySearchResults: LazyPagingItems<Channel>
+    ) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
@@ -92,100 +113,30 @@ fun SearchChannelsScreen(
             // Search bar
             SearchBar(
                 searchText = query,
-                onSearchTextChanged = { query = it },
-                viewModel = viewModel
+                onSearchTextChanged = updateSearchQuery,
+                searchOnClicked = searchOnClicked
             )
 
-            val lazySearchResults: LazyPagingItems<Channel> = viewModel.searchResults.collectAsLazyPagingItems()
-
             // Search results list
-            lazySearchResults.let { results ->
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(results.itemCount) {
-                        val result = results[it]
-                        if (result != null) {
-                            ChannelSearchItemRow(result)
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(lazySearchResults.itemCount) { index ->
+                    val channel = lazySearchResults[index]
+                    if (channel != null) {
+                        ChannelSearchItemRow(channel, subscribeToChannel)
+                    }
+                }
+                when (val loadState = lazySearchResults.loadState.refresh) {
+                    is LoadState.Loading -> {
+                        item {
+                            Text("Loading...")
                         }
                     }
-
-                    // Handle load state
-                    when (val refreshState = results.loadState.refresh) {
-                        is LoadState.Loading -> {
-                            // Handle initial refresh loading state
-                            item {
-                                Text("Refreshing data...")
-                                CircularProgressIndicator(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp)
-                                        .wrapContentWidth(Alignment.CenterHorizontally)
-                                )
-                            }
-                        }
-
-                        is LoadState.Error -> {
-                            // Handle initial refresh error state
-                            item {
-//                                Text("Error refreshing data: ${refreshState.error.message}")
-                            }
-                        }
-
-                        is LoadState.NotLoading -> {
-                            // Handle initial refresh not loading state
-                            item {
-//                                Text("Refresh No more items to load")
-                            }
+                    is LoadState.Error -> {
+                        item {
+                            Text("Error: ${loadState.error.message}")
                         }
                     }
-                    when (val prependState = results.loadState.prepend) {
-                        is LoadState.Loading -> {
-                            // Handle prepend loading state (adding items at the beginning)
-                            item {
-//                                Text("Loading more items at the beginning...")
-                            }
-                        }
-
-                        is LoadState.Error -> {
-                            item {
-                                Text("Prepend Error loading data: ${prependState.error.message}")
-                            }
-                        }
-
-                        is LoadState.NotLoading -> {
-                            item {
-//                                Text("Prepend No more items to load")
-                            }
-                        }
-                    }
-                    when (val loadState = results.loadState.append) {
-                        is LoadState.Error -> {
-                            item {
-                                Text("Error loading data: ${loadState.error.message}")
-                                Button(onClick = { results.retry() }) { // Retry button
-                                    Text("Retry")
-                                }
-                            }
-                        }
-
-                        is LoadState.Loading -> { // Loading state
-                            item {
-                                Text("Loading more items...")
-                                CircularProgressIndicator(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp)
-                                        .wrapContentWidth(Alignment.CenterHorizontally)
-                                )
-                            }
-                        }
-
-                        is LoadState.NotLoading -> { // Not loading state (optional)
-                            // You can display a message or do nothing here
-                            item {
-//                                Text("NotLoading No more items to load")
-                            }
-                        }
-                    }
+                    else -> {}
                 }
             }
         }
@@ -197,80 +148,41 @@ fun SearchChannelsScreen(
 fun SearchChannelsScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
-    val context = LocalContext.current
-    val mockYoutubeApiService = MockYoutubeApiService(context)
 
-    val mockChannelsDao =  object : ChannelsDao {
-        override suspend fun insert(channel: Channel) {
-            // Do nothing
-        }
-
-        override suspend fun delete(channel: Channel) {
-            // Do nothing
-        }
-
-        override fun getAllChannels(): Flow<List<Channel>> {
-            return flowOf(emptyList())
-        }
-
-        override suspend fun updateChannelDetailsId(channelId: String, detailsId: String) {
-            // Do nothing
-        }
-
-        fun updateChannelDetails(channelDetails: ChannelDetails) {
-            // Do nothing
-        }
-    }
-
-    val mockChannelDetailsDao = object : ChannelDetailsDao {
-        override suspend fun insert(channelDetails: ChannelDetails) {
-            // Do nothing
-        }
-
-        override suspend fun delete(channelDetails: ChannelDetails) {
-            // Do nothing
-        }
-
-        override suspend fun getChannelDetails(channelId: String): ChannelDetails {
-            return ChannelDetails(
-                id = "1",
-                title = "Channel 1",
-                description = "Description 1",
-                customUrl = "https://example.com/channel1",
-                publishedAt = "2022-01-01T00:00:00Z",
-                thumbnailDefaultUrl = "https://example.com/channel1.jpg",
-                thumbnailDefaultWidth = 16,
-                thumbnailDefaultHeight = 16,
-                thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
-                thumbnailMediumWidth = 32,
-                thumbnailMediumHeight = 32,
-                thumbnailHighUrl = "https://example.com/channel1_high.jpg",
-                thumbnailHighWidth = 64,
-                thumbnailHighHeight = 64,
-                viewCount = "10",
-                subscriberCount = "1000",
-                hiddenSubscriberCount = false,
-                videoCount = "100",
-                likesPlaylistId = "1",
-                uploadsPlaylistId = "2",
-                bannerExternalUrl = "https://example.com/banner.jpg"
-            )
-        }
-
-    }
-    val mockPlaylistsDao = object : PlaylistsDao {
-        override suspend fun insertPlaylist(playlist: Playlist) {
-            // Do nothing
-        }
-
-        override fun getAllPlaylists(channelId: String): Flow<List<Playlist>> {
-            // Return an empty list for simplicity
-            return flowOf(emptyList())
-        }
-    }
-
-    val viewModel = SearchChannelsViewModel(
-        ChannelsRepository(mockYoutubeApiService, mockChannelsDao, mockChannelDetailsDao, mockPlaylistsDao)
+    val mockChannels = listOf(
+        Channel(
+            id = "1",
+            title = "Channel 1",
+            description = "Description 1",
+            thumbnailDefaultUrl = "https://example.com/channel1.jpg",
+            thumbnailHighUrl = "https://example.com/channel1_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
+            channelDetailsId = "1"
+        ),
+        Channel(
+            id = "2",
+            title = "Channel 2",
+            description = "Description 2",
+            thumbnailDefaultUrl = "https://example.com/channel2.jpg",
+            thumbnailHighUrl = "https://example.com/channel2_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel2_medium.jpg",
+            channelDetailsId = "2"
+        )
     )
-    SearchChannelsScreen(snackbarHostState, navController, viewModel)
+    // Create PagingData from the mock channels
+    val mockPagingData = PagingData.from(mockChannels)
+
+    // Create LazyPagingItems from the mock PagingData
+    val lazySearchResults: LazyPagingItems<Channel> =
+        flowOf(mockPagingData).collectAsLazyPagingItems()
+
+    SearchChannelsScreen(
+        snackbarHostState,
+        navController,
+        query = "Preview Query",
+        searchOnClicked = {},
+        updateSearchQuery = {},
+        subscribeToChannel = {},
+        lazySearchResults = lazySearchResults
+    )
 }

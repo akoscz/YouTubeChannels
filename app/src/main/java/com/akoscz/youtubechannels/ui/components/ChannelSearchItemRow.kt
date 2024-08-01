@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
@@ -30,7 +31,10 @@ import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 
 
 @Composable
-fun ChannelSearchItemRow(channel: Channel, viewModel: SearchChannelsViewModel = hiltViewModel()) {
+fun ChannelSearchItemRow(
+    channel: Channel,
+    subscribeToChannel: (Channel) -> Unit
+) {
     var subscribed by remember { mutableStateOf(false) }
 
     Row(
@@ -64,10 +68,28 @@ fun ChannelSearchItemRow(channel: Channel, viewModel: SearchChannelsViewModel = 
         }
         Spacer(modifier = Modifier.width(16.dp))
         Button(onClick = {
-            viewModel.subscribeToChannel(channel)
+            subscribeToChannel(channel)
             subscribed = true
         }) {
             Text(if (subscribed) "Subscribed" else "Subscribe")
         }
     }
+}
+
+@Preview
+@Composable
+fun ChannelSearchItemRowPreview() {
+    val mockChannel = Channel(
+        id = "1",
+        title = "Channel 1",
+        description = "Description 1",
+        thumbnailDefaultUrl = "https://example.com/channel1.jpg",
+        thumbnailHighUrl = "https://example.com/channel1_high.jpg",
+        thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
+        channelDetailsId = "1"
+    )
+    ChannelSearchItemRow(
+        channel = mockChannel,
+        subscribeToChannel = {}
+    )
 }

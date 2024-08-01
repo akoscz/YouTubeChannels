@@ -21,7 +21,7 @@ import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 @Composable
 fun SearchBar(searchText: String,
               onSearchTextChanged: (String) -> Unit,
-              viewModel: SearchChannelsViewModel
+              searchOnClicked: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -40,7 +40,7 @@ fun SearchBar(searchText: String,
         Spacer(modifier = Modifier.width(8.dp))
         IconButton(
             onClick = {
-                viewModel.searchChannels(searchText)
+                searchOnClicked(searchText)
                 focusManager.clearFocus() // Dismiss the keyboard
             }
         ) {
