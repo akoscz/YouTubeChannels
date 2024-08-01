@@ -38,18 +38,18 @@ class ChannelsRepository @Inject constructor(
         return youtubeApiService is MockYoutubeApiService
     }
 
-    suspend fun subscribeToChannel(channel: Channel) {
+    suspend fun followChannel(channel: Channel) {
         channelsDao.insert(channel)
     }
 
-    suspend fun unsubscribeFromChannel(channel: Channel) {
+    suspend fun unfollowChannel(channel: Channel) {
         channelsDao.delete(channel)
         channelDetailsDao.getChannelDetails(channel.id)?.let {
             channelDetailsDao.delete(it)
         }
     }
 
-    fun getSubscribedChannels(): Flow<List<Channel>> {
+    fun getFollowedChannels(): Flow<List<Channel>> {
         return channelsDao.getAllChannels()
     }
 

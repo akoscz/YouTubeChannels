@@ -20,55 +20,45 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.akoscz.youtubechannels.data.db.ChannelsDao
-import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
-import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
-import com.akoscz.youtubechannels.data.models.room.ChannelDetails
-import com.akoscz.youtubechannels.data.models.room.Playlist
-import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
-import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import com.akoscz.youtubechannels.ui.components.SwipeableChannelRow
-import com.akoscz.youtubechannels.ui.viewmodels.SubscribedChannelsViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import com.akoscz.youtubechannels.ui.viewmodels.FollowedChannelsViewModel
 
 
 @Composable
-fun SubscribedChannelsScreen(
+fun FollowedChannelsScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavHostController,
-    viewModel: SubscribedChannelsViewModel = hiltViewModel()
+    viewModel: FollowedChannelsViewModel = hiltViewModel()
 ) {
-    val channels by viewModel.subscribedChannels.collectAsState(initial = emptyList())
+    val channels by viewModel.followedChannels.collectAsState(initial = emptyList())
 
-    SubscribedChannelsScreen(
+    FollowedChannelsScreen(
         snackbarHostState = snackbarHostState,
         navController = navController,
         channels = channels,
-        unsubscribeFromChannel = viewModel::unsubscribeFromChannel
+        unfollowChannel = viewModel::unfollowChannel
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubscribedChannelsScreen(
+fun FollowedChannelsScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavHostController,
     channels: List<Channel>,
-    unsubscribeFromChannel: (Channel) -> Unit,
+    unfollowChannel: (Channel) -> Unit,
 ) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar ={
             CenterAlignedTopAppBar(
-                title = { Text("Subscribed Channels") },
+                title = { Text("Followed Channels") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -87,7 +77,7 @@ fun SubscribedChannelsScreen(
             when {
                 channels.isEmpty() -> item {
                     Text(
-                        text = "No subscribed channels!",
+                        text = "No followed channels!",
                         modifier = Modifier.padding(16.dp))
                 }
                 else -> {
@@ -98,7 +88,7 @@ fun SubscribedChannelsScreen(
                     ) { _, channel ->
                         SwipeableChannelRow(
                             channel,
-                            onDelete = unsubscribeFromChannel,
+                            onDelete = unfollowChannel,
                             onChannelClick = { channelId, channelTitle ->
                                 navController.navigate("channel_details/$channelId $channelTitle") }
                         )
@@ -111,7 +101,7 @@ fun SubscribedChannelsScreen(
 
 @Preview
 @Composable
-fun ChannelsListScreenPreview() {
+fun FollowedChannelsScreenPreview() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
 
@@ -136,10 +126,10 @@ fun ChannelsListScreenPreview() {
         )
     )
 
-    SubscribedChannelsScreen(
+    FollowedChannelsScreen(
         snackbarHostState = snackbarHostState,
         navController = navController,
         channels = mockChannels,
-        unsubscribeFromChannel = {}
+        unfollowChannel = {}
     )
 }

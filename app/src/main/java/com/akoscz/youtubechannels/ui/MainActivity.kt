@@ -1,6 +1,5 @@
 package com.akoscz.youtubechannels.ui
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,7 +40,7 @@ import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.ui.screens.ChannelDetailsScreen
 import com.akoscz.youtubechannels.ui.screens.HomeScreen
 import com.akoscz.youtubechannels.ui.screens.SearchChannelsScreen
-import com.akoscz.youtubechannels.ui.screens.SubscribedChannelsScreen
+import com.akoscz.youtubechannels.ui.screens.FollowedChannelsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -146,7 +145,7 @@ fun Navigation(
     ) {
         composable("home") { HomeScreen(snackbarHostState, navController) }
         composable("search") { SearchChannelsScreen(snackbarHostState, navController) }
-        composable("subscriptions") { SubscribedChannelsScreen(snackbarHostState, navController) }
+        composable("following") { FollowedChannelsScreen(snackbarHostState, navController) }
         composable(
             route = "channel_details/{channelId} {channelTitle}",
             arguments = listOf(

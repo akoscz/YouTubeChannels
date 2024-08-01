@@ -59,9 +59,5 @@ fun ChanelRow(
                 overflow = TextOverflow.Ellipsis,
             )
         }
-        Spacer(modifier = Modifier.width(16.dp))
-        Button(onClick = { /* Handle button click */ }) {
-            Text("Notify")
-        }
     }
 }

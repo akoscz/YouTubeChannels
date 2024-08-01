@@ -16,12 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 
 @Composable
 fun SearchBar(searchText: String,
               onSearchTextChanged: (String) -> Unit,
-              searchOnClicked: (String) -> Unit,
+              onSearchButtonClicked: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -40,7 +39,7 @@ fun SearchBar(searchText: String,
         Spacer(modifier = Modifier.width(8.dp))
         IconButton(
             onClick = {
-                searchOnClicked(searchText)
+                onSearchButtonClicked(searchText)
                 focusManager.clearFocus() // Dismiss the keyboard
             }
         ) {

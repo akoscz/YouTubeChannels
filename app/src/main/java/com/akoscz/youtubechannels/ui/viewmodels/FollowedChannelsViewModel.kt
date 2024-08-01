@@ -12,19 +12,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SubscribedChannelsViewModel @Inject constructor(
+class FollowedChannelsViewModel @Inject constructor(
     private val repository: ChannelsRepository
 ) : ViewModel() {
-    val subscribedChannels: StateFlow<List<Channel>> =
-        repository.getSubscribedChannels().stateIn(
+    val followedChannels: StateFlow<List<Channel>> =
+        repository.getFollowedChannels().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000), // Adjust as needed
             initialValue = emptyList()
         )
 
-    fun unsubscribeFromChannel(channel: Channel) {
+    fun unfollowChannel(channel: Channel) {
         viewModelScope.launch {
-            repository.unsubscribeFromChannel(channel)
+            repository.unfollowChannel(channel)
         }
     }
 }

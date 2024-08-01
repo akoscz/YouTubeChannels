@@ -19,7 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    val items = listOf("home", "search", "subscriptions")
+    val items = listOf("home", "search", "following")
     var selectedItem by remember { mutableStateOf(items[0]) }
     val currentRoute = currentRoute(navController)
 
@@ -34,7 +34,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                     when (screen) {
                         "home" -> Icon(Icons.Filled.Home, contentDescription = "Home")
                         "search" -> Icon(Icons.Filled.Search, contentDescription = "Search")
-                        "subscriptions" -> Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Subscriptions")
+                        "following" -> Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Following")
                         else -> {}
                     }
                 },
@@ -49,7 +49,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         "search" -> navController.navigate("search") {
                             launchSingleTop = true
                         }
-                        "subscriptions" -> navController.navigate("subscriptions") {
+                        "following" -> navController.navigate("following") {
                             launchSingleTop = true
                         }
                     }

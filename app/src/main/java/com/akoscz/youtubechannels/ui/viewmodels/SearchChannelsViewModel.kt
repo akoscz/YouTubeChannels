@@ -46,9 +46,9 @@ class SearchChannelsViewModel @Inject constructor(
         _searchQuery.value = newQuery
     }
 
-    fun subscribeToChannel(channel: Channel) {
+    fun followChannel(channel: Channel) {
         viewModelScope.launch {
-            channelsRepository.subscribeToChannel(channel)
+            channelsRepository.followChannel(channel)
         }
     }
 }

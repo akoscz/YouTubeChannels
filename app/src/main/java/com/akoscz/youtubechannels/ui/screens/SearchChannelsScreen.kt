@@ -2,15 +2,11 @@ package com.akoscz.youtubechannels.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,15 +15,12 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -36,19 +29,11 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.akoscz.youtubechannels.data.db.AppSettingsHelper
-import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
-import com.akoscz.youtubechannels.data.db.ChannelsDao
-import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
-import com.akoscz.youtubechannels.data.models.room.ChannelDetails
-import com.akoscz.youtubechannels.data.models.room.Playlist
-import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
-import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import com.akoscz.youtubechannels.ui.components.ChannelSearchItemRow
 import com.akoscz.youtubechannels.ui.components.SearchBar
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -72,10 +57,10 @@ fun SearchChannelsScreen(
         snackbarHostState = snackbarHostState,
         navController = navController,
         query = query,
-        searchOnClicked = viewModel::searchChannels,
+        searchChannels = viewModel::searchChannels,
         updateSearchQuery = viewModel::updateSearchQuery,
-        subscribeToChannel = viewModel::subscribeToChannel,
-        lazySearchResults = lazySearchResults
+        followChannel = viewModel::followChannel,
+        searchResults = lazySearchResults
     )
 }
 
@@ -85,10 +70,10 @@ fun SearchChannelsScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavHostController,
     query: String,
-    searchOnClicked: (String) -> Unit,
+    searchChannels: (String) -> Unit,
     updateSearchQuery: (String) -> Unit,
-    subscribeToChannel: (Channel) -> Unit,
-    lazySearchResults: LazyPagingItems<Channel>
+    followChannel: (Channel) -> Unit,
+    searchResults: LazyPagingItems<Channel>
     ) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -114,18 +99,20 @@ fun SearchChannelsScreen(
             SearchBar(
                 searchText = query,
                 onSearchTextChanged = updateSearchQuery,
-                searchOnClicked = searchOnClicked
+                onSearchButtonClicked = searchChannels
             )
 
             // Search results list
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(lazySearchResults.itemCount) { index ->
-                    val channel = lazySearchResults[index]
+                items(searchResults.itemCount) { index ->
+                    val channel = searchResults[index]
                     if (channel != null) {
-                        ChannelSearchItemRow(channel, subscribeToChannel)
+                        ChannelSearchItemRow(
+                            channel = channel,
+                            onFollowButtonClicked = followChannel)
                     }
                 }
-                when (val loadState = lazySearchResults.loadState.refresh) {
+                when (val loadState = searchResults.loadState.refresh) {
                     is LoadState.Loading -> {
                         item {
                             Text("Loading...")
@@ -180,9 +167,9 @@ fun SearchChannelsScreenPreview() {
         snackbarHostState,
         navController,
         query = "Preview Query",
-        searchOnClicked = {},
+        searchChannels = {},
         updateSearchQuery = {},
-        subscribeToChannel = {},
-        lazySearchResults = lazySearchResults
+        followChannel = {},
+        searchResults = lazySearchResults
     )
 }

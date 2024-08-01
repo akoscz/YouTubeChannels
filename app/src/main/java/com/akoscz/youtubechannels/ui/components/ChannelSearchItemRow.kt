@@ -23,19 +23,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.akoscz.youtubechannels.R
 import com.akoscz.youtubechannels.data.models.room.Channel
-import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 
 
 @Composable
 fun ChannelSearchItemRow(
     channel: Channel,
-    subscribeToChannel: (Channel) -> Unit
+    onFollowButtonClicked: (Channel) -> Unit
 ) {
-    var subscribed by remember { mutableStateOf(false) }
+    var isFollowing by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
@@ -68,10 +66,10 @@ fun ChannelSearchItemRow(
         }
         Spacer(modifier = Modifier.width(16.dp))
         Button(onClick = {
-            subscribeToChannel(channel)
-            subscribed = true
+            onFollowButtonClicked(channel)
+            isFollowing = true
         }) {
-            Text(if (subscribed) "Subscribed" else "Subscribe")
+            Text(if (isFollowing) "Following" else "Follow")
         }
     }
 }
@@ -90,6 +88,6 @@ fun ChannelSearchItemRowPreview() {
     )
     ChannelSearchItemRow(
         channel = mockChannel,
-        subscribeToChannel = {}
+        onFollowButtonClicked = {}
     )
 }
