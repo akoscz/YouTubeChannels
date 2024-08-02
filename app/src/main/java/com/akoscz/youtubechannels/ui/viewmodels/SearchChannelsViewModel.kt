@@ -1,5 +1,6 @@
 package com.akoscz.youtubechannels.ui.viewmodels
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -33,14 +34,24 @@ class SearchChannelsViewModel @Inject constructor(
     private val _followingChannels = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     val followingChannels: StateFlow<Map<String, Boolean>> = _followingChannels.asStateFlow()
 
+    private var pager: Pager<Int, Channel>? = null
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setPager(pager: Pager<Int, Channel>) { // For testing
+        this.pager = pager
+    }
+
     fun searchChannels(query: String) {
         viewModelScope.launch {
             delay(300)
             _searchQuery.value = query
-            Pager(
+
+            val pagerFlow = pager?.flow ?: Pager(
                 config = PagingConfig(pageSize = 10),
                 pagingSourceFactory = { SearchChannelsPagingSource(channelsRepository, query) }
-            ).flow.cachedIn(viewModelScope).collect { pagingData ->
+            ).flow
+
+            pagerFlow.cachedIn(viewModelScope).collect { pagingData ->
                 _searchResults.value = pagingData
             }
         }
@@ -61,18 +72,12 @@ class SearchChannelsViewModel @Inject constructor(
         }
     }
 
-    fun checkFollowingStatusForLazyItems(lazyPagingItems: LazyPagingItems<Channel>) {
+    fun checkFollowingStatus(channels: List<Channel>) {
         viewModelScope.launch {
-            for (index in 0 until lazyPagingItems.itemCount) {
-                val channel = lazyPagingItems[index]
-                channel?.let {
-                    _followingChannels.update { currentMap ->
-                        currentMap.toMutableMap().apply { // Create a temporary mutable copy within update
-                            this[it.id] = channelsRepository.isFollowing(it)
-                        }
-                    }
-                }
+            val followingStatus = channels.associate { channel ->
+                channel.id to channelsRepository.isFollowing(channel)
             }
+            _followingChannels.value = followingStatus
         }
     }
 }

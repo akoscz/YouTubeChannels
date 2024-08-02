@@ -60,6 +60,9 @@ android {
     room {
         schemaDirectory("$projectDir/schemas")
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 kapt {
@@ -67,6 +70,8 @@ kapt {
 }
 
 dependencies {
+    kapt(libs.hilt.compiler)
+    kapt(libs.room.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -81,20 +86,26 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi.converter)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.coil)
     implementation(libs.paging)
     implementation(libs.paging.compose)
     implementation(libs.logging.interceptor)
     implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.androidx.arch.core.testing)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.paging.testing)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.androidx.ui.test.junit4.android)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

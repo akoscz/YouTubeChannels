@@ -59,7 +59,8 @@ fun SearchChannelsScreen(
     // check the 'Following' status of the channels from the search results AFTER the load is complete
     LaunchedEffect(key1 = channelSearchResults.loadState.refresh) {
         if (channelSearchResults.loadState.refresh is LoadState.NotLoading && channelSearchResults.itemCount > 0) {
-            viewModel.checkFollowingStatusForLazyItems(channelSearchResults)
+            val channels = List(channelSearchResults.itemCount) { index -> channelSearchResults[index]!! }
+            viewModel.checkFollowingStatus(channels)
         }
     }
 
