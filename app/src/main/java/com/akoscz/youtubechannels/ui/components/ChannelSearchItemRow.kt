@@ -12,10 +12,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,10 +27,9 @@ import com.akoscz.youtubechannels.data.models.room.Channel
 @Composable
 fun ChannelSearchItemRow(
     channel: Channel,
-    onFollowButtonClicked: (Channel) -> Unit
+    onFollowButtonClicked: (Channel) -> Unit,
+    isFollowing: Boolean,
 ) {
-    var isFollowing by remember { mutableStateOf(false) }
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,15 +55,17 @@ fun ChannelSearchItemRow(
             Text(text = channel.description,
                 maxLines = 2,
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.DarkGray,
+                color = Color.Gray,
                 overflow = TextOverflow.Ellipsis
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
-        Button(onClick = {
-            onFollowButtonClicked(channel)
-            isFollowing = true
-        }) {
+        Button(
+            onClick = {
+                onFollowButtonClicked(channel)
+            },
+            enabled = !isFollowing
+        ) {
             Text(if (isFollowing) "Following" else "Follow")
         }
     }
@@ -88,6 +85,7 @@ fun ChannelSearchItemRowPreview() {
     )
     ChannelSearchItemRow(
         channel = mockChannel,
-        onFollowButtonClicked = {}
+        onFollowButtonClicked = {},
+        isFollowing = false,
     )
 }

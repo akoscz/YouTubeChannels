@@ -21,4 +21,7 @@ interface ChannelsDao {
 
     @Query("UPDATE channels SET channelDetailsId = :detailsId WHERE id = :channelId")
     suspend fun updateChannelDetailsId(channelId: String, detailsId: String)
+
+    @Query("SELECT EXISTS(SELECT * FROM channels WHERE id = :id)")
+    fun isChannelFollowed(id: String): Boolean
 }

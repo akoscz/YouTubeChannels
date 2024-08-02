@@ -15,12 +15,14 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -51,7 +53,15 @@ fun SearchChannelsScreen(
     }
 
     val query by viewModel.searchQuery.collectAsState()
-    val lazySearchResults: LazyPagingItems<Channel> = viewModel.searchResults.collectAsLazyPagingItems()
+    val channelSearchResults: LazyPagingItems<Channel> = viewModel.searchResults.collectAsLazyPagingItems()
+    val followingChannelsMap by viewModel.followingChannels.collectAsState()
+
+    // check the 'Following' status of the channels from the search results AFTER the load is complete
+    LaunchedEffect(key1 = channelSearchResults.loadState.refresh) {
+        if (channelSearchResults.loadState.refresh is LoadState.NotLoading && channelSearchResults.itemCount > 0) {
+            viewModel.checkFollowingStatusForLazyItems(channelSearchResults)
+        }
+    }
 
     SearchChannelsScreen(
         snackbarHostState = snackbarHostState,
@@ -60,7 +70,8 @@ fun SearchChannelsScreen(
         searchChannels = viewModel::searchChannels,
         updateSearchQuery = viewModel::updateSearchQuery,
         followChannel = viewModel::followChannel,
-        searchResults = lazySearchResults
+        followingChannelsMap = followingChannelsMap,
+        searchResults = channelSearchResults,
     )
 }
 
@@ -73,8 +84,9 @@ fun SearchChannelsScreen(
     searchChannels: (String) -> Unit,
     updateSearchQuery: (String) -> Unit,
     followChannel: (Channel) -> Unit,
-    searchResults: LazyPagingItems<Channel>
-    ) {
+    followingChannelsMap: Map<String, Boolean>,
+    searchResults: LazyPagingItems<Channel>,
+) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
@@ -104,23 +116,27 @@ fun SearchChannelsScreen(
 
             // Search results list
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(searchResults.itemCount) { index ->
+                items(searchResults.itemCount, key = { it }) { index ->
                     val channel = searchResults[index]
                     if (channel != null) {
                         ChannelSearchItemRow(
                             channel = channel,
-                            onFollowButtonClicked = followChannel)
+                            onFollowButtonClicked = followChannel,
+                            isFollowing = followingChannelsMap[channel.id] ?: false,
+                        )
                     }
                 }
                 when (val loadState = searchResults.loadState.refresh) {
                     is LoadState.Loading -> {
                         item {
-                            Text("Loading...")
+                            Text("Loading...",
+                                modifier = Modifier.padding(16.dp))
                         }
                     }
                     is LoadState.Error -> {
                         item {
-                            Text("Error: ${loadState.error.message}")
+                            Text("Error: ${loadState.error.message}",
+                                modifier = Modifier.padding(16.dp))
                         }
                     }
                     else -> {}
@@ -170,6 +186,7 @@ fun SearchChannelsScreenPreview() {
         searchChannels = {},
         updateSearchQuery = {},
         followChannel = {},
-        searchResults = lazySearchResults
+        followingChannelsMap = mapOf("1" to true, "2" to false),
+        searchResults = lazySearchResults,
     )
 }

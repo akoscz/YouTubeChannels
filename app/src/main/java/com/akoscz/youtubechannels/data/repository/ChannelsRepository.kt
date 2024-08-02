@@ -179,7 +179,7 @@ class ChannelsRepository @Inject constructor(
                 // println("searchChannels response: $response")
                 if (response.items.isNotEmpty()) {
                     val channels = response.items.map { channelItem ->
-                        mapToChannel(channelItem)
+                        mapToChannel(channelSearchItem = channelItem)
                     }
                     return@withContext channels to response.nextPageToken
                 }
@@ -191,6 +191,12 @@ class ChannelsRepository @Inject constructor(
                 // Handle network or API errors
                 return@withContext emptyList<Channel>() to null
             }
+        }
+    }
+
+    suspend fun isFollowing(channel: Channel): Boolean {
+        return withContext(Dispatchers.IO) {
+            channelsDao.isChannelFollowed(channel.id)
         }
     }
 }

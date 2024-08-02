@@ -23,10 +23,10 @@ class SearchChannelsPagingSource(
         println("SearchChannelsPagingSource load --> query: $query, pageToken: $pageToken, maxResults: ${params.loadSize}")
         return try {
             println("SearchChannelsPagingSource.load() - Fetching data...") // Log loading start
-            val (channelsResponse, nextPageToken) = channelsRepository.searchChannels(query, pageToken, params.loadSize)
+            val (channelsListResponse, nextPageToken) = channelsRepository.searchChannels(query, pageToken, params.loadSize)
             println("SearchChannelsPagingSource.load() - Data fetched successfully.") // Log loading success
             LoadResult.Page(
-                data = channelsResponse,
+                data = channelsListResponse,
                 prevKey = pageToken,
                 nextKey = nextPageToken
             )
