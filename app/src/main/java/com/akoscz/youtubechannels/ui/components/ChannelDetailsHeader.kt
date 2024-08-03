@@ -73,7 +73,7 @@ fun ChannelDetailsHeader(channelDetails: ChannelDetails) {
         // Channel Name, Custom URL, Subscriber Count
         Column {
             Text(
-                channelDetails.title ?: "",
+                channelDetails.title,
                 style = MaterialTheme.typography.headlineSmall
             )
             Text(
@@ -105,7 +105,7 @@ fun ChannelDetailsHeader(channelDetails: ChannelDetails) {
     var expanded by remember { mutableStateOf(false) }
     val maxLines = if (expanded) Int.MAX_VALUE else 2
     Text(
-        text = channelDetails.description ?: "",
+        text = channelDetails.description,
         style = MaterialTheme.typography.bodySmall,
         maxLines = maxLines, overflow = TextOverflow.Ellipsis,
         modifier = Modifier
