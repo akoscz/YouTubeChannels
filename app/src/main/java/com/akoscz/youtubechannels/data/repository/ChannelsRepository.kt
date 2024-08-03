@@ -3,6 +3,7 @@ package com.akoscz.youtubechannels.data.repository
 import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
+import com.akoscz.youtubechannels.data.db.PlaylistVideoCrossRef
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
@@ -61,8 +62,11 @@ class ChannelsRepository @Inject constructor(
     suspend fun getPlaylistVideos(playlistId: String, pageToken: String? = null, maxResults: Int): Pair<List<Video>, String?> {
         println("getPlaylistVideos playlistId: $playlistId pageToken: $pageToken")
         return withContext(Dispatchers.IO) {
-//            return@withContext emptyList<Video>() to null
             // 1. Try to fetch from database
+            val videosFromDb: List<Video> = playlistsDao.getVideosFromPlaylist(playlistId).firstOrNull() ?: emptyList()
+            if (videosFromDb.isNotEmpty()) {
+                return@withContext videosFromDb to null
+            }
 
             // 2. Fetch from API if not in database
             try {
@@ -83,6 +87,19 @@ class ChannelsRepository @Inject constructor(
                         val videosList = videosResponse.items.map { videoItem ->
                             mapToVideo(videoItem)
                         }
+                        // Insert videos into database
+                        playlistsDao.insertVideos(videosList)
+                        // Insert playlist-video cross-reference into database
+                        videosList.forEach { video ->
+                            val videoId = video.id
+                            playlistsDao.insertPlaylistVideoCrossRef(
+                                PlaylistVideoCrossRef(
+                                    playlistId,
+                                    videoId
+                                )
+                            )
+                        }
+
                         return@withContext videosList to playlistItemsResponse.nextPageToken
                     }
                     // Return empty list if no video items

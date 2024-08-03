@@ -33,6 +33,7 @@ object AppModule {
         )
         .fallbackToDestructiveMigrationFrom(1) // Wipe database when migrating from version 1
         .fallbackToDestructiveMigrationFrom(2) // Wipe database when migrating from version 2
+        .fallbackToDestructiveMigrationFrom(3) // Wipe database when migrating from version 2
         .build()
     }
 
