@@ -74,9 +74,13 @@ class SearchChannelsViewModel @Inject constructor(
 
     fun checkFollowingStatus(channels: List<Channel>) {
         viewModelScope.launch {
-            val followingStatus = channels.associate { channel ->
-                channel.id to channelsRepository.isFollowing(channel)
-            }
+            val followingStatus = channels.mapNotNull { channel ->
+                if (channelsRepository.isFollowing(channel)) {
+                    channel.id to true
+                } else {
+                    null
+                }
+            }.toMap()
             _followingChannels.value = followingStatus
         }
     }

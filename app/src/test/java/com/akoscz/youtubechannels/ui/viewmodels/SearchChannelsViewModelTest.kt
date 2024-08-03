@@ -210,7 +210,8 @@ class SearchChannelsViewModelTest {
 
         // Verify the following status of both channels
         assertTrue(result[channel1.id] == true)
-        assertTrue(result[channel2.id] == false)
+        // if isFollowing returns false, the channel will not be added to the map
+        assertTrue(result[channel2.id] == null)
     }
 
     // Boundary Case Tests
