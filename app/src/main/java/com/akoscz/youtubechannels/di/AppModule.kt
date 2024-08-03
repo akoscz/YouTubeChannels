@@ -7,6 +7,7 @@ import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
 import com.akoscz.youtubechannels.data.db.AppSettingsManager
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
+import com.akoscz.youtubechannels.data.db.VideosDao
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 import dagger.Module
@@ -53,13 +54,19 @@ object AppModule {
     }
 
     @Provides
+    fun provideVideosDao(database: AppDatabase): VideosDao {
+        return database.videosDao()
+    }
+
+    @Provides
     fun provideChannelsRepository(
         youtubeApiService: YoutubeApiService,
         channelsDao: ChannelsDao,
         channelDetailsDao: ChannelDetailsDao,
-        playlistsDao: PlaylistsDao
+        playlistsDao: PlaylistsDao,
+        videosDao: VideosDao
     ): ChannelsRepository {
-        return ChannelsRepository(youtubeApiService, channelsDao, channelDetailsDao, playlistsDao)
+        return ChannelsRepository(youtubeApiService, channelsDao, channelDetailsDao, playlistsDao, videosDao)
     }
 
     @Provides

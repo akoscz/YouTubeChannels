@@ -5,6 +5,7 @@ import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
 import com.akoscz.youtubechannels.data.db.PlaylistVideoCrossRef
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
+import com.akoscz.youtubechannels.data.db.VideosDao
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Playlist
@@ -16,8 +17,10 @@ import com.akoscz.youtubechannels.data.models.room.mapToVideo
 import com.akoscz.youtubechannels.data.models.room.uploadsPlaylist
 import com.akoscz.youtubechannels.data.network.MockYoutubeApiService
 import com.akoscz.youtubechannels.data.network.YoutubeApiService
+import com.akoscz.youtubechannels.ui.viewmodels.SortType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
@@ -32,7 +35,8 @@ class ChannelsRepository @Inject constructor(
     private val youtubeApiService: YoutubeApiService,
     private val channelsDao: ChannelsDao,
     private val channelDetailsDao: ChannelDetailsDao,
-    private val playlistsDao: PlaylistsDao
+    private val playlistsDao: PlaylistsDao,
+    private val videosDao: VideosDao
 ) {
     fun isMockApi(): Boolean {
         // if youtubeApiService instance of MockYoutubeApiService return true
@@ -54,9 +58,23 @@ class ChannelsRepository @Inject constructor(
         return channelsDao.getAllChannels()
     }
 
-    fun getAllVideos(): Flow<List<Video>> {
-        // empty list
-        return flowOf(emptyList())
+    suspend fun getHomeVideos(sortType: SortType, limit: Int): Flow<List<Video>> {
+        println("getHomeVideos")
+        return withContext(Dispatchers.IO) {
+            // for each followed channel, get 5 most recent videos
+            val followedChannels = channelsDao.getAllChannels().firstOrNull() ?: emptyList()
+            val homeVideosList = followedChannels.flatMap { channel ->
+                when (sortType) {
+                    SortType.NEWEST ->
+                        videosDao.getNewestVideos(channel.id, limit)
+                    SortType.POPULAR ->
+                        videosDao.getPopularVideos(channel.id, limit)
+                    SortType.OLDEST ->
+                        videosDao.getOldestVideos(channel.id, limit)
+                }
+            }
+            flowOf(homeVideosList)
+        }
     }
 
     suspend fun getPlaylistVideos(playlistId: String, pageToken: String? = null, maxResults: Int): Pair<List<Video>, String?> {

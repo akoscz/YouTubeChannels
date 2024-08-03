@@ -23,4 +23,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun channelDao(): ChannelsDao
     abstract fun channelDetailsDao(): ChannelDetailsDao
     abstract fun playlistsDao(): PlaylistsDao
+    abstract fun videosDao(): VideosDao
 }
