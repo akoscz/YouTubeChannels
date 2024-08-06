@@ -234,4 +234,10 @@ class ChannelsRepository @Inject constructor(
             channelsDao.isChannelFollowed(channel.id)
         }
     }
+
+    suspend fun getVideoById(videoId: String): Video {
+        return withContext(Dispatchers.IO) {
+            videosDao.getVideoById(videoId)
+        }
+    }
 }

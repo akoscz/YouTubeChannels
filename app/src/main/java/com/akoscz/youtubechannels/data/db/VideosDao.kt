@@ -15,4 +15,8 @@ interface VideosDao {
 
     @Query("SELECT * FROM videos WHERE channelId = :channelId ORDER BY publishedAt ASC LIMIT :limit")
     fun getOldestVideos(channelId: String, limit: Int): List<Video>
+
+    @Query("SELECT * FROM videos WHERE id = :videoId")
+    fun getVideoById(videoId: String): Video
+
 }
