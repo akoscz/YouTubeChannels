@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.akoscz.youtubechannels.data.models.room.Playlist
+import com.akoscz.youtubechannels.data.models.room.PlaylistVideoCrossRef
 import com.akoscz.youtubechannels.data.models.room.Video
 import kotlinx.coroutines.flow.Flow
 
