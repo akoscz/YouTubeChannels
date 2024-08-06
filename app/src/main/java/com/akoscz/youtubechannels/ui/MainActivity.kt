@@ -37,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.AppSettingsHelper
+import com.akoscz.youtubechannels.ui.components.Navigation
 import com.akoscz.youtubechannels.ui.screens.ChannelDetailsScreen
 import com.akoscz.youtubechannels.ui.screens.HomeScreen
 import com.akoscz.youtubechannels.ui.screens.SearchChannelsScreen
@@ -116,7 +117,11 @@ fun AppContent() {
             } else {
                 Modifier
             }.let { modifier ->
-                Navigation(navController, PaddingValues(0.dp), snackbarHostState, modifier)
+                Navigation(
+                    navController,
+                    PaddingValues(0.dp),
+                    snackbarHostState,
+                    modifier)
             }
         }
 
@@ -128,34 +133,6 @@ fun AppContent() {
                 .padding(16.dp)
                 .wrapContentWidth(Alignment.CenterHorizontally)
         )
-    }
-}
-
-@Composable
-fun Navigation(
-    navController: NavHostController,
-    innerPadding: PaddingValues,
-    snackbarHostState: SnackbarHostState,
-    modifier: Modifier
-) {
-    NavHost(
-        navController = navController,
-        startDestination = "home",
-        modifier = modifier.padding(innerPadding)
-    ) {
-        composable("home") { HomeScreen(snackbarHostState, navController) }
-        composable("search") { SearchChannelsScreen(snackbarHostState, navController) }
-        composable("following") { FollowedChannelsScreen(snackbarHostState, navController) }
-        composable(
-            route = "channel_details/{channelId} {channelTitle}",
-            arguments = listOf(
-                navArgument("channelId") { type = NavType.StringType },
-                navArgument("channelTitle") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val channelId = backStackEntry.arguments?.getString("channelId") ?: ""
-            val channelTitle = backStackEntry.arguments?.getString("channelTitle") ?: ""
-            ChannelDetailsScreen(channelId, channelTitle, snackbarHostState, navController)
-        }
     }
 }
 

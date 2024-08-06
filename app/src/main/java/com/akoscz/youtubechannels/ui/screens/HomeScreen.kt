@@ -46,6 +46,7 @@ import com.akoscz.youtubechannels.data.models.room.Video
 import com.akoscz.youtubechannels.ui.MainActivity
 import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import com.akoscz.youtubechannels.ui.components.HomeVideoCard
+import com.akoscz.youtubechannels.ui.components.NavigationScreens
 import com.akoscz.youtubechannels.ui.components.SortTypeButtonRow
 import com.akoscz.youtubechannels.ui.viewmodels.HomeViewModel
 import com.akoscz.youtubechannels.ui.viewmodels.SortType
@@ -95,7 +96,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Home") },
+                title = { Text(NavigationScreens.Home.title) },
                 actions = {
                     IconButton(onClick = { showMenu = !showMenu }) {
                         Icon(Icons.Filled.MoreVert, contentDescription = "Menu")

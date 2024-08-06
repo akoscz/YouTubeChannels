@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.akoscz.youtubechannels.data.models.room.Channel
+import com.akoscz.youtubechannels.ui.components.NavigationScreens
 import com.akoscz.youtubechannels.ui.components.SwipeableChannelRow
 import com.akoscz.youtubechannels.ui.viewmodels.FollowedChannelsViewModel
 
@@ -58,7 +59,7 @@ fun FollowedChannelsScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar ={
             CenterAlignedTopAppBar(
-                title = { Text("Followed Channels") },
+                title = { Text(NavigationScreens.Following.title) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")

@@ -34,6 +34,7 @@ import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import com.akoscz.youtubechannels.ui.components.ChannelSearchItemRow
+import com.akoscz.youtubechannels.ui.components.NavigationScreens
 import com.akoscz.youtubechannels.ui.components.SearchBar
 import com.akoscz.youtubechannels.ui.viewmodels.SearchChannelsViewModel
 import kotlinx.coroutines.flow.flowOf
@@ -92,7 +93,7 @@ fun SearchChannelsScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Search Channels") },
+                title = { Text(NavigationScreens.Search.title) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")

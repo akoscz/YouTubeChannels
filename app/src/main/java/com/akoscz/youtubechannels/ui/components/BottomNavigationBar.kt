@@ -19,39 +19,33 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    val items = listOf("home", "search", "following")
-    var selectedItem by remember { mutableStateOf(items[0]) }
+    var selectedItem by remember { mutableStateOf(NavigationScreens.Home) }
     val currentRoute = currentRoute(navController)
 
     LaunchedEffect(currentRoute) {
-        selectedItem = currentRoute ?: items[0]
+        selectedItem = currentRoute
     }
     
     NavigationBar {
-        items.forEach { screen ->
+
+        NavigationScreens.entries
+            .filter { it != NavigationScreens.ChannelDetails } // There no navigation bar item for ChannelDetails
+            .forEach { screen ->
             NavigationBarItem(
                 icon = {
-                    when (screen) {
-                        "home" -> Icon(Icons.Filled.Home, contentDescription = "Home")
-                        "search" -> Icon(Icons.Filled.Search, contentDescription = "Search")
-                        "following" -> Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Following")
-                        else -> {}
+                    if (screen == NavigationScreens.Home) {
+                        Icon(Icons.Filled.Home, contentDescription = screen.title)
+                    } else if (screen == NavigationScreens.Search) {
+                        Icon(Icons.Filled.Search, contentDescription = screen.title)
+                    } else if (screen == NavigationScreens.Following) {
+                        Icon(Icons.AutoMirrored.Filled.List, contentDescription = screen.title)
                     }
                 },
                 selected = selectedItem == screen,
                 onClick = {
                     selectedItem = screen
-                    // Navigate based on the selected item
-                    when (screen) {
-                        "home" -> navController.navigate("home") {
-                            launchSingleTop = true
-                        }
-                        "search" -> navController.navigate("search") {
-                            launchSingleTop = true
-                        }
-                        "following" -> navController.navigate("following") {
-                            launchSingleTop = true
-                        }
+                    navController.navigate(screen.route) {
+                        launchSingleTop = true
                     }
                 }
             )
@@ -60,7 +54,13 @@ fun BottomNavigationBar(navController: NavHostController) {
 }
 
 @Composable
-fun currentRoute(navController: NavHostController): String? {
+fun currentRoute(navController: NavHostController): NavigationScreens {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    return navBackStackEntry?.destination?.route
+    return when (navBackStackEntry?.destination?.route) {
+        NavigationScreens.Home.route -> NavigationScreens.Home
+        NavigationScreens.Search.route -> NavigationScreens.Search
+        NavigationScreens.Following.route -> NavigationScreens.Following
+        NavigationScreens.ChannelDetails.route -> NavigationScreens.Following // ChannelDetails is under the Following tab
+        else -> NavigationScreens.Home
+    }
 }
