@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Playlist
+import com.akoscz.youtubechannels.data.models.room.PlaylistVideoCrossRef
 import com.akoscz.youtubechannels.data.models.room.Video
 
 /**

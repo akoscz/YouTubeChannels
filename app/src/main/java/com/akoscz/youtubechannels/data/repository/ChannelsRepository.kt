@@ -3,7 +3,7 @@ package com.akoscz.youtubechannels.data.repository
 import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.ChannelsDao
 import com.akoscz.youtubechannels.data.db.ChannelDetailsDao
-import com.akoscz.youtubechannels.data.db.PlaylistVideoCrossRef
+import com.akoscz.youtubechannels.data.models.room.PlaylistVideoCrossRef
 import com.akoscz.youtubechannels.data.db.PlaylistsDao
 import com.akoscz.youtubechannels.data.db.VideosDao
 import com.akoscz.youtubechannels.data.models.room.Channel
@@ -20,7 +20,6 @@ import com.akoscz.youtubechannels.data.network.YoutubeApiService
 import com.akoscz.youtubechannels.ui.viewmodels.SortType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
