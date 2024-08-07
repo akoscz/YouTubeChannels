@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
@@ -12,8 +13,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,62 +25,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.akoscz.youtubechannels.ui.viewmodels.VideoPlayerViewModel
-
-fun replaceWidth(embedHtml: String, width: Int): String {
-    return embedHtml.replace("width=\"480\"", "width=\"$width\"")
-}
-
-fun enableAutoplay(embedHtml: String): String {
-    val srcUrl = extractSrc(embedHtml)
-    val srcAutoplay = srcUrl?.plus("?autoplay=1") ?: ""
-    return embedHtml.replace(srcUrl ?: "", srcAutoplay)
-}
-
-fun removeWebShare(embedHtml: String): String {
-    return embedHtml.replace("web-share", "")
-}
-
-fun extractSrc(embedHtml: String): String? {
-    val regex = """src="([^"]*)"""".toRegex()
-    val matchResult = regex.find(embedHtml)
-    return matchResult?.groups?.get(1)?.value
-}
-
-
-fun createHtmlBody(embedHtml: String): String {
-    return """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Embedded Video</title>
-            <style>
-                iframe {
-                    margin: 0px !important;
-                    padding: 0px !important;
-                    background: black;
-                    border: 0px !important;
-                    overflow: hidden;
-                    display:block;
-                }
-                html, body {
-                    margin: 0px !important;
-                    padding: 0px !important;
-                    border: 0px !important;
-                    width: 100%;
-                    height: 100%;
-                }
-            </style>
-        </head>
-        <body style="margin:0;padding:0;">
-            $embedHtml
-        </body>
-        </html>
-    """.trimIndent()
-}
+import com.akoscz.youtubechannels.ui.viewmodels.createHtmlBody
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.akoscz.youtubechannels.ui.viewmodels.JSViewModelInterface
 
 @SuppressLint("SetJavaScriptEnabled") // Suppress because video player requires JavaScript
 @Composable
@@ -89,31 +39,54 @@ fun VideoPlayerScreen(
     videoId: String,
     viewModel: VideoPlayerViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(key1 = videoId) {
-        viewModel.getVideo(videoId)
-    }
-    val video = viewModel.video.collectAsState().value ?: return
+    val context = LocalContext.current
 
-    val configuration = LocalConfiguration.current
-    val isLandscape by remember { mutableStateOf(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) }
+    val videoResumePosition: Double by remember { mutableDoubleStateOf(viewModel.videoPosition.value) }
+    println("NEW VideoPlayerScreen --> videoId: $videoId, resume position: $videoResumePosition")
+
     var isFullscreen by remember { mutableStateOf(false) }
     var customView by remember { mutableStateOf<View?>(null) }
-    val activity = LocalContext.current as ComponentActivity
+    val activity = context as ComponentActivity
+    val windowInsetsController = activity.window.insetsController
 
     // handle the back button when the video is in fullscreen
     BackHandler(enabled = isFullscreen) {
         customView?.let {
-            activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+            windowInsetsController?.show(WindowInsets.Type.systemBars())
             (activity.window.decorView as ViewGroup).removeView(it)
             customView = null
             isFullscreen = false
         }
     }
 
+    val configuration = LocalConfiguration.current
+    val isLandscape by remember { mutableStateOf(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) }
+    println("VideoPlayerScreen --> orientation: ${if (isLandscape) "Landscape" else "Portrait"}")
+
     val density = LocalDensity.current
     val screenWidthPx = LocalContext.current.resources.displayMetrics.widthPixels
-    val densityWidth = with(density) { screenWidthPx.toDp().value.toInt() }
+    val screenHeightPx = LocalContext.current.resources.displayMetrics.heightPixels
+    println("VideoPlayerScreen --> screenWidthPx: $screenWidthPx, screenHeightPx: $screenHeightPx")
 
+    val videoHeight: Int
+    val videoWidth: Int
+    // calculate optimal video size based on screen size and orientation
+    if (isLandscape) {
+        val insets = ViewCompat.getRootWindowInsets(activity.window.decorView)
+        val topInset = insets?.getInsets(WindowInsetsCompat.Type.systemBars())?.top ?: 0
+        val bottomInset = insets?.getInsets(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
+        val systemUIHeight = topInset + bottomInset
+        videoWidth = with(density) { screenWidthPx.toDp().value.toInt() }
+        // take into account the system UI height when in landscape
+        videoHeight = calculateHeightFor16x9AspectRatio(videoWidth) - systemUIHeight
+
+    } else { // Portrait
+        videoWidth = with(density) { screenWidthPx.toDp().value.toInt() }
+        videoHeight = calculateHeightFor16x9AspectRatio(videoWidth)
+    }
+    println("VideoPlayerScreen --> videoWidth: $videoWidth, videoHeight: $videoHeight")
+
+    var webView: WebView? = remember { null }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -122,33 +95,9 @@ fun VideoPlayerScreen(
     ) {
         AndroidView(factory = { context ->
             WebView(context).apply {
+                println("VideoPlayerScreen --> WebView created")
+                webView = this
                 setBackgroundColor(Color.Black.toArgb())
-                // override the WebViewClient to handle the video player fullscreen mode
-                webChromeClient = object : WebChromeClient() {
-                    override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
-                        customView = view
-                        activity.window.decorView.systemUiVisibility = (
-                                View.SYSTEM_UI_FLAG_FULLSCREEN
-                                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                                )
-                        (activity.window.decorView as ViewGroup).addView(
-                            view,
-                            ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT
-                            )
-                        )
-                        isFullscreen = true
-                    }
-
-                    override fun onHideCustomView() {
-                        activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-                        (activity.window.decorView as ViewGroup).removeView(customView)
-                        customView = null
-                        isFullscreen = false
-                    }
-                }
 
                 settings.javaScriptEnabled = true
                 settings.domStorageEnabled = true
@@ -156,21 +105,41 @@ fun VideoPlayerScreen(
                 settings.cacheMode = android.webkit.WebSettings.LOAD_NO_CACHE
                 settings.mediaPlaybackRequiresUserGesture = false
 
-                layoutParams =
-                    ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
+                // set a javascript interface to have the video player communicate with the viewmodel to update the video position
+                addJavascriptInterface(JSViewModelInterface(viewModel), "Android")
 
-                var embedHtml = video.embedHtml
-                embedHtml = replaceWidth(embedHtml, densityWidth)
-                embedHtml = enableAutoplay(embedHtml)
-                embedHtml = removeWebShare(embedHtml)
-                embedHtml = createHtmlBody(embedHtml)
+                webChromeClient = object : WebChromeClient() {
+                    override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                        if (view == null) return
+                        customView = view
+                        isFullscreen = true
+                        windowInsetsController?.hide(WindowInsets.Type.systemBars())
+                        (activity.window.decorView as ViewGroup).addView(view)
+                    }
 
-                println("Embed HTML: $embedHtml")
-                loadDataWithBaseURL("http://youtube.com", embedHtml, "text/html", "utf-8", null)
+                    override fun onHideCustomView() {
+                        customView?.let {
+                            windowInsetsController?.show(WindowInsets.Type.systemBars())
+                            (activity.window.decorView as ViewGroup).removeView(it)
+                            customView = null
+                            isFullscreen = false
+                        }
+                    }
+                }
+
+                val html = createHtmlBody(videoId, videoResumePosition, videoWidth, videoHeight)
+                println("HTML: $html")
+                loadDataWithBaseURL("http://youtube.com", html, "text/html", "utf-8", null)
             }
+        },
+        update = {
+            println("VideoPlayerScreen --> WebView updated")
+            webView = it
         })
     }
+}
+
+private fun calculateHeightFor16x9AspectRatio(width: Int): Int {
+    val adjustedHeight = (width * 9) / 16
+    return adjustedHeight
 }
