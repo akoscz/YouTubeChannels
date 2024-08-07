@@ -16,7 +16,7 @@ This is an Android application I am building to learn and practice Kotlin and Je
 ## Features
 
 - Search for channels by name
-- Follow channels your interested in
+- Follow channels you are interested in
 - View channel details, including subscriber count and recent videos
 - Simple user interface similar to the YouTube app
 - Utilizes Android Jetpack libraries for enhanced performance and efficiency
@@ -168,4 +168,4 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
