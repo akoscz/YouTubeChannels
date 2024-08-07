@@ -1,8 +1,13 @@
 
 # YouTube Channels App
 
-This is an Android application I am building to learn and practice Kotlin and Jetpack Compose. It allows users to search for YouTube channels, explore their details, and discover playlists and videos.  I focused on applying Jetpack Architecture components and the Paging library to handle data efficiently and provide a smooth user experience.
+This is an Android application I am building to learn and practice Kotlin and Jetpack Compose. It allows users to search for YouTube channels, explore their details, and discover playlists and videos. The app leverages Jetpack Architecture components and the Model-View-ViewModel (MVVM) architecture to separate concerns, enhance testability, and improve code maintainability. The Paging library is used to handle large datasets and load content seamlessly.
 
+The app utilizes Retrofit for network operations, enabling seamless communication with the YouTube Data API. Retrofit simplifies HTTP requests and responses, making it easy to fetch and parse data from the API.
+
+For local data storage and caching, I am using Room, a robust SQLite database management library. Room provides an abstraction layer over SQLite, allowing for efficient data management and offline support by persisting data locally on the device.
+
+Dependency injection in the app is managed with Hilt, which streamlines the process of providing dependencies throughout the application's lifecycle. Hilt reduces boilerplate code and improves the maintainability and scalability of the application by injecting dependencies where needed.
 ## Table of Contents
 
 - [Features](#features)
