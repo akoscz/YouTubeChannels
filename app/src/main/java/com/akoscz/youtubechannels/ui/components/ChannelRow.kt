@@ -55,7 +55,7 @@ fun ChanelRow(
             Text(text = channel.description,
                 maxLines = 2,
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.DarkGray,
+                color = Color.Gray,
                 overflow = TextOverflow.Ellipsis,
             )
         }
