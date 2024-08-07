@@ -29,19 +29,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.akoscz.youtubechannels.BuildConfig
 import com.akoscz.youtubechannels.data.db.AppSettingsHelper
 import com.akoscz.youtubechannels.ui.components.Navigation
-import com.akoscz.youtubechannels.ui.screens.ChannelDetailsScreen
-import com.akoscz.youtubechannels.ui.screens.HomeScreen
-import com.akoscz.youtubechannels.ui.screens.SearchChannelsScreen
-import com.akoscz.youtubechannels.ui.screens.FollowedChannelsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
