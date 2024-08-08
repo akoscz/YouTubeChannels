@@ -1,5 +1,6 @@
 package com.akoscz.youtubechannels.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,10 +38,10 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.akoscz.youtubechannels.data.models.room.Channel
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
 import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.models.room.Video
+import com.akoscz.youtubechannels.ui.VideoPlayerActivity
 import com.akoscz.youtubechannels.ui.components.BottomNavigationBar
 import com.akoscz.youtubechannels.ui.components.ChannelDetailsHeader
 import com.akoscz.youtubechannels.ui.components.PlaylistRow
@@ -138,6 +140,7 @@ fun ChannelDetailsScreen(
                     }
                 }
 
+                val context = LocalContext.current
                 // Content based on selected tab
                 when (selectedTabIndex) {
                     0 -> {
@@ -145,7 +148,16 @@ fun ChannelDetailsScreen(
                         LazyColumn {
                             items(videos.itemCount) { video ->
                                 val videoItem = videos[video]
-                                VideoRow(videoItem!!)
+                                VideoRow(
+                                    videoItem!!,
+                                    onPlayClicked = {
+                                        val intent = Intent(context, VideoPlayerActivity::class.java).apply {
+                                            putExtra("videoId", videoItem.id)
+                                            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                                        }
+                                        context.startActivity(intent)
+                                    },
+                                )
                             }
                         }
                         when (val loadState = videos.loadState.refresh) {
