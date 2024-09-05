@@ -7,11 +7,11 @@ import com.akoscz.youtubechannels.data.models.room.Playlist
 import com.akoscz.youtubechannels.data.repository.ChannelsRepository
 
 /**
- * PagingSource for channels.
+ * PagingSource for Playlists.
  *
- * Used to handle pagination of channels.
+ * Used to handle pagination of the playlists of a channel.
  *
- * Uses the ChannelsRepository to fetch channels from the database or the network.
+ * Uses the ChannelsRepository to fetch the playlists data of a channel either from the database or the network.
  */
 class PlaylistsPagingSource(
     private val repository: ChannelsRepository,
