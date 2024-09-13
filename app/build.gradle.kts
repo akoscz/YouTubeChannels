@@ -105,6 +105,9 @@ dependencies {
     testImplementation(libs.androidx.junit)
     testImplementation(libs.androidx.espresso.core)
     testImplementation(libs.androidx.ui.test.junit4.android)
+    testImplementation(libs.room.testing)
+    testImplementation(libs.roboelectric)
+    testImplementation(libs.androidx.junit.ktx)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

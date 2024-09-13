@@ -1,6 +1,8 @@
 package com.akoscz.youtubechannels.data.db
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.akoscz.youtubechannels.data.models.room.Video
 
@@ -19,4 +21,6 @@ interface VideosDao {
     @Query("SELECT * FROM videos WHERE id = :videoId")
     fun getVideoById(videoId: String): Video
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertVideos(videosList: List<Video>)
 }

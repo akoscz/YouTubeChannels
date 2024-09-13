@@ -105,7 +105,7 @@ class ChannelsRepository @Inject constructor(
                             mapToVideo(videoItem)
                         }
                         // Insert videos into database
-                        playlistsDao.insertVideos(videosList)
+                        videosDao.insertVideos(videosList)
                         // Insert playlist-video cross-reference into database
                         videosList.forEach { video ->
                             val videoId = video.id

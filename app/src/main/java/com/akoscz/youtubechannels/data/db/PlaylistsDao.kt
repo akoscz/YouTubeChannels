@@ -25,9 +25,6 @@ interface PlaylistsDao {
     @Query("SELECT * FROM playlists WHERE channelId = :channelId AND title = 'Uploads'")
     fun getUploadsPlaylist(channelId: String): Flow<Playlist?>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertVideos(videosList: List<Video>)
-
     @Query("SELECT * FROM videos WHERE id IN (SELECT videoId FROM playlists_videos WHERE playlistId = :playlistId)")
     fun getVideosFromPlaylist(playlistId: String): Flow<List<Video>>
 

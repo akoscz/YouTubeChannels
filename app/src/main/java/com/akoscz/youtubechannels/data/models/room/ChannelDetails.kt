@@ -12,7 +12,7 @@ import java.util.Locale
  *
  */
 @Entity(tableName = "channel_details")
-class ChannelDetails (
+data class ChannelDetails (
     @PrimaryKey val id: String, // This should match the Channel's id
     val title: String,
     val description: String,
