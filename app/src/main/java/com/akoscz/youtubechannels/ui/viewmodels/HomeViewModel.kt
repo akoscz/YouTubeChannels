@@ -1,5 +1,6 @@
 package com.akoscz.youtubechannels.ui.viewmodels
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akoscz.youtubechannels.data.models.room.ChannelDetails
@@ -46,6 +47,11 @@ class HomeViewModel @Inject constructor(
     fun updateSortType(sortType: SortType) {
         _sortType.value = sortType
         fetchHomeVideos()
+    }
+
+    @VisibleForTesting
+    fun setHomeVideos(videos: List<Video>) {
+        _homeVideos.value = videos
     }
 }
 

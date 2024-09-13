@@ -52,7 +52,7 @@ class SearchChannelsViewModelTest {
 
     // Success Path Tests
     @Test
-    fun testSearchChannelsNonEmptyQuery(): Unit = runTest {
+    fun `searchChannels with non-empty query returns results`() = runTest {
         val query = "test"
         val mockChannels = listOf(
             Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
@@ -82,7 +82,7 @@ class SearchChannelsViewModelTest {
     }
 
     @Test
-    fun testUpdateSearchQuery() = runTest {
+    fun `updateSearchQuery updates search query`() = runTest {
         val newQuery = "new query"
 
         // Update the search query in the ViewModel
@@ -96,7 +96,7 @@ class SearchChannelsViewModelTest {
     }
 
     @Test
-    fun testFollowChannel() = runTest {
+    fun `followChannel follows a channel`() = runTest {
         val channel = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
 
         // Mock the followChannel method in the repository
@@ -116,7 +116,7 @@ class SearchChannelsViewModelTest {
     }
 
     @Test
-    fun testCheckFollowingStatus() = runTest {
+    fun `checkFollowingStatus checks following status`() = runTest {
         val channel = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
         val channels = listOf(channel)
 
@@ -138,7 +138,7 @@ class SearchChannelsViewModelTest {
 
     // Error Path Tests
     @Test
-    fun testSearchChannelsEmptyQuery(): Unit = runTest {
+    fun `searchChannels with empty query returns empty results`() = runTest {
         val query = ""
         val mockChannels = emptyList<Channel>()
 
@@ -166,7 +166,7 @@ class SearchChannelsViewModelTest {
     }
 
     @Test
-    fun testFollowChannelAlreadyFollowed() = runTest {
+    fun `followChannel already followed does not duplicate`() = runTest {
         val channel = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
 
         // Mock the followChannel method in the repository
@@ -190,7 +190,7 @@ class SearchChannelsViewModelTest {
     }
 
     @Test
-    fun testCheckFollowingStatusMultipleChannels() = runTest {
+    fun `checkFollowingStatus for multiple channels`() = runTest {
         val channel1 = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
         val channel2 = Channel(id = "2", title = "Channel 2", description = "Description 2", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "2")
         val channels = listOf(channel1, channel2)
@@ -216,7 +216,7 @@ class SearchChannelsViewModelTest {
 
     // Boundary Case Tests
     @Test
-    fun testCheckFollowingStatusEmptyList() = runTest {
+    fun `checkFollowingStatus with empty list returns empty results`() = runTest {
         val channels = emptyList<Channel>()
 
         // Call the checkFollowingStatus method in the ViewModel with an empty list
