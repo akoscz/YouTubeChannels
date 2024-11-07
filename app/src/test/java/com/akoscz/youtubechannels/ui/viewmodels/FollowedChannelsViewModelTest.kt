@@ -47,6 +47,28 @@ class FollowedChannelsViewModelTest {
         Dispatchers.resetMain()
     }
 
+    companion object {
+        val channel1 = Channel(
+            id = "1",
+            title = "Channel 1",
+            description = "Description 1",
+            thumbnailDefaultUrl = "https://example.com/channel1.jpg",
+            thumbnailHighUrl = "https://example.com/channel1_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
+            channelDetailsId = "1"
+        )
+
+        val channel2 = Channel(
+            id = "2",
+            title = "Channel 2",
+            description = "Description 2",
+            thumbnailDefaultUrl = "https://example.com/channel2.jpg",
+            thumbnailHighUrl = "https://example.com/channel2_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel2_medium.jpg",
+            channelDetailsId = "2"
+        )
+    }
+
     @Test
     fun `initial state is empty list`() = runTest {
         `when`(channelsRepository.getFollowedChannels()).thenReturn(flowOf(emptyList()))
@@ -59,24 +81,8 @@ class FollowedChannelsViewModelTest {
     @Test
     fun `followed channels are loaded correctly`() = runTest {
         val mockChannels = listOf(
-            Channel(
-                id = "1",
-                title = "Channel 1",
-                description = "Description 1",
-                thumbnailDefaultUrl = "https://example.com/channel1.jpg",
-                thumbnailHighUrl = "https://example.com/channel1_high.jpg",
-                thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
-                channelDetailsId = "1"
-            ),
-            Channel(
-                id = "2",
-                title = "Channel 2",
-                description = "Description 2",
-                thumbnailDefaultUrl = "https://example.com/channel2.jpg",
-                thumbnailHighUrl = "https://example.com/channel2_high.jpg",
-                thumbnailMediumUrl = "https://example.com/channel2_medium.jpg",
-                channelDetailsId = "2"
-            )
+            channel1,
+            channel2
         )
         `when`(channelsRepository.getFollowedChannels()).thenReturn(flowOf(mockChannels))
 
@@ -94,22 +100,14 @@ class FollowedChannelsViewModelTest {
 
     @Test
     fun `unfollow channel removes channel from repository`() = runTest {
-        val channel = Channel(
-            id = "1",
-            title = "Channel 1",
-            description = "Description 1",
-            thumbnailDefaultUrl = "https://example.com/channel1.jpg",
-            thumbnailHighUrl = "https://example.com/channel1_high.jpg",
-            thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
-            channelDetailsId = "1"
-        )
+
         followedChannelsViewModel = FollowedChannelsViewModel(channelsRepository)
 
-        followedChannelsViewModel.unfollowChannel(channel)
+        followedChannelsViewModel.unfollowChannel(channel1)
 
         advanceUntilIdle()
 
         // Verify that the repository's unfollowChannel method was called
-        verify(channelsRepository).unfollowChannel(channel)
+        verify(channelsRepository).unfollowChannel(channel1)
     }
 }

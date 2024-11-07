@@ -50,12 +50,34 @@ class SearchChannelsViewModelTest {
         Dispatchers.resetMain()
     }
 
+    companion object {
+        val channel1 = Channel(
+            id = "1",
+            title = "Channel 1",
+            description = "Description 1",
+            thumbnailDefaultUrl = "https://example.com/channel1.jpg",
+            thumbnailHighUrl = "https://example.com/channel1_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel1_medium.jpg",
+            channelDetailsId = "1"
+        )
+
+        val channel2 = Channel(
+            id = "2",
+            title = "Channel 2",
+            description = "Description 2",
+            thumbnailDefaultUrl = "https://example.com/channel2.jpg",
+            thumbnailHighUrl = "https://example.com/channel2_high.jpg",
+            thumbnailMediumUrl = "https://example.com/channel2_medium.jpg",
+            channelDetailsId = "2"
+        )
+    }
+
     // Success Path Tests
     @Test
     fun `searchChannels with non-empty query returns results`() = runTest {
         val query = "test"
         val mockChannels = listOf(
-            Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
+            channel1
         )
 
         // Create a mock PagingSource
@@ -97,13 +119,11 @@ class SearchChannelsViewModelTest {
 
     @Test
     fun `followChannel follows a channel`() = runTest {
-        val channel = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
-
         // Mock the followChannel method in the repository
-        `when`(channelsRepository.followChannel(channel)).doSuspendableAnswer { Unit }
+        `when`(channelsRepository.followChannel(channel1)).doSuspendableAnswer { Unit }
 
         // Call the followChannel method in the ViewModel
-        viewModel.followChannel(channel)
+        viewModel.followChannel(channel1)
 
         // Advance the scheduler to ensure all coroutines have completed
         testScheduler.advanceUntilIdle()
@@ -112,16 +132,17 @@ class SearchChannelsViewModelTest {
         val result = viewModel.followingChannels.first()
 
         // Verify the channel is followed
-        assertTrue(result[channel.id] == true)
+        assertTrue(result[channel1.id] == true)
     }
 
     @Test
     fun `checkFollowingStatus checks following status`() = runTest {
-        val channel = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
-        val channels = listOf(channel)
+        val channels = listOf(
+            channel1
+        )
 
         // Mock the isFollowing method in the repository
-        `when`(channelsRepository.isFollowing(channel)).doSuspendableAnswer { true }
+        `when`(channelsRepository.isFollowing(channel1)).doSuspendableAnswer { true }
 
         // Call the checkFollowingStatus method in the ViewModel
         viewModel.checkFollowingStatus(channels)
@@ -133,7 +154,7 @@ class SearchChannelsViewModelTest {
         val result = viewModel.followingChannels.first()
 
         // Verify the channel is followed
-        assertTrue(result[channel.id] == true)
+        assertTrue(result[channel1.id] == true)
     }
 
     // Error Path Tests
@@ -167,33 +188,32 @@ class SearchChannelsViewModelTest {
 
     @Test
     fun `followChannel already followed does not duplicate`() = runTest {
-        val channel = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
-
         // Mock the followChannel method in the repository
-        `when`(channelsRepository.followChannel(channel)).doSuspendableAnswer { Unit }
+        `when`(channelsRepository.followChannel(channel1)).doSuspendableAnswer { Unit }
 
         // Call the followChannel method in the ViewModel
-        viewModel.followChannel(channel)
+        viewModel.followChannel(channel1)
 
         // Advance the scheduler to ensure all coroutines have completed
         testScheduler.advanceUntilIdle()
 
         // Follow the channel again
-        viewModel.followChannel(channel)
+        viewModel.followChannel(channel1)
         testScheduler.advanceUntilIdle()
 
         // Retrieve the following channels
         val result = viewModel.followingChannels.first()
 
         // Verify the channel is followed
-        assertTrue(result[channel.id] == true)
+        assertTrue(result[channel1.id] == true)
     }
 
     @Test
     fun `checkFollowingStatus for multiple channels`() = runTest {
-        val channel1 = Channel(id = "1", title = "Channel 1", description = "Description 1", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "1")
-        val channel2 = Channel(id = "2", title = "Channel 2", description = "Description 2", thumbnailDefaultUrl = "", thumbnailHighUrl = "", thumbnailMediumUrl = "", channelDetailsId = "2")
-        val channels = listOf(channel1, channel2)
+        val channels = listOf(
+            channel1,
+            channel2
+        )
 
         // Mock the isFollowing method in the repository for both channels
         `when`(channelsRepository.isFollowing(channel1)).doSuspendableAnswer { true }

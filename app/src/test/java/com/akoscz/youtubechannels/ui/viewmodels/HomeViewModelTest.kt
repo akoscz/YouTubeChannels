@@ -19,6 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -47,83 +48,75 @@ class HomeViewModelTest {
         Dispatchers.resetMain()
     }
 
-    @Test
-    fun `test initial state`() {
-        Assert.assertTrue(homeViewModel.homeVideos.value.isEmpty())
-        Assert.assertTrue(homeViewModel.channelDetailsMap.value.isEmpty())
-        Assert.assertEquals(SortType.NEWEST, homeViewModel.sortType.value)
-    }
-
-    @Test
-    fun `test fetchHomeVideos updates homeVideos and channelDetailsMap`() = runTest {
-        val mockVideos = listOf(
-            Video(
-                id = "1",
-                publishedAt = "2023-01-01",
-                channelId = "Channel1",
-                title = "Title1",
-                description = "Description1",
-                defaultThumbnailUrl = "url1",
-                defaultThumbnailWidth = 100,
-                defaultThumbnailHeight = 100,
-                mediumThumbnailUrl = "url1",
-                mediumThumbnailWidth = 100,
-                mediumThumbnailHeight = 100,
-                highThumbnailUrl = "url1",
-                highThumbnailWidth = 100,
-                highThumbnailHeight = 100,
-                standardThumbnailUrl = null,
-                standardThumbnailWidth = null,
-                standardThumbnailHeight = null,
-                maxresThumbnailUrl = null,
-                maxresThumbnailWidth = null,
-                maxresThumbnailHeight = null,
-                channelTitle = "Channel1",
-                defaultLanguage = "en",
-                defaultedAudioLanguage = "en",
-                duration = "PT1H1M1S",
-                contentYtRating = "ytRating",
-                viewCount = 1000,
-                likeCount = 1000,
-                favoriteCount = 1000,
-                commentCount = 1000,
-                embedHtml = "embedHtml"
-            ),
-            Video(
-                id = "2",
-                publishedAt = "2023-01-01",
-                channelId = "Channel2",
-                title = "Title2",
-                description = "Description2",
-                defaultThumbnailUrl = "url2",
-                defaultThumbnailWidth = 100,
-                defaultThumbnailHeight = 100,
-                mediumThumbnailUrl = "url2",
-                mediumThumbnailWidth = 100,
-                mediumThumbnailHeight = 100,
-                highThumbnailUrl = "url2",
-                highThumbnailWidth = 100,
-                highThumbnailHeight = 100,
-                standardThumbnailUrl = null,
-                standardThumbnailWidth = null,
-                standardThumbnailHeight = null,
-                maxresThumbnailUrl = null,
-                maxresThumbnailWidth = null,
-                maxresThumbnailHeight = null,
-                channelTitle = "Channel2",
-                defaultLanguage = "en",
-                defaultedAudioLanguage = "en",
-                duration = "PT1H1M1S",
-                contentYtRating = "ytRating",
-                viewCount = 1000,
-                likeCount = 1000,
-                favoriteCount = 1000,
-                commentCount = 1000,
-                embedHtml = "embedHtml"
-            )
+    companion object {
+        val video1 = Video(
+            id = "1",
+            publishedAt = "2023-01-01",
+            channelId = "Channel1",
+            title = "Title1",
+            description = "Description1",
+            defaultThumbnailUrl = "url1",
+            defaultThumbnailWidth = 100,
+            defaultThumbnailHeight = 100,
+            mediumThumbnailUrl = "url1",
+            mediumThumbnailWidth = 100,
+            mediumThumbnailHeight = 100,
+            highThumbnailUrl = "url1",
+            highThumbnailWidth = 100,
+            highThumbnailHeight = 100,
+            standardThumbnailUrl = null,
+            standardThumbnailWidth = null,
+            standardThumbnailHeight = null,
+            maxresThumbnailUrl = null,
+            maxresThumbnailWidth = null,
+            maxresThumbnailHeight = null,
+            channelTitle = "Channel1",
+            defaultLanguage = "en",
+            defaultedAudioLanguage = "en",
+            duration = "PT1H1M1S",
+            contentYtRating = "ytRating",
+            viewCount = 1000,
+            likeCount = 1000,
+            favoriteCount = 1000,
+            commentCount = 1000,
+            embedHtml = "embedHtml"
         )
-        val mockChannelDetails = ChannelDetails(
-            id = "Channel1",
+
+        val video2 = Video(
+            id = "2",
+            publishedAt = "2023-01-01",
+            channelId = "Channel2",
+            title = "Title2",
+            description = "Description2",
+            defaultThumbnailUrl = "url2",
+            defaultThumbnailWidth = 100,
+            defaultThumbnailHeight = 100,
+            mediumThumbnailUrl = "url2",
+            mediumThumbnailWidth = 100,
+            mediumThumbnailHeight = 100,
+            highThumbnailUrl = "url2",
+            highThumbnailWidth = 100,
+            highThumbnailHeight = 100,
+            standardThumbnailUrl = null,
+            standardThumbnailWidth = null,
+            standardThumbnailHeight = null,
+            maxresThumbnailUrl = null,
+            maxresThumbnailWidth = null,
+            maxresThumbnailHeight = null,
+            channelTitle = "Channel2",
+            defaultLanguage = "en",
+            defaultedAudioLanguage = "en",
+            duration = "PT1H1M1S",
+            contentYtRating = "ytRating",
+            viewCount = 1000,
+            likeCount = 1000,
+            favoriteCount = 1000,
+            commentCount = 1000,
+            embedHtml = "embedHtml"
+        )
+
+        val channelDetails1 = ChannelDetails(
+            id = "Channel1",  // Channel ID
             title = "Title1",
             description = "Description1",
             customUrl = "customUrl",
@@ -145,18 +138,44 @@ class HomeViewModelTest {
             uploadsPlaylistId = "uploadsPlaylistId",
             bannerExternalUrl = "bannerExternalUrl"
         )
+    }
+
+    @Test
+    fun `test initial state`() {
+        Assert.assertTrue(homeViewModel.homeVideos.value.isEmpty())
+        Assert.assertTrue(homeViewModel.channelDetailsMap.value.isEmpty())
+        Assert.assertEquals(SortType.NEWEST, homeViewModel.sortType.value)
+    }
+
+    @Test
+    fun `test fetchHomeVideos updates homeVideos and channelDetailsMap`() = runTest {
+        val mockVideos = listOf(
+            video1,
+            video2
+        )
 
         `when`(channelsRepository.getHomeVideos(SortType.NEWEST, 5)).thenReturn(flowOf(mockVideos))
-        `when`(channelsRepository.getChannelDetails("Channel1")).thenReturn(mockChannelDetails)
-        `when`(channelsRepository.getChannelDetails("Channel2")).thenReturn(null)
+        `when`(channelsRepository.getChannelDetails(video1.channelId)).thenReturn(channelDetails1)
+        `when`(channelsRepository.getChannelDetails(video2.channelId)).thenReturn(null)
 
         homeViewModel.fetchHomeVideos()
 
         advanceUntilIdle()
 
+        verify(channelsRepository).getHomeVideos(SortType.NEWEST, 5)
+        verify(channelsRepository).getChannelDetails(video1.channelId)
+        verify(channelsRepository).getChannelDetails(video2.channelId)
+
+        // Log the values for debugging
+        println("homeVideos: ${homeViewModel.homeVideos.value}")
+        println("channelDetailsMap: ${homeViewModel.channelDetailsMap.value}")
+
+        // Check the homeVideos list
         Assert.assertEquals(mockVideos, homeViewModel.homeVideos.value)
-        Assert.assertTrue(homeViewModel.channelDetailsMap.value.containsKey("Channel1"))
-        Assert.assertEquals(mockChannelDetails, homeViewModel.channelDetailsMap.value["Channel1"])
+
+        // Check the channelDetailsMap
+        Assert.assertTrue(homeViewModel.channelDetailsMap.value.containsKey(video1.channelId))
+        Assert.assertEquals(channelDetails1, homeViewModel.channelDetailsMap.value[video1.channelId])
     }
 
     @Test
@@ -174,99 +193,44 @@ class HomeViewModelTest {
     @Test
     fun `test updateSortType updates sortType and fetches homeVideos`() = runTest {
         val mockVideos = listOf(
-            Video(
-                id = "1",
-                publishedAt = "2023-01-01",
-                channelId = "Channel1",
-                title = "Title1",
-                description = "Description1",
-                defaultThumbnailUrl = "url1",
-                defaultThumbnailWidth = 100,
-                defaultThumbnailHeight = 100,
-                mediumThumbnailUrl = "url1",
-                mediumThumbnailWidth = 100,
-                mediumThumbnailHeight = 100,
-                highThumbnailUrl = "url1",
-                highThumbnailWidth = 100,
-                highThumbnailHeight = 100,
-                standardThumbnailUrl = null,
-                standardThumbnailWidth = null,
-                standardThumbnailHeight = null,
-                maxresThumbnailUrl = null,
-                maxresThumbnailWidth = null,
-                maxresThumbnailHeight = null,
-                channelTitle = "Channel1",
-                defaultLanguage = "en",
-                defaultedAudioLanguage = "en",
-                duration = "PT1H1M1S",
-                contentYtRating = "ytRating",
-                viewCount = 1000,
-                likeCount = 1000,
-                favoriteCount = 1000,
-                commentCount = 1000,
-                embedHtml = "embedHtml"
-            )
+            video1.copy(id="1", viewCount = 100),
+            video2.copy(id="2", viewCount = 200),
+            video1.copy(id="3", viewCount = 300),
+            video2.copy(id="4", viewCount = 400),
         )
 
-        `when`(channelsRepository.getHomeVideos(SortType.POPULAR, 5)).thenReturn(flowOf(mockVideos))
+        `when`(channelsRepository.getHomeVideos(SortType.POPULAR, 5)).thenReturn(
+            flowOf(mockVideos.sortedByDescending { it.viewCount })
+        )
 
         homeViewModel.updateSortType(SortType.POPULAR)
 
         advanceUntilIdle()
 
+        verify(channelsRepository).getHomeVideos(SortType.POPULAR, 5)
+
         Assert.assertEquals(SortType.POPULAR, homeViewModel.sortType.value)
-        Assert.assertEquals(mockVideos, homeViewModel.homeVideos.value)
+        Assert.assertEquals(mockVideos.sortedByDescending { it.viewCount }, homeViewModel.homeVideos.value)
     }
 
     @Test
     fun `test updateSortType with same sort type`() = runTest {
         val initialVideos = listOf(
-            Video(
-                id = "1",
-                publishedAt = "2023-01-01",
-                channelId = "Channel1",
-                title = "Title1",
-                description = "Description1",
-                defaultThumbnailUrl = "url1",
-                defaultThumbnailWidth = 100,
-                defaultThumbnailHeight = 100,
-                mediumThumbnailUrl = "url1",
-                mediumThumbnailWidth = 100,
-                mediumThumbnailHeight = 100,
-                highThumbnailUrl = "url1",
-                highThumbnailWidth = 100,
-                highThumbnailHeight = 100,
-                standardThumbnailUrl = null,
-                standardThumbnailWidth = null,
-                standardThumbnailHeight = null,
-                maxresThumbnailUrl = null,
-                maxresThumbnailWidth = null,
-                maxresThumbnailHeight = null,
-                channelTitle = "Channel1",
-                defaultLanguage = "en",
-                defaultedAudioLanguage = "en",
-                duration = "PT1H1M1S",
-                contentYtRating = "ytRating",
-                viewCount = 1000,
-                likeCount = 1000,
-                favoriteCount = 1000,
-                commentCount = 1000,
-                embedHtml = "embedHtml"
-            )
+            video1,
+            video2
         )
 
         homeViewModel.setHomeVideos(initialVideos)
 
-        `when`(
-            channelsRepository.getHomeVideos(
-                SortType.NEWEST,
-                5
-            )
-        ).thenReturn(flowOf(initialVideos))
+        `when`(channelsRepository.getHomeVideos(SortType.NEWEST, 5)).thenReturn(
+            flowOf(initialVideos)
+        )
 
         homeViewModel.updateSortType(SortType.NEWEST)
 
         advanceUntilIdle()
+
+        verify(channelsRepository).getHomeVideos(SortType.NEWEST, 5)
 
         Assert.assertEquals(SortType.NEWEST, homeViewModel.sortType.value)
         Assert.assertEquals(initialVideos, homeViewModel.homeVideos.value)
